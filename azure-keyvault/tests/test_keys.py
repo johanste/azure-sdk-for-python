@@ -74,7 +74,7 @@ class KeyVaultKeyTest(KeyvaultTestCase):
     @ResourceGroupPreparer()
     @KeyVaultPreparer()
     def test_key_crud_operations(self, vault, **kwargs):
-        self.assertIsNotNone(vault)
+        self.assertIsNone(vault)
         vault_uri = vault.properties.vault_uri
         key_name = self.get_resource_name('key')
 
