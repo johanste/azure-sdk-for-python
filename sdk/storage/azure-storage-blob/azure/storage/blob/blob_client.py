@@ -633,6 +633,11 @@ class BlobClient(StorageAccountHostsMixin):  # pylint: disable=too-many-public-m
         options.update(kwargs)
         return options
 
+    def open(self, mode='r'):
+        if mode == 'r':
+            return self.download_blob()
+        raise ValueError('Anything other than read-only streams is not yet implemented...')
+
     @distributed_trace
     def download_blob(self, offset=None, length=None, **kwargs):
         # type: (Optional[int], Optional[int], bool, **Any) -> Iterable[bytes]

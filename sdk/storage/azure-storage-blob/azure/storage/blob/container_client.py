@@ -175,6 +175,16 @@ class ContainerClient(StorageAccountHostsMixin):
             quote(container_name),
             self._query_str)
 
+    def __div__(self, pathsegment):
+        # type: (str) -> BlobClient
+        return self.get_blob_client(pathsegment)
+
+    def mkdir(self):
+        # type: () -> ContainerClient
+        """Create the container that the current client represents
+        """
+        return self.create_container()
+
     @classmethod
     def from_connection_string(
             cls, conn_str,  # type: str

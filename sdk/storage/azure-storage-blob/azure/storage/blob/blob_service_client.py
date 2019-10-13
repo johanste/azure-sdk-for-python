@@ -285,6 +285,9 @@ class BlobServiceClient(StorageAccountHostsMixin):
         except StorageErrorException as error:
             process_storage_error(error)
 
+    def __div__(self, pathsegment):
+        return self.get_container_client(pathsegment)
+
     @distributed_trace
     def get_service_stats(self, **kwargs): # type: ignore
         # type: (**Any) -> Dict[str, Any]
