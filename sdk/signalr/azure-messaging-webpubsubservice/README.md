@@ -22,7 +22,7 @@ In order to interact with the Azure WebPubSub service, you'll need to create an 
 ```python
 >>> from azure.messaging.webpubsubservice import WebPubSubServiceClient
 >>> from azure.core.credentials import AzureKeyCredential
->>> client = WebPubSubServiceClient(endpoint='<endpoint>', credentials=AzureKeyCredential('somesecret'))
+>>> client = WebPubSubServiceClient(endpoint='<endpoint>', credential=AzureKeyCredential('somesecret'))
 >>> client
 <WebPubSubServiceClient endpoint:'<endpoint>'>
 ```
@@ -33,7 +33,7 @@ In order to interact with the Azure WebPubSub service, you'll need to create an 
 >>> from azure.messaging.webpubsubservice import WebPubSubServiceClient
 >>> from azure.core.credentials import AzureKeyCredential
 >>> from azure.messaging.webpubsubservicerest import prepare_send_to_all
->>> client = WebPubSubServiceClient(endpoint='<endpoint>', credentials=AzureKeyCredential('somesecret'))
+>>> client = WebPubSubServiceClient(endpoint='<endpoint>', credential=AzureKeyCredential('somesecret'))
 >>> request = prepare_send_to_all('default', 'Hello, webpubsub!')
 >>> request
 <HttpRequest [POST], url: '/api/hubs/default/:send?api-version=2020-10-01'>
