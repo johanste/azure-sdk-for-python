@@ -12,6 +12,7 @@ from azure.core.tracing.decorator import distributed_trace
 from azure.core.polling import NoPolling
 from azure.core.utils import case_insensitive_dict
 from .. import models as _models
+from ..types import LRORequestParameters
 from ..models import (
     MemoryStoreOperationUsage,
     ResponseUsageInputTokensDetails,
@@ -37,6 +38,7 @@ class MemoryStoresOperations(GenerateMemoryStoresOperations):
         items: Optional[List[_models.InputItem]] = None,
         previous_update_id: Optional[str] = None,
         update_delay: Optional[int] = None,
+        request_parameters: Optional[LRORequestParameters] = None,
         **kwargs: Any,
     ) -> UpdateMemoriesLROPoller:
         """Update memory store with conversation memories.
@@ -69,7 +71,7 @@ class MemoryStoresOperations(GenerateMemoryStoresOperations):
 
     @overload
     def begin_update_memories(
-        self, name: str, body: JSON, *, content_type: str = "application/json", **kwargs: Any
+        self, name: str, body: JSON, *, content_type: str = "application/json", request_parameters: Optional[LRORequestParameters] = None, **kwargs: Any
     ) -> UpdateMemoriesLROPoller:
         """Update memory store with conversation memories.
 
@@ -89,7 +91,7 @@ class MemoryStoresOperations(GenerateMemoryStoresOperations):
 
     @overload
     def begin_update_memories(
-        self, name: str, body: IO[bytes], *, content_type: str = "application/json", **kwargs: Any
+        self, name: str, body: IO[bytes], *, content_type: str = "application/json", request_parameters: Optional[LRORequestParameters] = None, **kwargs: Any
     ) -> UpdateMemoriesLROPoller:
         """Update memory store with conversation memories.
 
@@ -122,6 +124,7 @@ class MemoryStoresOperations(GenerateMemoryStoresOperations):
         items: Optional[List[_models.InputItem]] = None,
         previous_update_id: Optional[str] = None,
         update_delay: Optional[int] = None,
+        request_parameters: Optional[LRORequestParameters] = None,
         **kwargs: Any,
     ) -> UpdateMemoriesLROPoller:
         """Update memory store with conversation memories.
@@ -150,6 +153,10 @@ class MemoryStoresOperations(GenerateMemoryStoresOperations):
          ~azure.ai.projects.models.UpdateMemoriesLROPoller
         :raises ~azure.core.exceptions.HttpResponseError:
         """
+        if request_parameters:
+            for _rp_key, _rp_value in request_parameters.items():
+                kwargs.setdefault(_rp_key, _rp_value)
+
         _headers = case_insensitive_dict(kwargs.pop("headers", {}) or {})
         _params = kwargs.pop("params", {}) or {}
 

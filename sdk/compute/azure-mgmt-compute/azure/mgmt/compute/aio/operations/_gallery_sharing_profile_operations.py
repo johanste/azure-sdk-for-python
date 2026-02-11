@@ -31,6 +31,7 @@ from azure.mgmt.core.polling.async_arm_polling import AsyncARMPolling
 from ... import models as _models
 from ..._utils.serialization import Deserializer, Serializer
 from ...types import LRORequestParameters, RequestParameters
+from ...types import LRORequestParameters, RequestParameters
 from ...operations._gallery_sharing_profile_operations import build_update_request
 from .._configuration import ComputeManagementClientConfiguration
 
@@ -137,7 +138,7 @@ class GallerySharingProfileOperations:
         sharing_update: _models.SharingUpdate,
         *,
         content_type: str = "application/json",
-        **kwargs: Any
+        request_parameters: Optional[LRORequestParameters] = None, **kwargs: Any
     ) -> AsyncLROPoller[_models.SharingUpdate]:
         """Update sharing profile of a gallery.
 
@@ -165,7 +166,7 @@ class GallerySharingProfileOperations:
         sharing_update: IO[bytes],
         *,
         content_type: str = "application/json",
-        **kwargs: Any
+        request_parameters: Optional[LRORequestParameters] = None, **kwargs: Any
     ) -> AsyncLROPoller[_models.SharingUpdate]:
         """Update sharing profile of a gallery.
 
@@ -191,7 +192,7 @@ class GallerySharingProfileOperations:
         resource_group_name: str,
         gallery_name: str,
         sharing_update: Union[_models.SharingUpdate, IO[bytes]],
-        **kwargs: Any
+        request_parameters: Optional[LRORequestParameters] = None, **kwargs: Any
     ) -> AsyncLROPoller[_models.SharingUpdate]:
         """Update sharing profile of a gallery.
 
@@ -208,6 +209,10 @@ class GallerySharingProfileOperations:
         :rtype: ~azure.core.polling.AsyncLROPoller[~azure.mgmt.compute.models.SharingUpdate]
         :raises ~azure.core.exceptions.HttpResponseError:
         """
+        if request_parameters:
+            for _rp_key, _rp_value in request_parameters.items():
+                kwargs.setdefault(_rp_key, _rp_value)
+
         _headers = case_insensitive_dict(kwargs.pop("headers", {}) or {})
         _params = case_insensitive_dict(kwargs.pop("params", {}) or {})
 

@@ -209,7 +209,7 @@ class ImagesOperations:
 
     @distributed_trace_async
     async def get(
-        self, resource_group_name: str, image_name: str, expand: Optional[str] = None, **kwargs: Any
+        self, resource_group_name: str, image_name: str, expand: Optional[str] = None, request_parameters: Optional[RequestParameters] = None, **kwargs: Any
     ) -> _models.Image:
         """Gets an image.
 
@@ -224,6 +224,10 @@ class ImagesOperations:
         :rtype: ~azure.mgmt.compute.models.Image
         :raises ~azure.core.exceptions.HttpResponseError:
         """
+        if request_parameters:
+            for _rp_key, _rp_value in request_parameters.items():
+                kwargs.setdefault(_rp_key, _rp_value)
+
         error_map: MutableMapping = {
             401: ClientAuthenticationError,
             404: ResourceNotFoundError,
@@ -342,7 +346,7 @@ class ImagesOperations:
         parameters: _models.Image,
         *,
         content_type: str = "application/json",
-        **kwargs: Any
+        request_parameters: Optional[LRORequestParameters] = None, **kwargs: Any
     ) -> AsyncLROPoller[_models.Image]:
         """Create or update an image.
 
@@ -369,7 +373,7 @@ class ImagesOperations:
         parameters: IO[bytes],
         *,
         content_type: str = "application/json",
-        **kwargs: Any
+        request_parameters: Optional[LRORequestParameters] = None, **kwargs: Any
     ) -> AsyncLROPoller[_models.Image]:
         """Create or update an image.
 
@@ -390,7 +394,7 @@ class ImagesOperations:
 
     @distributed_trace_async
     async def begin_create_or_update(
-        self, resource_group_name: str, image_name: str, parameters: Union[_models.Image, IO[bytes]], **kwargs: Any
+        self, resource_group_name: str, image_name: str, parameters: Union[_models.Image, IO[bytes]], request_parameters: Optional[LRORequestParameters] = None, **kwargs: Any
     ) -> AsyncLROPoller[_models.Image]:
         """Create or update an image.
 
@@ -406,6 +410,10 @@ class ImagesOperations:
         :rtype: ~azure.core.polling.AsyncLROPoller[~azure.mgmt.compute.models.Image]
         :raises ~azure.core.exceptions.HttpResponseError:
         """
+        if request_parameters:
+            for _rp_key, _rp_value in request_parameters.items():
+                kwargs.setdefault(_rp_key, _rp_value)
+
         _headers = case_insensitive_dict(kwargs.pop("headers", {}) or {})
         _params = case_insensitive_dict(kwargs.pop("params", {}) or {})
 
@@ -534,7 +542,7 @@ class ImagesOperations:
         parameters: _models.ImageUpdate,
         *,
         content_type: str = "application/json",
-        **kwargs: Any
+        request_parameters: Optional[LRORequestParameters] = None, **kwargs: Any
     ) -> AsyncLROPoller[_models.Image]:
         """Update an image.
 
@@ -561,7 +569,7 @@ class ImagesOperations:
         parameters: IO[bytes],
         *,
         content_type: str = "application/json",
-        **kwargs: Any
+        request_parameters: Optional[LRORequestParameters] = None, **kwargs: Any
     ) -> AsyncLROPoller[_models.Image]:
         """Update an image.
 
@@ -586,7 +594,7 @@ class ImagesOperations:
         resource_group_name: str,
         image_name: str,
         parameters: Union[_models.ImageUpdate, IO[bytes]],
-        **kwargs: Any
+        request_parameters: Optional[LRORequestParameters] = None, **kwargs: Any
     ) -> AsyncLROPoller[_models.Image]:
         """Update an image.
 
@@ -602,6 +610,10 @@ class ImagesOperations:
         :rtype: ~azure.core.polling.AsyncLROPoller[~azure.mgmt.compute.models.Image]
         :raises ~azure.core.exceptions.HttpResponseError:
         """
+        if request_parameters:
+            for _rp_key, _rp_value in request_parameters.items():
+                kwargs.setdefault(_rp_key, _rp_value)
+
         _headers = case_insensitive_dict(kwargs.pop("headers", {}) or {})
         _params = case_insensitive_dict(kwargs.pop("params", {}) or {})
 
@@ -705,7 +717,7 @@ class ImagesOperations:
         return deserialized  # type: ignore
 
     @distributed_trace_async
-    async def begin_delete(self, resource_group_name: str, image_name: str, **kwargs: Any) -> AsyncLROPoller[None]:
+    async def begin_delete(self, resource_group_name: str, image_name: str, request_parameters: Optional[LRORequestParameters] = None, **kwargs: Any) -> AsyncLROPoller[None]:
         """Deletes an Image.
 
         :param resource_group_name: The name of the resource group. The name is case insensitive.
@@ -717,6 +729,10 @@ class ImagesOperations:
         :rtype: ~azure.core.polling.AsyncLROPoller[None]
         :raises ~azure.core.exceptions.HttpResponseError:
         """
+        if request_parameters:
+            for _rp_key, _rp_value in request_parameters.items():
+                kwargs.setdefault(_rp_key, _rp_value)
+
         _headers = kwargs.pop("headers", {}) or {}
         _params = case_insensitive_dict(kwargs.pop("params", {}) or {})
 

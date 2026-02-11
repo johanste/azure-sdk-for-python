@@ -217,7 +217,7 @@ class RestorePointCollectionsOperations:
         resource_group_name: str,
         restore_point_collection_name: str,
         expand: Optional[Union[str, _models.RestorePointCollectionExpandOptions]] = None,
-        **kwargs: Any
+        request_parameters: Optional[RequestParameters] = None, **kwargs: Any
     ) -> _models.RestorePointCollection:
         """The operation to get the restore point collection.
 
@@ -234,6 +234,10 @@ class RestorePointCollectionsOperations:
         :rtype: ~azure.mgmt.compute.models.RestorePointCollection
         :raises ~azure.core.exceptions.HttpResponseError:
         """
+        if request_parameters:
+            for _rp_key, _rp_value in request_parameters.items():
+                kwargs.setdefault(_rp_key, _rp_value)
+
         error_map: MutableMapping = {
             401: ClientAuthenticationError,
             404: ResourceNotFoundError,
@@ -285,7 +289,7 @@ class RestorePointCollectionsOperations:
         parameters: _models.RestorePointCollection,
         *,
         content_type: str = "application/json",
-        **kwargs: Any
+        request_parameters: Optional[RequestParameters] = None, **kwargs: Any
     ) -> _models.RestorePointCollection:
         """The operation to create or update the restore point collection. Please refer to
         https://aka.ms/RestorePoints for more details. When updating a restore point collection, only
@@ -315,7 +319,7 @@ class RestorePointCollectionsOperations:
         parameters: IO[bytes],
         *,
         content_type: str = "application/json",
-        **kwargs: Any
+        request_parameters: Optional[RequestParameters] = None, **kwargs: Any
     ) -> _models.RestorePointCollection:
         """The operation to create or update the restore point collection. Please refer to
         https://aka.ms/RestorePoints for more details. When updating a restore point collection, only
@@ -343,7 +347,7 @@ class RestorePointCollectionsOperations:
         resource_group_name: str,
         restore_point_collection_name: str,
         parameters: Union[_models.RestorePointCollection, IO[bytes]],
-        **kwargs: Any
+        request_parameters: Optional[RequestParameters] = None, **kwargs: Any
     ) -> _models.RestorePointCollection:
         """The operation to create or update the restore point collection. Please refer to
         https://aka.ms/RestorePoints for more details. When updating a restore point collection, only
@@ -361,6 +365,10 @@ class RestorePointCollectionsOperations:
         :rtype: ~azure.mgmt.compute.models.RestorePointCollection
         :raises ~azure.core.exceptions.HttpResponseError:
         """
+        if request_parameters:
+            for _rp_key, _rp_value in request_parameters.items():
+                kwargs.setdefault(_rp_key, _rp_value)
+
         error_map: MutableMapping = {
             401: ClientAuthenticationError,
             404: ResourceNotFoundError,
@@ -423,7 +431,7 @@ class RestorePointCollectionsOperations:
         parameters: _models.RestorePointCollectionUpdate,
         *,
         content_type: str = "application/json",
-        **kwargs: Any
+        request_parameters: Optional[RequestParameters] = None, **kwargs: Any
     ) -> _models.RestorePointCollection:
         """The operation to update the restore point collection.
 
@@ -451,7 +459,7 @@ class RestorePointCollectionsOperations:
         parameters: IO[bytes],
         *,
         content_type: str = "application/json",
-        **kwargs: Any
+        request_parameters: Optional[RequestParameters] = None, **kwargs: Any
     ) -> _models.RestorePointCollection:
         """The operation to update the restore point collection.
 
@@ -477,7 +485,7 @@ class RestorePointCollectionsOperations:
         resource_group_name: str,
         restore_point_collection_name: str,
         parameters: Union[_models.RestorePointCollectionUpdate, IO[bytes]],
-        **kwargs: Any
+        request_parameters: Optional[RequestParameters] = None, **kwargs: Any
     ) -> _models.RestorePointCollection:
         """The operation to update the restore point collection.
 
@@ -493,6 +501,10 @@ class RestorePointCollectionsOperations:
         :rtype: ~azure.mgmt.compute.models.RestorePointCollection
         :raises ~azure.core.exceptions.HttpResponseError:
         """
+        if request_parameters:
+            for _rp_key, _rp_value in request_parameters.items():
+                kwargs.setdefault(_rp_key, _rp_value)
+
         error_map: MutableMapping = {
             401: ClientAuthenticationError,
             404: ResourceNotFoundError,
@@ -604,7 +616,7 @@ class RestorePointCollectionsOperations:
 
     @distributed_trace_async
     async def begin_delete(
-        self, resource_group_name: str, restore_point_collection_name: str, **kwargs: Any
+        self, resource_group_name: str, restore_point_collection_name: str, request_parameters: Optional[LRORequestParameters] = None, **kwargs: Any
     ) -> AsyncLROPoller[None]:
         """The operation to delete the restore point collection. This operation will also delete all the
         contained restore points.
@@ -618,6 +630,10 @@ class RestorePointCollectionsOperations:
         :rtype: ~azure.core.polling.AsyncLROPoller[None]
         :raises ~azure.core.exceptions.HttpResponseError:
         """
+        if request_parameters:
+            for _rp_key, _rp_value in request_parameters.items():
+                kwargs.setdefault(_rp_key, _rp_value)
+
         _headers = kwargs.pop("headers", {}) or {}
         _params = case_insensitive_dict(kwargs.pop("params", {}) or {})
 

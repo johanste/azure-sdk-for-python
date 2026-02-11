@@ -218,7 +218,7 @@ class AvailabilitySetsOperations:
         return AsyncItemPaged(get_next, extract_data)
 
     @distributed_trace_async
-    async def get(self, resource_group_name: str, availability_set_name: str, **kwargs: Any) -> _models.AvailabilitySet:
+    async def get(self, resource_group_name: str, availability_set_name: str, request_parameters: Optional[RequestParameters] = None, **kwargs: Any) -> _models.AvailabilitySet:
         """Retrieves information about an availability set.
 
         :param resource_group_name: The name of the resource group. The name is case insensitive.
@@ -230,6 +230,10 @@ class AvailabilitySetsOperations:
         :rtype: ~azure.mgmt.compute.models.AvailabilitySet
         :raises ~azure.core.exceptions.HttpResponseError:
         """
+        if request_parameters:
+            for _rp_key, _rp_value in request_parameters.items():
+                kwargs.setdefault(_rp_key, _rp_value)
+
         error_map: MutableMapping = {
             401: ClientAuthenticationError,
             404: ResourceNotFoundError,
@@ -280,7 +284,7 @@ class AvailabilitySetsOperations:
         parameters: _models.AvailabilitySet,
         *,
         content_type: str = "application/json",
-        **kwargs: Any
+        request_parameters: Optional[RequestParameters] = None, **kwargs: Any
     ) -> _models.AvailabilitySet:
         """Create or update an availability set.
 
@@ -307,7 +311,7 @@ class AvailabilitySetsOperations:
         parameters: IO[bytes],
         *,
         content_type: str = "application/json",
-        **kwargs: Any
+        request_parameters: Optional[RequestParameters] = None, **kwargs: Any
     ) -> _models.AvailabilitySet:
         """Create or update an availability set.
 
@@ -332,7 +336,7 @@ class AvailabilitySetsOperations:
         resource_group_name: str,
         availability_set_name: str,
         parameters: Union[_models.AvailabilitySet, IO[bytes]],
-        **kwargs: Any
+        request_parameters: Optional[RequestParameters] = None, **kwargs: Any
     ) -> _models.AvailabilitySet:
         """Create or update an availability set.
 
@@ -348,6 +352,10 @@ class AvailabilitySetsOperations:
         :rtype: ~azure.mgmt.compute.models.AvailabilitySet
         :raises ~azure.core.exceptions.HttpResponseError:
         """
+        if request_parameters:
+            for _rp_key, _rp_value in request_parameters.items():
+                kwargs.setdefault(_rp_key, _rp_value)
+
         error_map: MutableMapping = {
             401: ClientAuthenticationError,
             404: ResourceNotFoundError,
@@ -410,7 +418,7 @@ class AvailabilitySetsOperations:
         parameters: _models.AvailabilitySetUpdate,
         *,
         content_type: str = "application/json",
-        **kwargs: Any
+        request_parameters: Optional[RequestParameters] = None, **kwargs: Any
     ) -> _models.AvailabilitySet:
         """Update an availability set.
 
@@ -437,7 +445,7 @@ class AvailabilitySetsOperations:
         parameters: IO[bytes],
         *,
         content_type: str = "application/json",
-        **kwargs: Any
+        request_parameters: Optional[RequestParameters] = None, **kwargs: Any
     ) -> _models.AvailabilitySet:
         """Update an availability set.
 
@@ -462,7 +470,7 @@ class AvailabilitySetsOperations:
         resource_group_name: str,
         availability_set_name: str,
         parameters: Union[_models.AvailabilitySetUpdate, IO[bytes]],
-        **kwargs: Any
+        request_parameters: Optional[RequestParameters] = None, **kwargs: Any
     ) -> _models.AvailabilitySet:
         """Update an availability set.
 
@@ -478,6 +486,10 @@ class AvailabilitySetsOperations:
         :rtype: ~azure.mgmt.compute.models.AvailabilitySet
         :raises ~azure.core.exceptions.HttpResponseError:
         """
+        if request_parameters:
+            for _rp_key, _rp_value in request_parameters.items():
+                kwargs.setdefault(_rp_key, _rp_value)
+
         error_map: MutableMapping = {
             401: ClientAuthenticationError,
             404: ResourceNotFoundError,
@@ -533,7 +545,7 @@ class AvailabilitySetsOperations:
         return deserialized  # type: ignore
 
     @distributed_trace_async
-    async def delete(self, resource_group_name: str, availability_set_name: str, **kwargs: Any) -> None:
+    async def delete(self, resource_group_name: str, availability_set_name: str, request_parameters: Optional[RequestParameters] = None, **kwargs: Any) -> None:
         """Delete an availability set.
 
         :param resource_group_name: The name of the resource group. The name is case insensitive.
@@ -545,6 +557,10 @@ class AvailabilitySetsOperations:
         :rtype: None
         :raises ~azure.core.exceptions.HttpResponseError:
         """
+        if request_parameters:
+            for _rp_key, _rp_value in request_parameters.items():
+                kwargs.setdefault(_rp_key, _rp_value)
+
         error_map: MutableMapping = {
             401: ClientAuthenticationError,
             404: ResourceNotFoundError,
@@ -585,7 +601,7 @@ class AvailabilitySetsOperations:
 
     @distributed_trace_async
     async def cancel_migration_to_virtual_machine_scale_set(  # pylint: disable=name-too-long
-        self, resource_group_name: str, availability_set_name: str, **kwargs: Any
+        self, resource_group_name: str, availability_set_name: str, request_parameters: Optional[RequestParameters] = None, **kwargs: Any
     ) -> None:
         """Cancel the migration operation on an Availability Set.
 
@@ -598,6 +614,10 @@ class AvailabilitySetsOperations:
         :rtype: None
         :raises ~azure.core.exceptions.HttpResponseError:
         """
+        if request_parameters:
+            for _rp_key, _rp_value in request_parameters.items():
+                kwargs.setdefault(_rp_key, _rp_value)
+
         error_map: MutableMapping = {
             401: ClientAuthenticationError,
             404: ResourceNotFoundError,
@@ -718,7 +738,7 @@ class AvailabilitySetsOperations:
         parameters: Optional[_models.ConvertToVirtualMachineScaleSetInput] = None,
         *,
         content_type: str = "application/json",
-        **kwargs: Any
+        request_parameters: Optional[LRORequestParameters] = None, **kwargs: Any
     ) -> AsyncLROPoller[None]:
         """Create a new Flexible Virtual Machine Scale Set and migrate all the Virtual Machines in the
         Availability Set. This does not trigger a downtime on the Virtual Machines.
@@ -747,7 +767,7 @@ class AvailabilitySetsOperations:
         parameters: Optional[IO[bytes]] = None,
         *,
         content_type: str = "application/json",
-        **kwargs: Any
+        request_parameters: Optional[LRORequestParameters] = None, **kwargs: Any
     ) -> AsyncLROPoller[None]:
         """Create a new Flexible Virtual Machine Scale Set and migrate all the Virtual Machines in the
         Availability Set. This does not trigger a downtime on the Virtual Machines.
@@ -774,7 +794,7 @@ class AvailabilitySetsOperations:
         resource_group_name: str,
         availability_set_name: str,
         parameters: Optional[Union[_models.ConvertToVirtualMachineScaleSetInput, IO[bytes]]] = None,
-        **kwargs: Any
+        request_parameters: Optional[LRORequestParameters] = None, **kwargs: Any
     ) -> AsyncLROPoller[None]:
         """Create a new Flexible Virtual Machine Scale Set and migrate all the Virtual Machines in the
         Availability Set. This does not trigger a downtime on the Virtual Machines.
@@ -791,6 +811,10 @@ class AvailabilitySetsOperations:
         :rtype: ~azure.core.polling.AsyncLROPoller[None]
         :raises ~azure.core.exceptions.HttpResponseError:
         """
+        if request_parameters:
+            for _rp_key, _rp_value in request_parameters.items():
+                kwargs.setdefault(_rp_key, _rp_value)
+
         _headers = case_insensitive_dict(kwargs.pop("headers", {}) or {})
         _params = case_insensitive_dict(kwargs.pop("params", {}) or {})
 
@@ -845,7 +869,7 @@ class AvailabilitySetsOperations:
         parameters: _models.MigrateToVirtualMachineScaleSetInput,
         *,
         content_type: str = "application/json",
-        **kwargs: Any
+        request_parameters: Optional[RequestParameters] = None, **kwargs: Any
     ) -> None:
         """Start migration operation on an Availability Set to move its Virtual Machines to a Virtual
         Machine Scale Set. This should be followed by a migrate operation on each Virtual Machine that
@@ -875,7 +899,7 @@ class AvailabilitySetsOperations:
         parameters: IO[bytes],
         *,
         content_type: str = "application/json",
-        **kwargs: Any
+        request_parameters: Optional[RequestParameters] = None, **kwargs: Any
     ) -> None:
         """Start migration operation on an Availability Set to move its Virtual Machines to a Virtual
         Machine Scale Set. This should be followed by a migrate operation on each Virtual Machine that
@@ -903,7 +927,7 @@ class AvailabilitySetsOperations:
         resource_group_name: str,
         availability_set_name: str,
         parameters: Union[_models.MigrateToVirtualMachineScaleSetInput, IO[bytes]],
-        **kwargs: Any
+        request_parameters: Optional[RequestParameters] = None, **kwargs: Any
     ) -> None:
         """Start migration operation on an Availability Set to move its Virtual Machines to a Virtual
         Machine Scale Set. This should be followed by a migrate operation on each Virtual Machine that
@@ -921,6 +945,10 @@ class AvailabilitySetsOperations:
         :rtype: None
         :raises ~azure.core.exceptions.HttpResponseError:
         """
+        if request_parameters:
+            for _rp_key, _rp_value in request_parameters.items():
+                kwargs.setdefault(_rp_key, _rp_value)
+
         error_map: MutableMapping = {
             401: ClientAuthenticationError,
             404: ResourceNotFoundError,
@@ -979,7 +1007,7 @@ class AvailabilitySetsOperations:
         parameters: _models.MigrateToVirtualMachineScaleSetInput,
         *,
         content_type: str = "application/json",
-        **kwargs: Any
+        request_parameters: Optional[RequestParameters] = None, **kwargs: Any
     ) -> None:
         """Validates that the Virtual Machines in the Availability Set can be migrated to the provided
         Virtual Machine Scale Set.
@@ -1008,7 +1036,7 @@ class AvailabilitySetsOperations:
         parameters: IO[bytes],
         *,
         content_type: str = "application/json",
-        **kwargs: Any
+        request_parameters: Optional[RequestParameters] = None, **kwargs: Any
     ) -> None:
         """Validates that the Virtual Machines in the Availability Set can be migrated to the provided
         Virtual Machine Scale Set.
@@ -1035,7 +1063,7 @@ class AvailabilitySetsOperations:
         resource_group_name: str,
         availability_set_name: str,
         parameters: Union[_models.MigrateToVirtualMachineScaleSetInput, IO[bytes]],
-        **kwargs: Any
+        request_parameters: Optional[RequestParameters] = None, **kwargs: Any
     ) -> None:
         """Validates that the Virtual Machines in the Availability Set can be migrated to the provided
         Virtual Machine Scale Set.
@@ -1052,6 +1080,10 @@ class AvailabilitySetsOperations:
         :rtype: None
         :raises ~azure.core.exceptions.HttpResponseError:
         """
+        if request_parameters:
+            for _rp_key, _rp_value in request_parameters.items():
+                kwargs.setdefault(_rp_key, _rp_value)
+
         error_map: MutableMapping = {
             401: ClientAuthenticationError,
             404: ResourceNotFoundError,

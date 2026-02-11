@@ -31,6 +31,7 @@ from azure.mgmt.core.polling.async_arm_polling import AsyncARMPolling
 from ... import models as _models
 from ..._utils.serialization import Deserializer, Serializer
 from ...types import LRORequestParameters, RequestParameters
+from ...types import LRORequestParameters, RequestParameters
 from ...operations._restore_points_operations import build_create_request, build_delete_request, build_get_request
 from .._configuration import ComputeManagementClientConfiguration
 
@@ -65,7 +66,7 @@ class RestorePointsOperations:
         restore_point_collection_name: str,
         restore_point_name: str,
         expand: Optional[Union[str, _models.RestorePointExpandOptions]] = None,
-        **kwargs: Any
+        request_parameters: Optional[RequestParameters] = None, **kwargs: Any
     ) -> _models.RestorePoint:
         """The operation to get the restore point.
 
@@ -83,6 +84,10 @@ class RestorePointsOperations:
         :rtype: ~azure.mgmt.compute.models.RestorePoint
         :raises ~azure.core.exceptions.HttpResponseError:
         """
+        if request_parameters:
+            for _rp_key, _rp_value in request_parameters.items():
+                kwargs.setdefault(_rp_key, _rp_value)
+
         error_map: MutableMapping = {
             401: ClientAuthenticationError,
             404: ResourceNotFoundError,
@@ -208,7 +213,7 @@ class RestorePointsOperations:
         parameters: _models.RestorePoint,
         *,
         content_type: str = "application/json",
-        **kwargs: Any
+        request_parameters: Optional[LRORequestParameters] = None, **kwargs: Any
     ) -> AsyncLROPoller[_models.RestorePoint]:
         """The operation to create the restore point. Updating properties of an existing restore point is
         not allowed.
@@ -240,7 +245,7 @@ class RestorePointsOperations:
         parameters: IO[bytes],
         *,
         content_type: str = "application/json",
-        **kwargs: Any
+        request_parameters: Optional[LRORequestParameters] = None, **kwargs: Any
     ) -> AsyncLROPoller[_models.RestorePoint]:
         """The operation to create the restore point. Updating properties of an existing restore point is
         not allowed.
@@ -270,7 +275,7 @@ class RestorePointsOperations:
         restore_point_collection_name: str,
         restore_point_name: str,
         parameters: Union[_models.RestorePoint, IO[bytes]],
-        **kwargs: Any
+        request_parameters: Optional[LRORequestParameters] = None, **kwargs: Any
     ) -> AsyncLROPoller[_models.RestorePoint]:
         """The operation to create the restore point. Updating properties of an existing restore point is
         not allowed.
@@ -290,6 +295,10 @@ class RestorePointsOperations:
         :rtype: ~azure.core.polling.AsyncLROPoller[~azure.mgmt.compute.models.RestorePoint]
         :raises ~azure.core.exceptions.HttpResponseError:
         """
+        if request_parameters:
+            for _rp_key, _rp_value in request_parameters.items():
+                kwargs.setdefault(_rp_key, _rp_value)
+
         _headers = case_insensitive_dict(kwargs.pop("headers", {}) or {})
         _params = case_insensitive_dict(kwargs.pop("params", {}) or {})
 
@@ -403,7 +412,7 @@ class RestorePointsOperations:
 
     @distributed_trace_async
     async def begin_delete(
-        self, resource_group_name: str, restore_point_collection_name: str, restore_point_name: str, **kwargs: Any
+        self, resource_group_name: str, restore_point_collection_name: str, restore_point_name: str, request_parameters: Optional[LRORequestParameters] = None, **kwargs: Any
     ) -> AsyncLROPoller[None]:
         """The operation to delete the restore point.
 
@@ -418,6 +427,10 @@ class RestorePointsOperations:
         :rtype: ~azure.core.polling.AsyncLROPoller[None]
         :raises ~azure.core.exceptions.HttpResponseError:
         """
+        if request_parameters:
+            for _rp_key, _rp_value in request_parameters.items():
+                kwargs.setdefault(_rp_key, _rp_value)
+
         _headers = kwargs.pop("headers", {}) or {}
         _params = case_insensitive_dict(kwargs.pop("params", {}) or {})
 

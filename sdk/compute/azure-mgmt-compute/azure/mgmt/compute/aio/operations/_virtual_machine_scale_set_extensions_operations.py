@@ -151,7 +151,7 @@ class VirtualMachineScaleSetExtensionsOperations:  # pylint: disable=name-too-lo
         vm_scale_set_name: str,
         vmss_extension_name: str,
         expand: Optional[str] = None,
-        **kwargs: Any
+        request_parameters: Optional[RequestParameters] = None, **kwargs: Any
     ) -> _models.VirtualMachineScaleSetExtension:
         """The operation to get the extension.
 
@@ -168,6 +168,10 @@ class VirtualMachineScaleSetExtensionsOperations:  # pylint: disable=name-too-lo
         :rtype: ~azure.mgmt.compute.models.VirtualMachineScaleSetExtension
         :raises ~azure.core.exceptions.HttpResponseError:
         """
+        if request_parameters:
+            for _rp_key, _rp_value in request_parameters.items():
+                kwargs.setdefault(_rp_key, _rp_value)
+
         error_map: MutableMapping = {
             401: ClientAuthenticationError,
             404: ResourceNotFoundError,
@@ -294,7 +298,7 @@ class VirtualMachineScaleSetExtensionsOperations:  # pylint: disable=name-too-lo
         extension_parameters: _models.VirtualMachineScaleSetExtension,
         *,
         content_type: str = "application/json",
-        **kwargs: Any
+        request_parameters: Optional[LRORequestParameters] = None, **kwargs: Any
     ) -> AsyncLROPoller[_models.VirtualMachineScaleSetExtension]:
         """The operation to create or update an extension.
 
@@ -327,7 +331,7 @@ class VirtualMachineScaleSetExtensionsOperations:  # pylint: disable=name-too-lo
         extension_parameters: IO[bytes],
         *,
         content_type: str = "application/json",
-        **kwargs: Any
+        request_parameters: Optional[LRORequestParameters] = None, **kwargs: Any
     ) -> AsyncLROPoller[_models.VirtualMachineScaleSetExtension]:
         """The operation to create or update an extension.
 
@@ -358,7 +362,7 @@ class VirtualMachineScaleSetExtensionsOperations:  # pylint: disable=name-too-lo
         vm_scale_set_name: str,
         vmss_extension_name: str,
         extension_parameters: Union[_models.VirtualMachineScaleSetExtension, IO[bytes]],
-        **kwargs: Any
+        request_parameters: Optional[LRORequestParameters] = None, **kwargs: Any
     ) -> AsyncLROPoller[_models.VirtualMachineScaleSetExtension]:
         """The operation to create or update an extension.
 
@@ -379,6 +383,10 @@ class VirtualMachineScaleSetExtensionsOperations:  # pylint: disable=name-too-lo
          ~azure.core.polling.AsyncLROPoller[~azure.mgmt.compute.models.VirtualMachineScaleSetExtension]
         :raises ~azure.core.exceptions.HttpResponseError:
         """
+        if request_parameters:
+            for _rp_key, _rp_value in request_parameters.items():
+                kwargs.setdefault(_rp_key, _rp_value)
+
         _headers = case_insensitive_dict(kwargs.pop("headers", {}) or {})
         _params = case_insensitive_dict(kwargs.pop("params", {}) or {})
 
@@ -511,7 +519,7 @@ class VirtualMachineScaleSetExtensionsOperations:  # pylint: disable=name-too-lo
         extension_parameters: _models.VirtualMachineScaleSetExtensionUpdate,
         *,
         content_type: str = "application/json",
-        **kwargs: Any
+        request_parameters: Optional[LRORequestParameters] = None, **kwargs: Any
     ) -> AsyncLROPoller[_models.VirtualMachineScaleSetExtension]:
         """The operation to update an extension.
 
@@ -544,7 +552,7 @@ class VirtualMachineScaleSetExtensionsOperations:  # pylint: disable=name-too-lo
         extension_parameters: IO[bytes],
         *,
         content_type: str = "application/json",
-        **kwargs: Any
+        request_parameters: Optional[LRORequestParameters] = None, **kwargs: Any
     ) -> AsyncLROPoller[_models.VirtualMachineScaleSetExtension]:
         """The operation to update an extension.
 
@@ -575,7 +583,7 @@ class VirtualMachineScaleSetExtensionsOperations:  # pylint: disable=name-too-lo
         vm_scale_set_name: str,
         vmss_extension_name: str,
         extension_parameters: Union[_models.VirtualMachineScaleSetExtensionUpdate, IO[bytes]],
-        **kwargs: Any
+        request_parameters: Optional[LRORequestParameters] = None, **kwargs: Any
     ) -> AsyncLROPoller[_models.VirtualMachineScaleSetExtension]:
         """The operation to update an extension.
 
@@ -597,6 +605,10 @@ class VirtualMachineScaleSetExtensionsOperations:  # pylint: disable=name-too-lo
          ~azure.core.polling.AsyncLROPoller[~azure.mgmt.compute.models.VirtualMachineScaleSetExtension]
         :raises ~azure.core.exceptions.HttpResponseError:
         """
+        if request_parameters:
+            for _rp_key, _rp_value in request_parameters.items():
+                kwargs.setdefault(_rp_key, _rp_value)
+
         _headers = case_insensitive_dict(kwargs.pop("headers", {}) or {})
         _params = case_insensitive_dict(kwargs.pop("params", {}) or {})
 
@@ -705,7 +717,7 @@ class VirtualMachineScaleSetExtensionsOperations:  # pylint: disable=name-too-lo
 
     @distributed_trace_async
     async def begin_delete(
-        self, resource_group_name: str, vm_scale_set_name: str, vmss_extension_name: str, **kwargs: Any
+        self, resource_group_name: str, vm_scale_set_name: str, vmss_extension_name: str, request_parameters: Optional[LRORequestParameters] = None, **kwargs: Any
     ) -> AsyncLROPoller[None]:
         """The operation to delete the extension.
 
@@ -720,6 +732,10 @@ class VirtualMachineScaleSetExtensionsOperations:  # pylint: disable=name-too-lo
         :rtype: ~azure.core.polling.AsyncLROPoller[None]
         :raises ~azure.core.exceptions.HttpResponseError:
         """
+        if request_parameters:
+            for _rp_key, _rp_value in request_parameters.items():
+                kwargs.setdefault(_rp_key, _rp_value)
+
         _headers = kwargs.pop("headers", {}) or {}
         _params = case_insensitive_dict(kwargs.pop("params", {}) or {})
 

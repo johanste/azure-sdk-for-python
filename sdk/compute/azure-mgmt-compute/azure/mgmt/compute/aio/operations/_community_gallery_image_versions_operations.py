@@ -142,7 +142,7 @@ class CommunityGalleryImageVersionsOperations:
         public_gallery_name: str,
         gallery_image_name: str,
         gallery_image_version_name: str,
-        **kwargs: Any
+        request_parameters: Optional[RequestParameters] = None, **kwargs: Any
     ) -> _models.CommunityGalleryImageVersion:
         """Get a community gallery image version.
 
@@ -161,6 +161,10 @@ class CommunityGalleryImageVersionsOperations:
         :rtype: ~azure.mgmt.compute.models.CommunityGalleryImageVersion
         :raises ~azure.core.exceptions.HttpResponseError:
         """
+        if request_parameters:
+            for _rp_key, _rp_value in request_parameters.items():
+                kwargs.setdefault(_rp_key, _rp_value)
+
         error_map: MutableMapping = {
             401: ClientAuthenticationError,
             404: ResourceNotFoundError,

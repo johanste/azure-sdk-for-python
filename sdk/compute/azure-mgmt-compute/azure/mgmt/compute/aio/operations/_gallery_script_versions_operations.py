@@ -155,7 +155,7 @@ class GalleryScriptVersionsOperations:
         gallery_name: str,
         gallery_script_name: str,
         gallery_script_version_name: str,
-        **kwargs: Any
+        request_parameters: Optional[RequestParameters] = None, **kwargs: Any
     ) -> _models.GalleryScriptVersion:
         """Custom ArmResourceRead operation template with CloudError as Error.
 
@@ -174,6 +174,10 @@ class GalleryScriptVersionsOperations:
         :rtype: ~azure.mgmt.compute.models.GalleryScriptVersion
         :raises ~azure.core.exceptions.HttpResponseError:
         """
+        if request_parameters:
+            for _rp_key, _rp_value in request_parameters.items():
+                kwargs.setdefault(_rp_key, _rp_value)
+
         error_map: MutableMapping = {
             401: ClientAuthenticationError,
             404: ResourceNotFoundError,
@@ -306,7 +310,7 @@ class GalleryScriptVersionsOperations:
         gallery_script_version: _models.GalleryScriptVersion,
         *,
         content_type: str = "application/json",
-        **kwargs: Any
+        request_parameters: Optional[LRORequestParameters] = None, **kwargs: Any
     ) -> AsyncLROPoller[_models.GalleryScriptVersion]:
         """Create or update a gallery Script Version.
 
@@ -343,7 +347,7 @@ class GalleryScriptVersionsOperations:
         gallery_script_version: IO[bytes],
         *,
         content_type: str = "application/json",
-        **kwargs: Any
+        request_parameters: Optional[LRORequestParameters] = None, **kwargs: Any
     ) -> AsyncLROPoller[_models.GalleryScriptVersion]:
         """Create or update a gallery Script Version.
 
@@ -378,7 +382,7 @@ class GalleryScriptVersionsOperations:
         gallery_script_name: str,
         gallery_script_version_name: str,
         gallery_script_version: Union[_models.GalleryScriptVersion, IO[bytes]],
-        **kwargs: Any
+        request_parameters: Optional[LRORequestParameters] = None, **kwargs: Any
     ) -> AsyncLROPoller[_models.GalleryScriptVersion]:
         """Create or update a gallery Script Version.
 
@@ -401,6 +405,10 @@ class GalleryScriptVersionsOperations:
         :rtype: ~azure.core.polling.AsyncLROPoller[~azure.mgmt.compute.models.GalleryScriptVersion]
         :raises ~azure.core.exceptions.HttpResponseError:
         """
+        if request_parameters:
+            for _rp_key, _rp_value in request_parameters.items():
+                kwargs.setdefault(_rp_key, _rp_value)
+
         _headers = case_insensitive_dict(kwargs.pop("headers", {}) or {})
         _params = case_insensitive_dict(kwargs.pop("params", {}) or {})
 
@@ -541,7 +549,7 @@ class GalleryScriptVersionsOperations:
         gallery_script_version: _models.GalleryScriptVersionUpdate,
         *,
         content_type: str = "application/json",
-        **kwargs: Any
+        request_parameters: Optional[LRORequestParameters] = None, **kwargs: Any
     ) -> AsyncLROPoller[_models.GalleryScriptVersion]:
         """Update a gallery Script Version.
 
@@ -578,7 +586,7 @@ class GalleryScriptVersionsOperations:
         gallery_script_version: IO[bytes],
         *,
         content_type: str = "application/json",
-        **kwargs: Any
+        request_parameters: Optional[LRORequestParameters] = None, **kwargs: Any
     ) -> AsyncLROPoller[_models.GalleryScriptVersion]:
         """Update a gallery Script Version.
 
@@ -613,7 +621,7 @@ class GalleryScriptVersionsOperations:
         gallery_script_name: str,
         gallery_script_version_name: str,
         gallery_script_version: Union[_models.GalleryScriptVersionUpdate, IO[bytes]],
-        **kwargs: Any
+        request_parameters: Optional[LRORequestParameters] = None, **kwargs: Any
     ) -> AsyncLROPoller[_models.GalleryScriptVersion]:
         """Update a gallery Script Version.
 
@@ -637,6 +645,10 @@ class GalleryScriptVersionsOperations:
         :rtype: ~azure.core.polling.AsyncLROPoller[~azure.mgmt.compute.models.GalleryScriptVersion]
         :raises ~azure.core.exceptions.HttpResponseError:
         """
+        if request_parameters:
+            for _rp_key, _rp_value in request_parameters.items():
+                kwargs.setdefault(_rp_key, _rp_value)
+
         _headers = case_insensitive_dict(kwargs.pop("headers", {}) or {})
         _params = case_insensitive_dict(kwargs.pop("params", {}) or {})
 
@@ -761,7 +773,7 @@ class GalleryScriptVersionsOperations:
         gallery_name: str,
         gallery_script_name: str,
         gallery_script_version_name: str,
-        **kwargs: Any
+        request_parameters: Optional[LRORequestParameters] = None, **kwargs: Any
     ) -> AsyncLROPoller[None]:
         """Delete a gallery Script Version.
 
@@ -780,6 +792,10 @@ class GalleryScriptVersionsOperations:
         :rtype: ~azure.core.polling.AsyncLROPoller[None]
         :raises ~azure.core.exceptions.HttpResponseError:
         """
+        if request_parameters:
+            for _rp_key, _rp_value in request_parameters.items():
+                kwargs.setdefault(_rp_key, _rp_value)
+
         _headers = kwargs.pop("headers", {}) or {}
         _params = case_insensitive_dict(kwargs.pop("params", {}) or {})
 

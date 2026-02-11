@@ -144,7 +144,7 @@ class GalleryImagesOperations:
 
     @distributed_trace_async
     async def get(
-        self, resource_group_name: str, gallery_name: str, gallery_image_name: str, **kwargs: Any
+        self, resource_group_name: str, gallery_name: str, gallery_image_name: str, request_parameters: Optional[RequestParameters] = None, **kwargs: Any
     ) -> _models.GalleryImage:
         """Retrieves information about a gallery image definition.
 
@@ -159,6 +159,10 @@ class GalleryImagesOperations:
         :rtype: ~azure.mgmt.compute.models.GalleryImage
         :raises ~azure.core.exceptions.HttpResponseError:
         """
+        if request_parameters:
+            for _rp_key, _rp_value in request_parameters.items():
+                kwargs.setdefault(_rp_key, _rp_value)
+
         error_map: MutableMapping = {
             401: ClientAuthenticationError,
             404: ResourceNotFoundError,
@@ -288,7 +292,7 @@ class GalleryImagesOperations:
         gallery_image: _models.GalleryImage,
         *,
         content_type: str = "application/json",
-        **kwargs: Any
+        request_parameters: Optional[LRORequestParameters] = None, **kwargs: Any
     ) -> AsyncLROPoller[_models.GalleryImage]:
         """Create or update a gallery image definition.
 
@@ -320,7 +324,7 @@ class GalleryImagesOperations:
         gallery_image: IO[bytes],
         *,
         content_type: str = "application/json",
-        **kwargs: Any
+        request_parameters: Optional[LRORequestParameters] = None, **kwargs: Any
     ) -> AsyncLROPoller[_models.GalleryImage]:
         """Create or update a gallery image definition.
 
@@ -350,7 +354,7 @@ class GalleryImagesOperations:
         gallery_name: str,
         gallery_image_name: str,
         gallery_image: Union[_models.GalleryImage, IO[bytes]],
-        **kwargs: Any
+        request_parameters: Optional[LRORequestParameters] = None, **kwargs: Any
     ) -> AsyncLROPoller[_models.GalleryImage]:
         """Create or update a gallery image definition.
 
@@ -369,6 +373,10 @@ class GalleryImagesOperations:
         :rtype: ~azure.core.polling.AsyncLROPoller[~azure.mgmt.compute.models.GalleryImage]
         :raises ~azure.core.exceptions.HttpResponseError:
         """
+        if request_parameters:
+            for _rp_key, _rp_value in request_parameters.items():
+                kwargs.setdefault(_rp_key, _rp_value)
+
         _headers = case_insensitive_dict(kwargs.pop("headers", {}) or {})
         _params = case_insensitive_dict(kwargs.pop("params", {}) or {})
 
@@ -500,7 +508,7 @@ class GalleryImagesOperations:
         gallery_image: _models.GalleryImageUpdate,
         *,
         content_type: str = "application/json",
-        **kwargs: Any
+        request_parameters: Optional[LRORequestParameters] = None, **kwargs: Any
     ) -> AsyncLROPoller[_models.GalleryImage]:
         """Update a gallery image definition.
 
@@ -531,7 +539,7 @@ class GalleryImagesOperations:
         gallery_image: IO[bytes],
         *,
         content_type: str = "application/json",
-        **kwargs: Any
+        request_parameters: Optional[LRORequestParameters] = None, **kwargs: Any
     ) -> AsyncLROPoller[_models.GalleryImage]:
         """Update a gallery image definition.
 
@@ -560,7 +568,7 @@ class GalleryImagesOperations:
         gallery_name: str,
         gallery_image_name: str,
         gallery_image: Union[_models.GalleryImageUpdate, IO[bytes]],
-        **kwargs: Any
+        request_parameters: Optional[LRORequestParameters] = None, **kwargs: Any
     ) -> AsyncLROPoller[_models.GalleryImage]:
         """Update a gallery image definition.
 
@@ -579,6 +587,10 @@ class GalleryImagesOperations:
         :rtype: ~azure.core.polling.AsyncLROPoller[~azure.mgmt.compute.models.GalleryImage]
         :raises ~azure.core.exceptions.HttpResponseError:
         """
+        if request_parameters:
+            for _rp_key, _rp_value in request_parameters.items():
+                kwargs.setdefault(_rp_key, _rp_value)
+
         _headers = case_insensitive_dict(kwargs.pop("headers", {}) or {})
         _params = case_insensitive_dict(kwargs.pop("params", {}) or {})
 
@@ -692,7 +704,7 @@ class GalleryImagesOperations:
 
     @distributed_trace_async
     async def begin_delete(
-        self, resource_group_name: str, gallery_name: str, gallery_image_name: str, **kwargs: Any
+        self, resource_group_name: str, gallery_name: str, gallery_image_name: str, request_parameters: Optional[LRORequestParameters] = None, **kwargs: Any
     ) -> AsyncLROPoller[None]:
         """Delete a gallery image.
 
@@ -707,6 +719,10 @@ class GalleryImagesOperations:
         :rtype: ~azure.core.polling.AsyncLROPoller[None]
         :raises ~azure.core.exceptions.HttpResponseError:
         """
+        if request_parameters:
+            for _rp_key, _rp_value in request_parameters.items():
+                kwargs.setdefault(_rp_key, _rp_value)
+
         _headers = kwargs.pop("headers", {}) or {}
         _params = case_insensitive_dict(kwargs.pop("params", {}) or {})
 

@@ -153,7 +153,7 @@ class GalleryImageVersionsOperations:
         gallery_image_name: str,
         gallery_image_version_name: str,
         expand: Optional[Union[str, _models.ReplicationStatusTypes]] = None,
-        **kwargs: Any
+        request_parameters: Optional[RequestParameters] = None, **kwargs: Any
     ) -> _models.GalleryImageVersion:
         """Retrieves information about a gallery image version.
 
@@ -174,6 +174,10 @@ class GalleryImageVersionsOperations:
         :rtype: ~azure.mgmt.compute.models.GalleryImageVersion
         :raises ~azure.core.exceptions.HttpResponseError:
         """
+        if request_parameters:
+            for _rp_key, _rp_value in request_parameters.items():
+                kwargs.setdefault(_rp_key, _rp_value)
+
         error_map: MutableMapping = {
             401: ClientAuthenticationError,
             404: ResourceNotFoundError,
@@ -308,7 +312,7 @@ class GalleryImageVersionsOperations:
         gallery_image_version: _models.GalleryImageVersion,
         *,
         content_type: str = "application/json",
-        **kwargs: Any
+        request_parameters: Optional[LRORequestParameters] = None, **kwargs: Any
     ) -> AsyncLROPoller[_models.GalleryImageVersion]:
         """Create or update a gallery image version.
 
@@ -344,7 +348,7 @@ class GalleryImageVersionsOperations:
         gallery_image_version: IO[bytes],
         *,
         content_type: str = "application/json",
-        **kwargs: Any
+        request_parameters: Optional[LRORequestParameters] = None, **kwargs: Any
     ) -> AsyncLROPoller[_models.GalleryImageVersion]:
         """Create or update a gallery image version.
 
@@ -378,7 +382,7 @@ class GalleryImageVersionsOperations:
         gallery_image_name: str,
         gallery_image_version_name: str,
         gallery_image_version: Union[_models.GalleryImageVersion, IO[bytes]],
-        **kwargs: Any
+        request_parameters: Optional[LRORequestParameters] = None, **kwargs: Any
     ) -> AsyncLROPoller[_models.GalleryImageVersion]:
         """Create or update a gallery image version.
 
@@ -400,6 +404,10 @@ class GalleryImageVersionsOperations:
         :rtype: ~azure.core.polling.AsyncLROPoller[~azure.mgmt.compute.models.GalleryImageVersion]
         :raises ~azure.core.exceptions.HttpResponseError:
         """
+        if request_parameters:
+            for _rp_key, _rp_value in request_parameters.items():
+                kwargs.setdefault(_rp_key, _rp_value)
+
         _headers = case_insensitive_dict(kwargs.pop("headers", {}) or {})
         _params = case_insensitive_dict(kwargs.pop("params", {}) or {})
 
@@ -535,7 +543,7 @@ class GalleryImageVersionsOperations:
         gallery_image_version: _models.GalleryImageVersionUpdate,
         *,
         content_type: str = "application/json",
-        **kwargs: Any
+        request_parameters: Optional[LRORequestParameters] = None, **kwargs: Any
     ) -> AsyncLROPoller[_models.GalleryImageVersion]:
         """Update a gallery image version.
 
@@ -571,7 +579,7 @@ class GalleryImageVersionsOperations:
         gallery_image_version: IO[bytes],
         *,
         content_type: str = "application/json",
-        **kwargs: Any
+        request_parameters: Optional[LRORequestParameters] = None, **kwargs: Any
     ) -> AsyncLROPoller[_models.GalleryImageVersion]:
         """Update a gallery image version.
 
@@ -605,7 +613,7 @@ class GalleryImageVersionsOperations:
         gallery_image_name: str,
         gallery_image_version_name: str,
         gallery_image_version: Union[_models.GalleryImageVersionUpdate, IO[bytes]],
-        **kwargs: Any
+        request_parameters: Optional[LRORequestParameters] = None, **kwargs: Any
     ) -> AsyncLROPoller[_models.GalleryImageVersion]:
         """Update a gallery image version.
 
@@ -627,6 +635,10 @@ class GalleryImageVersionsOperations:
         :rtype: ~azure.core.polling.AsyncLROPoller[~azure.mgmt.compute.models.GalleryImageVersion]
         :raises ~azure.core.exceptions.HttpResponseError:
         """
+        if request_parameters:
+            for _rp_key, _rp_value in request_parameters.items():
+                kwargs.setdefault(_rp_key, _rp_value)
+
         _headers = case_insensitive_dict(kwargs.pop("headers", {}) or {})
         _params = case_insensitive_dict(kwargs.pop("params", {}) or {})
 
@@ -752,7 +764,7 @@ class GalleryImageVersionsOperations:
         gallery_name: str,
         gallery_image_name: str,
         gallery_image_version_name: str,
-        **kwargs: Any
+        request_parameters: Optional[LRORequestParameters] = None, **kwargs: Any
     ) -> AsyncLROPoller[None]:
         """Delete a gallery image version.
 
@@ -770,6 +782,10 @@ class GalleryImageVersionsOperations:
         :rtype: ~azure.core.polling.AsyncLROPoller[None]
         :raises ~azure.core.exceptions.HttpResponseError:
         """
+        if request_parameters:
+            for _rp_key, _rp_value in request_parameters.items():
+                kwargs.setdefault(_rp_key, _rp_value)
+
         _headers = kwargs.pop("headers", {}) or {}
         _params = case_insensitive_dict(kwargs.pop("params", {}) or {})
 

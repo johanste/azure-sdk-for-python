@@ -26,6 +26,7 @@ from azure.mgmt.core.exceptions import ARMErrorFormat
 from ... import models as _models
 from ..._utils.serialization import Deserializer, Serializer
 from ...types import LRORequestParameters, RequestParameters
+from ...types import LRORequestParameters, RequestParameters
 from ...operations._community_galleries_operations import build_get_request
 from .._configuration import ComputeManagementClientConfiguration
 
@@ -54,7 +55,7 @@ class CommunityGalleriesOperations:
         self._deserialize: Deserializer = input_args.pop(0) if input_args else kwargs.pop("deserializer")
 
     @distributed_trace_async
-    async def get(self, location: str, public_gallery_name: str, **kwargs: Any) -> _models.CommunityGallery:
+    async def get(self, location: str, public_gallery_name: str, request_parameters: Optional[RequestParameters] = None, **kwargs: Any) -> _models.CommunityGallery:
         """Get a community gallery by gallery public name.
 
         :param location: The name of Azure region. Required.
@@ -65,6 +66,10 @@ class CommunityGalleriesOperations:
         :rtype: ~azure.mgmt.compute.models.CommunityGallery
         :raises ~azure.core.exceptions.HttpResponseError:
         """
+        if request_parameters:
+            for _rp_key, _rp_value in request_parameters.items():
+                kwargs.setdefault(_rp_key, _rp_value)
+
         error_map: MutableMapping = {
             401: ClientAuthenticationError,
             404: ResourceNotFoundError,

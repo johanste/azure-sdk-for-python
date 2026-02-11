@@ -26,6 +26,7 @@ from azure.mgmt.core.exceptions import ARMErrorFormat
 from ... import models as _models
 from ..._utils.serialization import Deserializer, Serializer
 from ...types import LRORequestParameters, RequestParameters
+from ...types import LRORequestParameters, RequestParameters
 from ...operations._virtual_machine_images_edge_zone_operations import (
     build_get_request,
     build_list_offers_request,
@@ -61,7 +62,7 @@ class VirtualMachineImagesEdgeZoneOperations:
 
     @distributed_trace_async
     async def list_publishers(
-        self, location: str, edge_zone: str, **kwargs: Any
+        self, location: str, edge_zone: str, request_parameters: Optional[RequestParameters] = None, **kwargs: Any
     ) -> List[_models.VirtualMachineImageResource]:
         """Gets a list of virtual machine image publishers for the specified Azure location and edge zone.
 
@@ -73,6 +74,10 @@ class VirtualMachineImagesEdgeZoneOperations:
         :rtype: list[~azure.mgmt.compute.models.VirtualMachineImageResource]
         :raises ~azure.core.exceptions.HttpResponseError:
         """
+        if request_parameters:
+            for _rp_key, _rp_value in request_parameters.items():
+                kwargs.setdefault(_rp_key, _rp_value)
+
         error_map: MutableMapping = {
             401: ClientAuthenticationError,
             404: ResourceNotFoundError,
@@ -117,7 +122,7 @@ class VirtualMachineImagesEdgeZoneOperations:
 
     @distributed_trace_async
     async def list_offers(
-        self, location: str, edge_zone: str, publisher_name: str, **kwargs: Any
+        self, location: str, edge_zone: str, publisher_name: str, request_parameters: Optional[RequestParameters] = None, **kwargs: Any
     ) -> List[_models.VirtualMachineImageResource]:
         """Gets a list of virtual machine image offers for the specified location, edge zone and
         publisher.
@@ -132,6 +137,10 @@ class VirtualMachineImagesEdgeZoneOperations:
         :rtype: list[~azure.mgmt.compute.models.VirtualMachineImageResource]
         :raises ~azure.core.exceptions.HttpResponseError:
         """
+        if request_parameters:
+            for _rp_key, _rp_value in request_parameters.items():
+                kwargs.setdefault(_rp_key, _rp_value)
+
         error_map: MutableMapping = {
             401: ClientAuthenticationError,
             404: ResourceNotFoundError,
@@ -177,7 +186,7 @@ class VirtualMachineImagesEdgeZoneOperations:
 
     @distributed_trace_async
     async def list_skus(
-        self, location: str, edge_zone: str, publisher_name: str, offer: str, **kwargs: Any
+        self, location: str, edge_zone: str, publisher_name: str, offer: str, request_parameters: Optional[RequestParameters] = None, **kwargs: Any
     ) -> List[_models.VirtualMachineImageResource]:
         """Gets a list of virtual machine image SKUs for the specified location, edge zone, publisher, and
         offer.
@@ -194,6 +203,10 @@ class VirtualMachineImagesEdgeZoneOperations:
         :rtype: list[~azure.mgmt.compute.models.VirtualMachineImageResource]
         :raises ~azure.core.exceptions.HttpResponseError:
         """
+        if request_parameters:
+            for _rp_key, _rp_value in request_parameters.items():
+                kwargs.setdefault(_rp_key, _rp_value)
+
         error_map: MutableMapping = {
             401: ClientAuthenticationError,
             404: ResourceNotFoundError,
@@ -249,7 +262,7 @@ class VirtualMachineImagesEdgeZoneOperations:
         expand: Optional[str] = None,
         top: Optional[int] = None,
         orderby: Optional[str] = None,
-        **kwargs: Any
+        request_parameters: Optional[RequestParameters] = None, **kwargs: Any
     ) -> List[_models.VirtualMachineImageResource]:
         """Gets a list of all virtual machine image versions for the specified location, edge zone,
         publisher, offer, and SKU.
@@ -276,6 +289,10 @@ class VirtualMachineImagesEdgeZoneOperations:
         :rtype: list[~azure.mgmt.compute.models.VirtualMachineImageResource]
         :raises ~azure.core.exceptions.HttpResponseError:
         """
+        if request_parameters:
+            for _rp_key, _rp_value in request_parameters.items():
+                kwargs.setdefault(_rp_key, _rp_value)
+
         error_map: MutableMapping = {
             401: ClientAuthenticationError,
             404: ResourceNotFoundError,
@@ -326,7 +343,7 @@ class VirtualMachineImagesEdgeZoneOperations:
 
     @distributed_trace_async
     async def get(
-        self, location: str, edge_zone: str, publisher_name: str, offer: str, skus: str, version: str, **kwargs: Any
+        self, location: str, edge_zone: str, publisher_name: str, offer: str, skus: str, version: str, request_parameters: Optional[RequestParameters] = None, **kwargs: Any
     ) -> _models.VirtualMachineImage:
         """Gets a virtual machine image in an edge zone.
 
@@ -346,6 +363,10 @@ class VirtualMachineImagesEdgeZoneOperations:
         :rtype: ~azure.mgmt.compute.models.VirtualMachineImage
         :raises ~azure.core.exceptions.HttpResponseError:
         """
+        if request_parameters:
+            for _rp_key, _rp_value in request_parameters.items():
+                kwargs.setdefault(_rp_key, _rp_value)
+
         error_map: MutableMapping = {
             401: ClientAuthenticationError,
             404: ResourceNotFoundError,

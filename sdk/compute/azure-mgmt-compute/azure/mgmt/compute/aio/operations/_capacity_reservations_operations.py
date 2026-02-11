@@ -150,7 +150,7 @@ class CapacityReservationsOperations:
         capacity_reservation_group_name: str,
         capacity_reservation_name: str,
         expand: Optional[Union[str, _models.CapacityReservationInstanceViewTypes]] = None,
-        **kwargs: Any
+        request_parameters: Optional[RequestParameters] = None, **kwargs: Any
     ) -> _models.CapacityReservation:
         """The operation that retrieves information about the capacity reservation.
 
@@ -169,6 +169,10 @@ class CapacityReservationsOperations:
         :rtype: ~azure.mgmt.compute.models.CapacityReservation
         :raises ~azure.core.exceptions.HttpResponseError:
         """
+        if request_parameters:
+            for _rp_key, _rp_value in request_parameters.items():
+                kwargs.setdefault(_rp_key, _rp_value)
+
         error_map: MutableMapping = {
             401: ClientAuthenticationError,
             404: ResourceNotFoundError,
@@ -295,7 +299,7 @@ class CapacityReservationsOperations:
         parameters: _models.CapacityReservation,
         *,
         content_type: str = "application/json",
-        **kwargs: Any
+        request_parameters: Optional[LRORequestParameters] = None, **kwargs: Any
     ) -> AsyncLROPoller[_models.CapacityReservation]:
         """The operation to create or update a capacity reservation. Please note some properties can be
         set only during capacity reservation creation. Please refer to
@@ -328,7 +332,7 @@ class CapacityReservationsOperations:
         parameters: IO[bytes],
         *,
         content_type: str = "application/json",
-        **kwargs: Any
+        request_parameters: Optional[LRORequestParameters] = None, **kwargs: Any
     ) -> AsyncLROPoller[_models.CapacityReservation]:
         """The operation to create or update a capacity reservation. Please note some properties can be
         set only during capacity reservation creation. Please refer to
@@ -359,7 +363,7 @@ class CapacityReservationsOperations:
         capacity_reservation_group_name: str,
         capacity_reservation_name: str,
         parameters: Union[_models.CapacityReservation, IO[bytes]],
-        **kwargs: Any
+        request_parameters: Optional[LRORequestParameters] = None, **kwargs: Any
     ) -> AsyncLROPoller[_models.CapacityReservation]:
         """The operation to create or update a capacity reservation. Please note some properties can be
         set only during capacity reservation creation. Please refer to
@@ -380,6 +384,10 @@ class CapacityReservationsOperations:
         :rtype: ~azure.core.polling.AsyncLROPoller[~azure.mgmt.compute.models.CapacityReservation]
         :raises ~azure.core.exceptions.HttpResponseError:
         """
+        if request_parameters:
+            for _rp_key, _rp_value in request_parameters.items():
+                kwargs.setdefault(_rp_key, _rp_value)
+
         _headers = case_insensitive_dict(kwargs.pop("headers", {}) or {})
         _params = case_insensitive_dict(kwargs.pop("params", {}) or {})
 
@@ -512,7 +520,7 @@ class CapacityReservationsOperations:
         parameters: _models.CapacityReservationUpdate,
         *,
         content_type: str = "application/json",
-        **kwargs: Any
+        request_parameters: Optional[LRORequestParameters] = None, **kwargs: Any
     ) -> AsyncLROPoller[_models.CapacityReservation]:
         """The operation to update a capacity reservation.
 
@@ -543,7 +551,7 @@ class CapacityReservationsOperations:
         parameters: IO[bytes],
         *,
         content_type: str = "application/json",
-        **kwargs: Any
+        request_parameters: Optional[LRORequestParameters] = None, **kwargs: Any
     ) -> AsyncLROPoller[_models.CapacityReservation]:
         """The operation to update a capacity reservation.
 
@@ -572,7 +580,7 @@ class CapacityReservationsOperations:
         capacity_reservation_group_name: str,
         capacity_reservation_name: str,
         parameters: Union[_models.CapacityReservationUpdate, IO[bytes]],
-        **kwargs: Any
+        request_parameters: Optional[LRORequestParameters] = None, **kwargs: Any
     ) -> AsyncLROPoller[_models.CapacityReservation]:
         """The operation to update a capacity reservation.
 
@@ -591,6 +599,10 @@ class CapacityReservationsOperations:
         :rtype: ~azure.core.polling.AsyncLROPoller[~azure.mgmt.compute.models.CapacityReservation]
         :raises ~azure.core.exceptions.HttpResponseError:
         """
+        if request_parameters:
+            for _rp_key, _rp_value in request_parameters.items():
+                kwargs.setdefault(_rp_key, _rp_value)
+
         _headers = case_insensitive_dict(kwargs.pop("headers", {}) or {})
         _params = case_insensitive_dict(kwargs.pop("params", {}) or {})
 
@@ -707,7 +719,7 @@ class CapacityReservationsOperations:
         resource_group_name: str,
         capacity_reservation_group_name: str,
         capacity_reservation_name: str,
-        **kwargs: Any
+        request_parameters: Optional[LRORequestParameters] = None, **kwargs: Any
     ) -> AsyncLROPoller[None]:
         """The operation to delete a capacity reservation. This operation is allowed only when all the
         associated resources are disassociated from the capacity reservation. Please refer to
@@ -725,6 +737,10 @@ class CapacityReservationsOperations:
         :rtype: ~azure.core.polling.AsyncLROPoller[None]
         :raises ~azure.core.exceptions.HttpResponseError:
         """
+        if request_parameters:
+            for _rp_key, _rp_value in request_parameters.items():
+                kwargs.setdefault(_rp_key, _rp_value)
+
         _headers = kwargs.pop("headers", {}) or {}
         _params = case_insensitive_dict(kwargs.pop("params", {}) or {})
 

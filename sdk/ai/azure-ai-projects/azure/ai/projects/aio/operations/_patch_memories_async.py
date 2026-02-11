@@ -12,6 +12,7 @@ from azure.core.tracing.decorator_async import distributed_trace_async
 from azure.core.polling import AsyncNoPolling
 from azure.core.utils import case_insensitive_dict
 from ... import models as _models
+from ...types import LRORequestParameters
 from ...models import (
     MemoryStoreOperationUsage,
     ResponseUsageInputTokensDetails,
@@ -37,7 +38,7 @@ class MemoryStoresOperations(GenerateMemoryStoresOperations):
         items: Optional[List[_models.InputItem]] = None,
         previous_update_id: Optional[str] = None,
         update_delay: Optional[int] = None,
-        **kwargs: Any,
+        request_parameters: Optional[LRORequestParameters] = None, **kwargs: Any,
     ) -> AsyncUpdateMemoriesLROPoller:
         """Update memory store with conversation memories.
 
@@ -69,7 +70,7 @@ class MemoryStoresOperations(GenerateMemoryStoresOperations):
 
     @overload
     async def begin_update_memories(
-        self, name: str, body: JSON, *, content_type: str = "application/json", **kwargs: Any
+        self, name: str, body: JSON, *, content_type: str = "application/json", request_parameters: Optional[LRORequestParameters] = None, **kwargs: Any
     ) -> AsyncUpdateMemoriesLROPoller:
         """Update memory store with conversation memories.
 
@@ -89,7 +90,7 @@ class MemoryStoresOperations(GenerateMemoryStoresOperations):
 
     @overload
     async def begin_update_memories(
-        self, name: str, body: IO[bytes], *, content_type: str = "application/json", **kwargs: Any
+        self, name: str, body: IO[bytes], *, content_type: str = "application/json", request_parameters: Optional[LRORequestParameters] = None, **kwargs: Any
     ) -> AsyncUpdateMemoriesLROPoller:
         """Update memory store with conversation memories.
 
@@ -122,7 +123,7 @@ class MemoryStoresOperations(GenerateMemoryStoresOperations):
         items: Optional[List[_models.InputItem]] = None,
         previous_update_id: Optional[str] = None,
         update_delay: Optional[int] = None,
-        **kwargs: Any,
+        request_parameters: Optional[LRORequestParameters] = None, **kwargs: Any,
     ) -> AsyncUpdateMemoriesLROPoller:
         """Update memory store with conversation memories.
 
@@ -150,6 +151,10 @@ class MemoryStoresOperations(GenerateMemoryStoresOperations):
          ~azure.ai.projects.models.AsyncUpdateMemoriesLROPoller
         :raises ~azure.core.exceptions.HttpResponseError:
         """
+        if request_parameters:
+            for _rp_key, _rp_value in request_parameters.items():
+                kwargs.setdefault(_rp_key, _rp_value)
+
         _headers = case_insensitive_dict(kwargs.pop("headers", {}) or {})
         _params = kwargs.pop("params", {}) or {}
 

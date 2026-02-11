@@ -141,7 +141,7 @@ class VirtualMachineRunCommandsOperations:
         return AsyncItemPaged(get_next, extract_data)
 
     @distributed_trace_async
-    async def get(self, location: str, command_id: str, **kwargs: Any) -> _models.RunCommandDocument:
+    async def get(self, location: str, command_id: str, request_parameters: Optional[RequestParameters] = None, **kwargs: Any) -> _models.RunCommandDocument:
         """Gets specific run command for a subscription in a location.
 
         :param location: The name of Azure region. Required.
@@ -154,6 +154,10 @@ class VirtualMachineRunCommandsOperations:
         :rtype: ~azure.mgmt.compute.models.RunCommandDocument
         :raises ~azure.core.exceptions.HttpResponseError:
         """
+        if request_parameters:
+            for _rp_key, _rp_value in request_parameters.items():
+                kwargs.setdefault(_rp_key, _rp_value)
+
         error_map: MutableMapping = {
             401: ClientAuthenticationError,
             404: ResourceNotFoundError,
@@ -279,7 +283,7 @@ class VirtualMachineRunCommandsOperations:
 
     @distributed_trace_async
     async def get_by_virtual_machine(
-        self, resource_group_name: str, vm_name: str, run_command_name: str, expand: Optional[str] = None, **kwargs: Any
+        self, resource_group_name: str, vm_name: str, run_command_name: str, expand: Optional[str] = None, request_parameters: Optional[RequestParameters] = None, **kwargs: Any
     ) -> _models.VirtualMachineRunCommand:
         """The operation to get the run command.
 
@@ -296,6 +300,10 @@ class VirtualMachineRunCommandsOperations:
         :rtype: ~azure.mgmt.compute.models.VirtualMachineRunCommand
         :raises ~azure.core.exceptions.HttpResponseError:
         """
+        if request_parameters:
+            for _rp_key, _rp_value in request_parameters.items():
+                kwargs.setdefault(_rp_key, _rp_value)
+
         error_map: MutableMapping = {
             401: ClientAuthenticationError,
             404: ResourceNotFoundError,
@@ -422,7 +430,7 @@ class VirtualMachineRunCommandsOperations:
         run_command: _models.VirtualMachineRunCommand,
         *,
         content_type: str = "application/json",
-        **kwargs: Any
+        request_parameters: Optional[LRORequestParameters] = None, **kwargs: Any
     ) -> AsyncLROPoller[_models.VirtualMachineRunCommand]:
         """The operation to create or update the run command.
 
@@ -454,7 +462,7 @@ class VirtualMachineRunCommandsOperations:
         run_command: IO[bytes],
         *,
         content_type: str = "application/json",
-        **kwargs: Any
+        request_parameters: Optional[LRORequestParameters] = None, **kwargs: Any
     ) -> AsyncLROPoller[_models.VirtualMachineRunCommand]:
         """The operation to create or update the run command.
 
@@ -484,7 +492,7 @@ class VirtualMachineRunCommandsOperations:
         vm_name: str,
         run_command_name: str,
         run_command: Union[_models.VirtualMachineRunCommand, IO[bytes]],
-        **kwargs: Any
+        request_parameters: Optional[LRORequestParameters] = None, **kwargs: Any
     ) -> AsyncLROPoller[_models.VirtualMachineRunCommand]:
         """The operation to create or update the run command.
 
@@ -503,6 +511,10 @@ class VirtualMachineRunCommandsOperations:
         :rtype: ~azure.core.polling.AsyncLROPoller[~azure.mgmt.compute.models.VirtualMachineRunCommand]
         :raises ~azure.core.exceptions.HttpResponseError:
         """
+        if request_parameters:
+            for _rp_key, _rp_value in request_parameters.items():
+                kwargs.setdefault(_rp_key, _rp_value)
+
         _headers = case_insensitive_dict(kwargs.pop("headers", {}) or {})
         _params = case_insensitive_dict(kwargs.pop("params", {}) or {})
 
@@ -634,7 +646,7 @@ class VirtualMachineRunCommandsOperations:
         run_command: _models.VirtualMachineRunCommandUpdate,
         *,
         content_type: str = "application/json",
-        **kwargs: Any
+        request_parameters: Optional[LRORequestParameters] = None, **kwargs: Any
     ) -> AsyncLROPoller[_models.VirtualMachineRunCommand]:
         """The operation to update the run command.
 
@@ -666,7 +678,7 @@ class VirtualMachineRunCommandsOperations:
         run_command: IO[bytes],
         *,
         content_type: str = "application/json",
-        **kwargs: Any
+        request_parameters: Optional[LRORequestParameters] = None, **kwargs: Any
     ) -> AsyncLROPoller[_models.VirtualMachineRunCommand]:
         """The operation to update the run command.
 
@@ -696,7 +708,7 @@ class VirtualMachineRunCommandsOperations:
         vm_name: str,
         run_command_name: str,
         run_command: Union[_models.VirtualMachineRunCommandUpdate, IO[bytes]],
-        **kwargs: Any
+        request_parameters: Optional[LRORequestParameters] = None, **kwargs: Any
     ) -> AsyncLROPoller[_models.VirtualMachineRunCommand]:
         """The operation to update the run command.
 
@@ -715,6 +727,10 @@ class VirtualMachineRunCommandsOperations:
         :rtype: ~azure.core.polling.AsyncLROPoller[~azure.mgmt.compute.models.VirtualMachineRunCommand]
         :raises ~azure.core.exceptions.HttpResponseError:
         """
+        if request_parameters:
+            for _rp_key, _rp_value in request_parameters.items():
+                kwargs.setdefault(_rp_key, _rp_value)
+
         _headers = case_insensitive_dict(kwargs.pop("headers", {}) or {})
         _params = case_insensitive_dict(kwargs.pop("params", {}) or {})
 
@@ -828,7 +844,7 @@ class VirtualMachineRunCommandsOperations:
 
     @distributed_trace_async
     async def begin_delete(
-        self, resource_group_name: str, vm_name: str, run_command_name: str, **kwargs: Any
+        self, resource_group_name: str, vm_name: str, run_command_name: str, request_parameters: Optional[LRORequestParameters] = None, **kwargs: Any
     ) -> AsyncLROPoller[None]:
         """The operation to delete the run command.
 
@@ -843,6 +859,10 @@ class VirtualMachineRunCommandsOperations:
         :rtype: ~azure.core.polling.AsyncLROPoller[None]
         :raises ~azure.core.exceptions.HttpResponseError:
         """
+        if request_parameters:
+            for _rp_key, _rp_value in request_parameters.items():
+                kwargs.setdefault(_rp_key, _rp_value)
+
         _headers = kwargs.pop("headers", {}) or {}
         _params = case_insensitive_dict(kwargs.pop("params", {}) or {})
 

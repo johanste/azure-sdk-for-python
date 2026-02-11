@@ -130,7 +130,7 @@ class AgentsOperations:
         self._deserialize: Deserializer = input_args.pop(0) if input_args else kwargs.pop("deserializer")
 
     @distributed_trace_async
-    async def get(self, agent_name: str, **kwargs: Any) -> _models.AgentDetails:
+    async def get(self, agent_name: str, request_parameters: Optional[RequestParameters] = None, **kwargs: Any) -> _models.AgentDetails:
         """Retrieves the agent.
 
         :param agent_name: The name of the agent to retrieve. Required.
@@ -139,6 +139,10 @@ class AgentsOperations:
         :rtype: ~azure.ai.projects.models.AgentDetails
         :raises ~azure.core.exceptions.HttpResponseError:
         """
+        if request_parameters:
+            for _rp_key, _rp_value in request_parameters.items():
+                kwargs.setdefault(_rp_key, _rp_value)
+
         error_map: MutableMapping = {
             401: ClientAuthenticationError,
             404: ResourceNotFoundError,
@@ -202,7 +206,7 @@ class AgentsOperations:
         content_type: str = "application/json",
         metadata: Optional[dict[str, str]] = None,
         description: Optional[str] = None,
-        **kwargs: Any
+        request_parameters: Optional[RequestParameters] = None, **kwargs: Any
     ) -> _models.AgentDetails:
         """Creates the agent.
 
@@ -235,7 +239,7 @@ class AgentsOperations:
 
     @overload
     async def create(
-        self, body: JSON, *, content_type: str = "application/json", **kwargs: Any
+        self, body: JSON, *, content_type: str = "application/json", request_parameters: Optional[RequestParameters] = None, **kwargs: Any
     ) -> _models.AgentDetails:
         """Creates the agent.
 
@@ -251,7 +255,7 @@ class AgentsOperations:
 
     @overload
     async def create(
-        self, body: IO[bytes], *, content_type: str = "application/json", **kwargs: Any
+        self, body: IO[bytes], *, content_type: str = "application/json", request_parameters: Optional[RequestParameters] = None, **kwargs: Any
     ) -> _models.AgentDetails:
         """Creates the agent.
 
@@ -274,7 +278,7 @@ class AgentsOperations:
         definition: _models.AgentDefinition = _Unset,
         metadata: Optional[dict[str, str]] = None,
         description: Optional[str] = None,
-        **kwargs: Any
+        request_parameters: Optional[RequestParameters] = None, **kwargs: Any
     ) -> _models.AgentDetails:
         """Creates the agent.
 
@@ -303,6 +307,10 @@ class AgentsOperations:
         :rtype: ~azure.ai.projects.models.AgentDetails
         :raises ~azure.core.exceptions.HttpResponseError:
         """
+        if request_parameters:
+            for _rp_key, _rp_value in request_parameters.items():
+                kwargs.setdefault(_rp_key, _rp_value)
+
         error_map: MutableMapping = {
             401: ClientAuthenticationError,
             404: ResourceNotFoundError,
@@ -382,7 +390,7 @@ class AgentsOperations:
         content_type: str = "application/json",
         metadata: Optional[dict[str, str]] = None,
         description: Optional[str] = None,
-        **kwargs: Any
+        request_parameters: Optional[RequestParameters] = None, **kwargs: Any
     ) -> _models.AgentDetails:
         """Updates the agent by adding a new version if there are any changes to the agent definition.
         If no changes, returns the existing agent version.
@@ -411,7 +419,7 @@ class AgentsOperations:
 
     @overload
     async def update(
-        self, agent_name: str, body: JSON, *, content_type: str = "application/json", **kwargs: Any
+        self, agent_name: str, body: JSON, *, content_type: str = "application/json", request_parameters: Optional[RequestParameters] = None, **kwargs: Any
     ) -> _models.AgentDetails:
         """Updates the agent by adding a new version if there are any changes to the agent definition.
         If no changes, returns the existing agent version.
@@ -430,7 +438,7 @@ class AgentsOperations:
 
     @overload
     async def update(
-        self, agent_name: str, body: IO[bytes], *, content_type: str = "application/json", **kwargs: Any
+        self, agent_name: str, body: IO[bytes], *, content_type: str = "application/json", request_parameters: Optional[RequestParameters] = None, **kwargs: Any
     ) -> _models.AgentDetails:
         """Updates the agent by adding a new version if there are any changes to the agent definition.
         If no changes, returns the existing agent version.
@@ -456,7 +464,7 @@ class AgentsOperations:
         definition: _models.AgentDefinition = _Unset,
         metadata: Optional[dict[str, str]] = None,
         description: Optional[str] = None,
-        **kwargs: Any
+        request_parameters: Optional[RequestParameters] = None, **kwargs: Any
     ) -> _models.AgentDetails:
         """Updates the agent by adding a new version if there are any changes to the agent definition.
         If no changes, returns the existing agent version.
@@ -481,6 +489,10 @@ class AgentsOperations:
         :rtype: ~azure.ai.projects.models.AgentDetails
         :raises ~azure.core.exceptions.HttpResponseError:
         """
+        if request_parameters:
+            for _rp_key, _rp_value in request_parameters.items():
+                kwargs.setdefault(_rp_key, _rp_value)
+
         error_map: MutableMapping = {
             401: ClientAuthenticationError,
             404: ResourceNotFoundError,
@@ -560,7 +572,7 @@ class AgentsOperations:
         content_type: str = "application/json",
         metadata: Optional[dict[str, str]] = None,
         description: Optional[str] = None,
-        **kwargs: Any
+        request_parameters: Optional[RequestParameters] = None, **kwargs: Any
     ) -> _models.AgentDetails:
         """Creates an agent from a manifest.
 
@@ -595,7 +607,7 @@ class AgentsOperations:
 
     @overload
     async def create_from_manifest(
-        self, body: JSON, *, content_type: str = "application/json", **kwargs: Any
+        self, body: JSON, *, content_type: str = "application/json", request_parameters: Optional[RequestParameters] = None, **kwargs: Any
     ) -> _models.AgentDetails:
         """Creates an agent from a manifest.
 
@@ -611,7 +623,7 @@ class AgentsOperations:
 
     @overload
     async def create_from_manifest(
-        self, body: IO[bytes], *, content_type: str = "application/json", **kwargs: Any
+        self, body: IO[bytes], *, content_type: str = "application/json", request_parameters: Optional[RequestParameters] = None, **kwargs: Any
     ) -> _models.AgentDetails:
         """Creates an agent from a manifest.
 
@@ -635,7 +647,7 @@ class AgentsOperations:
         parameter_values: dict[str, Any] = _Unset,
         metadata: Optional[dict[str, str]] = None,
         description: Optional[str] = None,
-        **kwargs: Any
+        request_parameters: Optional[RequestParameters] = None, **kwargs: Any
     ) -> _models.AgentDetails:
         """Creates an agent from a manifest.
 
@@ -666,6 +678,10 @@ class AgentsOperations:
         :rtype: ~azure.ai.projects.models.AgentDetails
         :raises ~azure.core.exceptions.HttpResponseError:
         """
+        if request_parameters:
+            for _rp_key, _rp_value in request_parameters.items():
+                kwargs.setdefault(_rp_key, _rp_value)
+
         error_map: MutableMapping = {
             401: ClientAuthenticationError,
             404: ResourceNotFoundError,
@@ -754,7 +770,7 @@ class AgentsOperations:
         content_type: str = "application/json",
         metadata: Optional[dict[str, str]] = None,
         description: Optional[str] = None,
-        **kwargs: Any
+        request_parameters: Optional[RequestParameters] = None, **kwargs: Any
     ) -> _models.AgentDetails:
         """Updates the agent from a manifest by adding a new version if there are any changes to the agent
         definition.
@@ -786,7 +802,7 @@ class AgentsOperations:
 
     @overload
     async def update_from_manifest(
-        self, agent_name: str, body: JSON, *, content_type: str = "application/json", **kwargs: Any
+        self, agent_name: str, body: JSON, *, content_type: str = "application/json", request_parameters: Optional[RequestParameters] = None, **kwargs: Any
     ) -> _models.AgentDetails:
         """Updates the agent from a manifest by adding a new version if there are any changes to the agent
         definition.
@@ -806,7 +822,7 @@ class AgentsOperations:
 
     @overload
     async def update_from_manifest(
-        self, agent_name: str, body: IO[bytes], *, content_type: str = "application/json", **kwargs: Any
+        self, agent_name: str, body: IO[bytes], *, content_type: str = "application/json", request_parameters: Optional[RequestParameters] = None, **kwargs: Any
     ) -> _models.AgentDetails:
         """Updates the agent from a manifest by adding a new version if there are any changes to the agent
         definition.
@@ -834,7 +850,7 @@ class AgentsOperations:
         parameter_values: dict[str, Any] = _Unset,
         metadata: Optional[dict[str, str]] = None,
         description: Optional[str] = None,
-        **kwargs: Any
+        request_parameters: Optional[RequestParameters] = None, **kwargs: Any
     ) -> _models.AgentDetails:
         """Updates the agent from a manifest by adding a new version if there are any changes to the agent
         definition.
@@ -862,6 +878,10 @@ class AgentsOperations:
         :rtype: ~azure.ai.projects.models.AgentDetails
         :raises ~azure.core.exceptions.HttpResponseError:
         """
+        if request_parameters:
+            for _rp_key, _rp_value in request_parameters.items():
+                kwargs.setdefault(_rp_key, _rp_value)
+
         error_map: MutableMapping = {
             401: ClientAuthenticationError,
             404: ResourceNotFoundError,
@@ -939,7 +959,7 @@ class AgentsOperations:
         return deserialized  # type: ignore
 
     @distributed_trace_async
-    async def delete(self, agent_name: str, **kwargs: Any) -> _models.DeleteAgentResponse:
+    async def delete(self, agent_name: str, request_parameters: Optional[RequestParameters] = None, **kwargs: Any) -> _models.DeleteAgentResponse:
         """Deletes an agent.
 
         :param agent_name: The name of the agent to delete. Required.
@@ -948,6 +968,10 @@ class AgentsOperations:
         :rtype: ~azure.ai.projects.models.DeleteAgentResponse
         :raises ~azure.core.exceptions.HttpResponseError:
         """
+        if request_parameters:
+            for _rp_key, _rp_value in request_parameters.items():
+                kwargs.setdefault(_rp_key, _rp_value)
+
         error_map: MutableMapping = {
             401: ClientAuthenticationError,
             404: ResourceNotFoundError,
@@ -1107,7 +1131,7 @@ class AgentsOperations:
         content_type: str = "application/json",
         metadata: Optional[dict[str, str]] = None,
         description: Optional[str] = None,
-        **kwargs: Any
+        request_parameters: Optional[RequestParameters] = None, **kwargs: Any
     ) -> _models.AgentVersionDetails:
         """Create a new agent version.
 
@@ -1140,7 +1164,7 @@ class AgentsOperations:
 
     @overload
     async def create_version(
-        self, agent_name: str, body: JSON, *, content_type: str = "application/json", **kwargs: Any
+        self, agent_name: str, body: JSON, *, content_type: str = "application/json", request_parameters: Optional[RequestParameters] = None, **kwargs: Any
     ) -> _models.AgentVersionDetails:
         """Create a new agent version.
 
@@ -1163,7 +1187,7 @@ class AgentsOperations:
 
     @overload
     async def create_version(
-        self, agent_name: str, body: IO[bytes], *, content_type: str = "application/json", **kwargs: Any
+        self, agent_name: str, body: IO[bytes], *, content_type: str = "application/json", request_parameters: Optional[RequestParameters] = None, **kwargs: Any
     ) -> _models.AgentVersionDetails:
         """Create a new agent version.
 
@@ -1193,7 +1217,7 @@ class AgentsOperations:
         definition: _models.AgentDefinition = _Unset,
         metadata: Optional[dict[str, str]] = None,
         description: Optional[str] = None,
-        **kwargs: Any
+        request_parameters: Optional[RequestParameters] = None, **kwargs: Any
     ) -> _models.AgentVersionDetails:
         """Create a new agent version.
 
@@ -1222,6 +1246,10 @@ class AgentsOperations:
         :rtype: ~azure.ai.projects.models.AgentVersionDetails
         :raises ~azure.core.exceptions.HttpResponseError:
         """
+        if request_parameters:
+            for _rp_key, _rp_value in request_parameters.items():
+                kwargs.setdefault(_rp_key, _rp_value)
+
         error_map: MutableMapping = {
             401: ClientAuthenticationError,
             404: ResourceNotFoundError,
@@ -1301,7 +1329,7 @@ class AgentsOperations:
         content_type: str = "application/json",
         metadata: Optional[dict[str, str]] = None,
         description: Optional[str] = None,
-        **kwargs: Any
+        request_parameters: Optional[RequestParameters] = None, **kwargs: Any
     ) -> _models.AgentVersionDetails:
         """Create a new agent version from a manifest.
 
@@ -1336,7 +1364,7 @@ class AgentsOperations:
 
     @overload
     async def create_version_from_manifest(
-        self, agent_name: str, body: JSON, *, content_type: str = "application/json", **kwargs: Any
+        self, agent_name: str, body: JSON, *, content_type: str = "application/json", request_parameters: Optional[RequestParameters] = None, **kwargs: Any
     ) -> _models.AgentVersionDetails:
         """Create a new agent version from a manifest.
 
@@ -1359,7 +1387,7 @@ class AgentsOperations:
 
     @overload
     async def create_version_from_manifest(
-        self, agent_name: str, body: IO[bytes], *, content_type: str = "application/json", **kwargs: Any
+        self, agent_name: str, body: IO[bytes], *, content_type: str = "application/json", request_parameters: Optional[RequestParameters] = None, **kwargs: Any
     ) -> _models.AgentVersionDetails:
         """Create a new agent version from a manifest.
 
@@ -1390,7 +1418,7 @@ class AgentsOperations:
         parameter_values: dict[str, Any] = _Unset,
         metadata: Optional[dict[str, str]] = None,
         description: Optional[str] = None,
-        **kwargs: Any
+        request_parameters: Optional[RequestParameters] = None, **kwargs: Any
     ) -> _models.AgentVersionDetails:
         """Create a new agent version from a manifest.
 
@@ -1421,6 +1449,10 @@ class AgentsOperations:
         :rtype: ~azure.ai.projects.models.AgentVersionDetails
         :raises ~azure.core.exceptions.HttpResponseError:
         """
+        if request_parameters:
+            for _rp_key, _rp_value in request_parameters.items():
+                kwargs.setdefault(_rp_key, _rp_value)
+
         error_map: MutableMapping = {
             401: ClientAuthenticationError,
             404: ResourceNotFoundError,
@@ -1498,7 +1530,7 @@ class AgentsOperations:
         return deserialized  # type: ignore
 
     @distributed_trace_async
-    async def get_version(self, agent_name: str, agent_version: str, **kwargs: Any) -> _models.AgentVersionDetails:
+    async def get_version(self, agent_name: str, agent_version: str, request_parameters: Optional[RequestParameters] = None, **kwargs: Any) -> _models.AgentVersionDetails:
         """Retrieves a specific version of an agent.
 
         :param agent_name: The name of the agent to retrieve. Required.
@@ -1509,6 +1541,10 @@ class AgentsOperations:
         :rtype: ~azure.ai.projects.models.AgentVersionDetails
         :raises ~azure.core.exceptions.HttpResponseError:
         """
+        if request_parameters:
+            for _rp_key, _rp_value in request_parameters.items():
+                kwargs.setdefault(_rp_key, _rp_value)
+
         error_map: MutableMapping = {
             401: ClientAuthenticationError,
             404: ResourceNotFoundError,
@@ -1566,7 +1602,7 @@ class AgentsOperations:
 
     @distributed_trace_async
     async def delete_version(
-        self, agent_name: str, agent_version: str, **kwargs: Any
+        self, agent_name: str, agent_version: str, request_parameters: Optional[RequestParameters] = None, **kwargs: Any
     ) -> _models.DeleteAgentVersionResponse:
         """Deletes a specific version of an agent.
 
@@ -1579,6 +1615,10 @@ class AgentsOperations:
         :rtype: ~azure.ai.projects.models.DeleteAgentVersionResponse
         :raises ~azure.core.exceptions.HttpResponseError:
         """
+        if request_parameters:
+            for _rp_key, _rp_value in request_parameters.items():
+                kwargs.setdefault(_rp_key, _rp_value)
+
         error_map: MutableMapping = {
             401: ClientAuthenticationError,
             404: ResourceNotFoundError,
@@ -1734,7 +1774,7 @@ class AgentsOperations:
         kind: Optional[Union[str, _models.ContainerLogKind]] = None,
         replica_name: Optional[str] = None,
         tail: Optional[int] = None,
-        **kwargs: Any
+        request_parameters: Optional[RequestParameters] = None, **kwargs: Any
     ) -> None:
         """Container log entry streamed from the container as text chunks.
         Each chunk is a UTF-8 string that may be either a plain text log line
@@ -1779,6 +1819,10 @@ class AgentsOperations:
         :rtype: None
         :raises ~azure.core.exceptions.HttpResponseError:
         """
+        if request_parameters:
+            for _rp_key, _rp_value in request_parameters.items():
+                kwargs.setdefault(_rp_key, _rp_value)
+
         error_map: MutableMapping = {
             401: ClientAuthenticationError,
             404: ResourceNotFoundError,
@@ -1852,7 +1896,7 @@ class MemoryStoresOperations:
         content_type: str = "application/json",
         description: Optional[str] = None,
         metadata: Optional[dict[str, str]] = None,
-        **kwargs: Any
+        request_parameters: Optional[RequestParameters] = None, **kwargs: Any
     ) -> _models.MemoryStoreDetails:
         """Create a memory store.
 
@@ -1875,7 +1919,7 @@ class MemoryStoresOperations:
 
     @overload
     async def create(
-        self, body: JSON, *, content_type: str = "application/json", **kwargs: Any
+        self, body: JSON, *, content_type: str = "application/json", request_parameters: Optional[RequestParameters] = None, **kwargs: Any
     ) -> _models.MemoryStoreDetails:
         """Create a memory store.
 
@@ -1891,7 +1935,7 @@ class MemoryStoresOperations:
 
     @overload
     async def create(
-        self, body: IO[bytes], *, content_type: str = "application/json", **kwargs: Any
+        self, body: IO[bytes], *, content_type: str = "application/json", request_parameters: Optional[RequestParameters] = None, **kwargs: Any
     ) -> _models.MemoryStoreDetails:
         """Create a memory store.
 
@@ -1914,7 +1958,7 @@ class MemoryStoresOperations:
         definition: _models.MemoryStoreDefinition = _Unset,
         description: Optional[str] = None,
         metadata: Optional[dict[str, str]] = None,
-        **kwargs: Any
+        request_parameters: Optional[RequestParameters] = None, **kwargs: Any
     ) -> _models.MemoryStoreDetails:
         """Create a memory store.
 
@@ -1933,6 +1977,10 @@ class MemoryStoresOperations:
         :rtype: ~azure.ai.projects.models.MemoryStoreDetails
         :raises ~azure.core.exceptions.HttpResponseError:
         """
+        if request_parameters:
+            for _rp_key, _rp_value in request_parameters.items():
+                kwargs.setdefault(_rp_key, _rp_value)
+
         error_map: MutableMapping = {
             401: ClientAuthenticationError,
             404: ResourceNotFoundError,
@@ -2011,7 +2059,7 @@ class MemoryStoresOperations:
         content_type: str = "application/json",
         description: Optional[str] = None,
         metadata: Optional[dict[str, str]] = None,
-        **kwargs: Any
+        request_parameters: Optional[RequestParameters] = None, **kwargs: Any
     ) -> _models.MemoryStoreDetails:
         """Update a memory store.
 
@@ -2032,7 +2080,7 @@ class MemoryStoresOperations:
 
     @overload
     async def update(
-        self, name: str, body: JSON, *, content_type: str = "application/json", **kwargs: Any
+        self, name: str, body: JSON, *, content_type: str = "application/json", request_parameters: Optional[RequestParameters] = None, **kwargs: Any
     ) -> _models.MemoryStoreDetails:
         """Update a memory store.
 
@@ -2050,7 +2098,7 @@ class MemoryStoresOperations:
 
     @overload
     async def update(
-        self, name: str, body: IO[bytes], *, content_type: str = "application/json", **kwargs: Any
+        self, name: str, body: IO[bytes], *, content_type: str = "application/json", request_parameters: Optional[RequestParameters] = None, **kwargs: Any
     ) -> _models.MemoryStoreDetails:
         """Update a memory store.
 
@@ -2074,7 +2122,7 @@ class MemoryStoresOperations:
         *,
         description: Optional[str] = None,
         metadata: Optional[dict[str, str]] = None,
-        **kwargs: Any
+        request_parameters: Optional[RequestParameters] = None, **kwargs: Any
     ) -> _models.MemoryStoreDetails:
         """Update a memory store.
 
@@ -2091,6 +2139,10 @@ class MemoryStoresOperations:
         :rtype: ~azure.ai.projects.models.MemoryStoreDetails
         :raises ~azure.core.exceptions.HttpResponseError:
         """
+        if request_parameters:
+            for _rp_key, _rp_value in request_parameters.items():
+                kwargs.setdefault(_rp_key, _rp_value)
+
         error_map: MutableMapping = {
             401: ClientAuthenticationError,
             404: ResourceNotFoundError,
@@ -2159,7 +2211,7 @@ class MemoryStoresOperations:
         return deserialized  # type: ignore
 
     @distributed_trace_async
-    async def get(self, name: str, **kwargs: Any) -> _models.MemoryStoreDetails:
+    async def get(self, name: str, request_parameters: Optional[RequestParameters] = None, **kwargs: Any) -> _models.MemoryStoreDetails:
         """Retrieve a memory store.
 
         :param name: The name of the memory store to retrieve. Required.
@@ -2168,6 +2220,10 @@ class MemoryStoresOperations:
         :rtype: ~azure.ai.projects.models.MemoryStoreDetails
         :raises ~azure.core.exceptions.HttpResponseError:
         """
+        if request_parameters:
+            for _rp_key, _rp_value in request_parameters.items():
+                kwargs.setdefault(_rp_key, _rp_value)
+
         error_map: MutableMapping = {
             401: ClientAuthenticationError,
             404: ResourceNotFoundError,
@@ -2310,7 +2366,7 @@ class MemoryStoresOperations:
         return AsyncItemPaged(get_next, extract_data)
 
     @distributed_trace_async
-    async def delete(self, name: str, **kwargs: Any) -> _models.DeleteMemoryStoreResult:
+    async def delete(self, name: str, request_parameters: Optional[RequestParameters] = None, **kwargs: Any) -> _models.DeleteMemoryStoreResult:
         """Delete a memory store.
 
         :param name: The name of the memory store to delete. Required.
@@ -2319,6 +2375,10 @@ class MemoryStoresOperations:
         :rtype: ~azure.ai.projects.models.DeleteMemoryStoreResult
         :raises ~azure.core.exceptions.HttpResponseError:
         """
+        if request_parameters:
+            for _rp_key, _rp_value in request_parameters.items():
+                kwargs.setdefault(_rp_key, _rp_value)
+
         error_map: MutableMapping = {
             401: ClientAuthenticationError,
             404: ResourceNotFoundError,
@@ -2383,7 +2443,7 @@ class MemoryStoresOperations:
         items: Optional[List[_models.InputItem]] = None,
         previous_search_id: Optional[str] = None,
         options: Optional[_models.MemorySearchOptions] = None,
-        **kwargs: Any
+        request_parameters: Optional[RequestParameters] = None, **kwargs: Any
     ) -> _models.MemoryStoreSearchResult:
         """Search for relevant memories from a memory store based on conversation context.
 
@@ -2409,7 +2469,7 @@ class MemoryStoresOperations:
 
     @overload
     async def search_memories(
-        self, name: str, body: JSON, *, content_type: str = "application/json", **kwargs: Any
+        self, name: str, body: JSON, *, content_type: str = "application/json", request_parameters: Optional[RequestParameters] = None, **kwargs: Any
     ) -> _models.MemoryStoreSearchResult:
         """Search for relevant memories from a memory store based on conversation context.
 
@@ -2427,7 +2487,7 @@ class MemoryStoresOperations:
 
     @overload
     async def search_memories(
-        self, name: str, body: IO[bytes], *, content_type: str = "application/json", **kwargs: Any
+        self, name: str, body: IO[bytes], *, content_type: str = "application/json", request_parameters: Optional[RequestParameters] = None, **kwargs: Any
     ) -> _models.MemoryStoreSearchResult:
         """Search for relevant memories from a memory store based on conversation context.
 
@@ -2453,7 +2513,7 @@ class MemoryStoresOperations:
         items: Optional[List[_models.InputItem]] = None,
         previous_search_id: Optional[str] = None,
         options: Optional[_models.MemorySearchOptions] = None,
-        **kwargs: Any
+        request_parameters: Optional[RequestParameters] = None, **kwargs: Any
     ) -> _models.MemoryStoreSearchResult:
         """Search for relevant memories from a memory store based on conversation context.
 
@@ -2475,6 +2535,10 @@ class MemoryStoresOperations:
         :rtype: ~azure.ai.projects.models.MemoryStoreSearchResult
         :raises ~azure.core.exceptions.HttpResponseError:
         """
+        if request_parameters:
+            for _rp_key, _rp_value in request_parameters.items():
+                kwargs.setdefault(_rp_key, _rp_value)
+
         error_map: MutableMapping = {
             401: ClientAuthenticationError,
             404: ResourceNotFoundError,
@@ -2755,7 +2819,7 @@ class MemoryStoresOperations:
 
     @overload
     async def delete_scope(
-        self, name: str, *, scope: str, content_type: str = "application/json", **kwargs: Any
+        self, name: str, *, scope: str, content_type: str = "application/json", request_parameters: Optional[RequestParameters] = None, **kwargs: Any
     ) -> _models.MemoryStoreDeleteScopeResult:
         """Delete all memories associated with a specific scope from a memory store.
 
@@ -2775,7 +2839,7 @@ class MemoryStoresOperations:
 
     @overload
     async def delete_scope(
-        self, name: str, body: JSON, *, content_type: str = "application/json", **kwargs: Any
+        self, name: str, body: JSON, *, content_type: str = "application/json", request_parameters: Optional[RequestParameters] = None, **kwargs: Any
     ) -> _models.MemoryStoreDeleteScopeResult:
         """Delete all memories associated with a specific scope from a memory store.
 
@@ -2794,7 +2858,7 @@ class MemoryStoresOperations:
 
     @overload
     async def delete_scope(
-        self, name: str, body: IO[bytes], *, content_type: str = "application/json", **kwargs: Any
+        self, name: str, body: IO[bytes], *, content_type: str = "application/json", request_parameters: Optional[RequestParameters] = None, **kwargs: Any
     ) -> _models.MemoryStoreDeleteScopeResult:
         """Delete all memories associated with a specific scope from a memory store.
 
@@ -2813,7 +2877,7 @@ class MemoryStoresOperations:
 
     @distributed_trace_async
     async def delete_scope(
-        self, name: str, body: Union[JSON, IO[bytes]] = _Unset, *, scope: str = _Unset, **kwargs: Any
+        self, name: str, body: Union[JSON, IO[bytes]] = _Unset, *, scope: str = _Unset, request_parameters: Optional[RequestParameters] = None, **kwargs: Any
     ) -> _models.MemoryStoreDeleteScopeResult:
         """Delete all memories associated with a specific scope from a memory store.
 
@@ -2829,6 +2893,10 @@ class MemoryStoresOperations:
         :rtype: ~azure.ai.projects.models.MemoryStoreDeleteScopeResult
         :raises ~azure.core.exceptions.HttpResponseError:
         """
+        if request_parameters:
+            for _rp_key, _rp_value in request_parameters.items():
+                kwargs.setdefault(_rp_key, _rp_value)
+
         error_map: MutableMapping = {
             401: ClientAuthenticationError,
             404: ResourceNotFoundError,
@@ -3341,7 +3409,7 @@ class DatasetsOperations:
         return AsyncItemPaged(get_next, extract_data)
 
     @distributed_trace_async
-    async def get(self, name: str, version: str, **kwargs: Any) -> _models.DatasetVersion:
+    async def get(self, name: str, version: str, request_parameters: Optional[RequestParameters] = None, **kwargs: Any) -> _models.DatasetVersion:
         """Get the specific version of the DatasetVersion. The service returns 404 Not Found error if the
         DatasetVersion does not exist.
 
@@ -3353,6 +3421,10 @@ class DatasetsOperations:
         :rtype: ~azure.ai.projects.models.DatasetVersion
         :raises ~azure.core.exceptions.HttpResponseError:
         """
+        if request_parameters:
+            for _rp_key, _rp_value in request_parameters.items():
+                kwargs.setdefault(_rp_key, _rp_value)
+
         error_map: MutableMapping = {
             401: ClientAuthenticationError,
             404: ResourceNotFoundError,
@@ -3405,7 +3477,7 @@ class DatasetsOperations:
         return deserialized  # type: ignore
 
     @distributed_trace_async
-    async def delete(self, name: str, version: str, **kwargs: Any) -> None:
+    async def delete(self, name: str, version: str, request_parameters: Optional[RequestParameters] = None, **kwargs: Any) -> None:
         """Delete the specific version of the DatasetVersion. The service returns 204 No Content if the
         DatasetVersion was deleted successfully or if the DatasetVersion does not exist.
 
@@ -3417,6 +3489,10 @@ class DatasetsOperations:
         :rtype: None
         :raises ~azure.core.exceptions.HttpResponseError:
         """
+        if request_parameters:
+            for _rp_key, _rp_value in request_parameters.items():
+                kwargs.setdefault(_rp_key, _rp_value)
+
         error_map: MutableMapping = {
             401: ClientAuthenticationError,
             404: ResourceNotFoundError,
@@ -3464,7 +3540,7 @@ class DatasetsOperations:
         dataset_version: _models.DatasetVersion,
         *,
         content_type: str = "application/merge-patch+json",
-        **kwargs: Any
+        request_parameters: Optional[RequestParameters] = None, **kwargs: Any
     ) -> _models.DatasetVersion:
         """Create a new or update an existing DatasetVersion with the given version id.
 
@@ -3490,7 +3566,7 @@ class DatasetsOperations:
         dataset_version: JSON,
         *,
         content_type: str = "application/merge-patch+json",
-        **kwargs: Any
+        request_parameters: Optional[RequestParameters] = None, **kwargs: Any
     ) -> _models.DatasetVersion:
         """Create a new or update an existing DatasetVersion with the given version id.
 
@@ -3516,7 +3592,7 @@ class DatasetsOperations:
         dataset_version: IO[bytes],
         *,
         content_type: str = "application/merge-patch+json",
-        **kwargs: Any
+        request_parameters: Optional[RequestParameters] = None, **kwargs: Any
     ) -> _models.DatasetVersion:
         """Create a new or update an existing DatasetVersion with the given version id.
 
@@ -3536,7 +3612,7 @@ class DatasetsOperations:
 
     @distributed_trace_async
     async def create_or_update(
-        self, name: str, version: str, dataset_version: Union[_models.DatasetVersion, JSON, IO[bytes]], **kwargs: Any
+        self, name: str, version: str, dataset_version: Union[_models.DatasetVersion, JSON, IO[bytes]], request_parameters: Optional[RequestParameters] = None, **kwargs: Any
     ) -> _models.DatasetVersion:
         """Create a new or update an existing DatasetVersion with the given version id.
 
@@ -3551,6 +3627,10 @@ class DatasetsOperations:
         :rtype: ~azure.ai.projects.models.DatasetVersion
         :raises ~azure.core.exceptions.HttpResponseError:
         """
+        if request_parameters:
+            for _rp_key, _rp_value in request_parameters.items():
+                kwargs.setdefault(_rp_key, _rp_value)
+
         error_map: MutableMapping = {
             401: ClientAuthenticationError,
             404: ResourceNotFoundError,
@@ -3620,7 +3700,7 @@ class DatasetsOperations:
         pending_upload_request: _models.PendingUploadRequest,
         *,
         content_type: str = "application/json",
-        **kwargs: Any
+        request_parameters: Optional[RequestParameters] = None, **kwargs: Any
     ) -> _models.PendingUploadResponse:
         """Start a new or get an existing pending upload of a dataset for a specific version.
 
@@ -3646,7 +3726,7 @@ class DatasetsOperations:
         pending_upload_request: JSON,
         *,
         content_type: str = "application/json",
-        **kwargs: Any
+        request_parameters: Optional[RequestParameters] = None, **kwargs: Any
     ) -> _models.PendingUploadResponse:
         """Start a new or get an existing pending upload of a dataset for a specific version.
 
@@ -3672,7 +3752,7 @@ class DatasetsOperations:
         pending_upload_request: IO[bytes],
         *,
         content_type: str = "application/json",
-        **kwargs: Any
+        request_parameters: Optional[RequestParameters] = None, **kwargs: Any
     ) -> _models.PendingUploadResponse:
         """Start a new or get an existing pending upload of a dataset for a specific version.
 
@@ -3696,7 +3776,7 @@ class DatasetsOperations:
         name: str,
         version: str,
         pending_upload_request: Union[_models.PendingUploadRequest, JSON, IO[bytes]],
-        **kwargs: Any
+        request_parameters: Optional[RequestParameters] = None, **kwargs: Any
     ) -> _models.PendingUploadResponse:
         """Start a new or get an existing pending upload of a dataset for a specific version.
 
@@ -3712,6 +3792,10 @@ class DatasetsOperations:
         :rtype: ~azure.ai.projects.models.PendingUploadResponse
         :raises ~azure.core.exceptions.HttpResponseError:
         """
+        if request_parameters:
+            for _rp_key, _rp_value in request_parameters.items():
+                kwargs.setdefault(_rp_key, _rp_value)
+
         error_map: MutableMapping = {
             401: ClientAuthenticationError,
             404: ResourceNotFoundError,
@@ -3774,7 +3858,7 @@ class DatasetsOperations:
         return deserialized  # type: ignore
 
     @distributed_trace_async
-    async def get_credentials(self, name: str, version: str, **kwargs: Any) -> _models.DatasetCredential:
+    async def get_credentials(self, name: str, version: str, request_parameters: Optional[RequestParameters] = None, **kwargs: Any) -> _models.DatasetCredential:
         """Get the SAS credential to access the storage account associated with a Dataset version.
 
         :param name: The name of the resource. Required.
@@ -3785,6 +3869,10 @@ class DatasetsOperations:
         :rtype: ~azure.ai.projects.models.DatasetCredential
         :raises ~azure.core.exceptions.HttpResponseError:
         """
+        if request_parameters:
+            for _rp_key, _rp_value in request_parameters.items():
+                kwargs.setdefault(_rp_key, _rp_value)
+
         error_map: MutableMapping = {
             401: ClientAuthenticationError,
             404: ResourceNotFoundError,
@@ -4030,7 +4118,7 @@ class IndexesOperations:
         return AsyncItemPaged(get_next, extract_data)
 
     @distributed_trace_async
-    async def get(self, name: str, version: str, **kwargs: Any) -> _models.Index:
+    async def get(self, name: str, version: str, request_parameters: Optional[RequestParameters] = None, **kwargs: Any) -> _models.Index:
         """Get the specific version of the Index. The service returns 404 Not Found error if the Index
         does not exist.
 
@@ -4042,6 +4130,10 @@ class IndexesOperations:
         :rtype: ~azure.ai.projects.models.Index
         :raises ~azure.core.exceptions.HttpResponseError:
         """
+        if request_parameters:
+            for _rp_key, _rp_value in request_parameters.items():
+                kwargs.setdefault(_rp_key, _rp_value)
+
         error_map: MutableMapping = {
             401: ClientAuthenticationError,
             404: ResourceNotFoundError,
@@ -4094,7 +4186,7 @@ class IndexesOperations:
         return deserialized  # type: ignore
 
     @distributed_trace_async
-    async def delete(self, name: str, version: str, **kwargs: Any) -> None:
+    async def delete(self, name: str, version: str, request_parameters: Optional[RequestParameters] = None, **kwargs: Any) -> None:
         """Delete the specific version of the Index. The service returns 204 No Content if the Index was
         deleted successfully or if the Index does not exist.
 
@@ -4106,6 +4198,10 @@ class IndexesOperations:
         :rtype: None
         :raises ~azure.core.exceptions.HttpResponseError:
         """
+        if request_parameters:
+            for _rp_key, _rp_value in request_parameters.items():
+                kwargs.setdefault(_rp_key, _rp_value)
+
         error_map: MutableMapping = {
             401: ClientAuthenticationError,
             404: ResourceNotFoundError,
@@ -4153,7 +4249,7 @@ class IndexesOperations:
         index: _models.Index,
         *,
         content_type: str = "application/merge-patch+json",
-        **kwargs: Any
+        request_parameters: Optional[RequestParameters] = None, **kwargs: Any
     ) -> _models.Index:
         """Create a new or update an existing Index with the given version id.
 
@@ -4173,7 +4269,7 @@ class IndexesOperations:
 
     @overload
     async def create_or_update(
-        self, name: str, version: str, index: JSON, *, content_type: str = "application/merge-patch+json", **kwargs: Any
+        self, name: str, version: str, index: JSON, *, content_type: str = "application/merge-patch+json", request_parameters: Optional[RequestParameters] = None, **kwargs: Any
     ) -> _models.Index:
         """Create a new or update an existing Index with the given version id.
 
@@ -4199,7 +4295,7 @@ class IndexesOperations:
         index: IO[bytes],
         *,
         content_type: str = "application/merge-patch+json",
-        **kwargs: Any
+        request_parameters: Optional[RequestParameters] = None, **kwargs: Any
     ) -> _models.Index:
         """Create a new or update an existing Index with the given version id.
 
@@ -4219,7 +4315,7 @@ class IndexesOperations:
 
     @distributed_trace_async
     async def create_or_update(
-        self, name: str, version: str, index: Union[_models.Index, JSON, IO[bytes]], **kwargs: Any
+        self, name: str, version: str, index: Union[_models.Index, JSON, IO[bytes]], request_parameters: Optional[RequestParameters] = None, **kwargs: Any
     ) -> _models.Index:
         """Create a new or update an existing Index with the given version id.
 
@@ -4234,6 +4330,10 @@ class IndexesOperations:
         :rtype: ~azure.ai.projects.models.Index
         :raises ~azure.core.exceptions.HttpResponseError:
         """
+        if request_parameters:
+            for _rp_key, _rp_value in request_parameters.items():
+                kwargs.setdefault(_rp_key, _rp_value)
+
         error_map: MutableMapping = {
             401: ClientAuthenticationError,
             404: ResourceNotFoundError,
@@ -4314,7 +4414,7 @@ class DeploymentsOperations:
         self._deserialize: Deserializer = input_args.pop(0) if input_args else kwargs.pop("deserializer")
 
     @distributed_trace_async
-    async def get(self, name: str, **kwargs: Any) -> _models.Deployment:
+    async def get(self, name: str, request_parameters: Optional[RequestParameters] = None, **kwargs: Any) -> _models.Deployment:
         """Get a deployed model.
 
         :param name: Name of the deployment. Required.
@@ -4323,6 +4423,10 @@ class DeploymentsOperations:
         :rtype: ~azure.ai.projects.models.Deployment
         :raises ~azure.core.exceptions.HttpResponseError:
         """
+        if request_parameters:
+            for _rp_key, _rp_value in request_parameters.items():
+                kwargs.setdefault(_rp_key, _rp_value)
+
         error_map: MutableMapping = {
             401: ClientAuthenticationError,
             404: ResourceNotFoundError,
@@ -4501,7 +4605,7 @@ class RedTeamsOperations:
         self._deserialize: Deserializer = input_args.pop(0) if input_args else kwargs.pop("deserializer")
 
     @distributed_trace_async
-    async def get(self, name: str, **kwargs: Any) -> _models.RedTeam:
+    async def get(self, name: str, request_parameters: Optional[RequestParameters] = None, **kwargs: Any) -> _models.RedTeam:
         """Get a redteam by name.
 
         :param name: Identifier of the red team run. Required.
@@ -4510,6 +4614,10 @@ class RedTeamsOperations:
         :rtype: ~azure.ai.projects.models.RedTeam
         :raises ~azure.core.exceptions.HttpResponseError:
         """
+        if request_parameters:
+            for _rp_key, _rp_value in request_parameters.items():
+                kwargs.setdefault(_rp_key, _rp_value)
+
         error_map: MutableMapping = {
             401: ClientAuthenticationError,
             404: ResourceNotFoundError,
@@ -4653,7 +4761,7 @@ class RedTeamsOperations:
 
     @overload
     async def create(
-        self, red_team: _models.RedTeam, *, content_type: str = "application/json", **kwargs: Any
+        self, red_team: _models.RedTeam, *, content_type: str = "application/json", request_parameters: Optional[RequestParameters] = None, **kwargs: Any
     ) -> _models.RedTeam:
         """Creates a redteam run.
 
@@ -4668,7 +4776,7 @@ class RedTeamsOperations:
         """
 
     @overload
-    async def create(self, red_team: JSON, *, content_type: str = "application/json", **kwargs: Any) -> _models.RedTeam:
+    async def create(self, red_team: JSON, *, content_type: str = "application/json", request_parameters: Optional[RequestParameters] = None, **kwargs: Any) -> _models.RedTeam:
         """Creates a redteam run.
 
         :param red_team: Redteam to be run. Required.
@@ -4683,7 +4791,7 @@ class RedTeamsOperations:
 
     @overload
     async def create(
-        self, red_team: IO[bytes], *, content_type: str = "application/json", **kwargs: Any
+        self, red_team: IO[bytes], *, content_type: str = "application/json", request_parameters: Optional[RequestParameters] = None, **kwargs: Any
     ) -> _models.RedTeam:
         """Creates a redteam run.
 
@@ -4698,7 +4806,7 @@ class RedTeamsOperations:
         """
 
     @distributed_trace_async
-    async def create(self, red_team: Union[_models.RedTeam, JSON, IO[bytes]], **kwargs: Any) -> _models.RedTeam:
+    async def create(self, red_team: Union[_models.RedTeam, JSON, IO[bytes]], request_parameters: Optional[RequestParameters] = None, **kwargs: Any) -> _models.RedTeam:
         """Creates a redteam run.
 
         :param red_team: Redteam to be run. Is one of the following types: RedTeam, JSON, IO[bytes]
@@ -4708,6 +4816,10 @@ class RedTeamsOperations:
         :rtype: ~azure.ai.projects.models.RedTeam
         :raises ~azure.core.exceptions.HttpResponseError:
         """
+        if request_parameters:
+            for _rp_key, _rp_value in request_parameters.items():
+                kwargs.setdefault(_rp_key, _rp_value)
+
         error_map: MutableMapping = {
             401: ClientAuthenticationError,
             404: ResourceNotFoundError,
@@ -4786,7 +4898,7 @@ class EvaluationRulesOperations:
         self._deserialize: Deserializer = input_args.pop(0) if input_args else kwargs.pop("deserializer")
 
     @distributed_trace_async
-    async def get(self, id: str, **kwargs: Any) -> _models.EvaluationRule:
+    async def get(self, id: str, request_parameters: Optional[RequestParameters] = None, **kwargs: Any) -> _models.EvaluationRule:
         """Get an evaluation rule.
 
         :param id: Unique identifier for the evaluation rule. Required.
@@ -4795,6 +4907,10 @@ class EvaluationRulesOperations:
         :rtype: ~azure.ai.projects.models.EvaluationRule
         :raises ~azure.core.exceptions.HttpResponseError:
         """
+        if request_parameters:
+            for _rp_key, _rp_value in request_parameters.items():
+                kwargs.setdefault(_rp_key, _rp_value)
+
         error_map: MutableMapping = {
             401: ClientAuthenticationError,
             404: ResourceNotFoundError,
@@ -4851,7 +4967,7 @@ class EvaluationRulesOperations:
         return deserialized  # type: ignore
 
     @distributed_trace_async
-    async def delete(self, id: str, **kwargs: Any) -> None:
+    async def delete(self, id: str, request_parameters: Optional[RequestParameters] = None, **kwargs: Any) -> None:
         """Delete an evaluation rule.
 
         :param id: Unique identifier for the evaluation rule. Required.
@@ -4860,6 +4976,10 @@ class EvaluationRulesOperations:
         :rtype: None
         :raises ~azure.core.exceptions.HttpResponseError:
         """
+        if request_parameters:
+            for _rp_key, _rp_value in request_parameters.items():
+                kwargs.setdefault(_rp_key, _rp_value)
+
         error_map: MutableMapping = {
             401: ClientAuthenticationError,
             404: ResourceNotFoundError,
@@ -4905,7 +5025,7 @@ class EvaluationRulesOperations:
 
     @overload
     async def create_or_update(
-        self, id: str, evaluation_rule: _models.EvaluationRule, *, content_type: str = "application/json", **kwargs: Any
+        self, id: str, evaluation_rule: _models.EvaluationRule, *, content_type: str = "application/json", request_parameters: Optional[RequestParameters] = None, **kwargs: Any
     ) -> _models.EvaluationRule:
         """Create or update an evaluation rule.
 
@@ -4923,7 +5043,7 @@ class EvaluationRulesOperations:
 
     @overload
     async def create_or_update(
-        self, id: str, evaluation_rule: JSON, *, content_type: str = "application/json", **kwargs: Any
+        self, id: str, evaluation_rule: JSON, *, content_type: str = "application/json", request_parameters: Optional[RequestParameters] = None, **kwargs: Any
     ) -> _models.EvaluationRule:
         """Create or update an evaluation rule.
 
@@ -4941,7 +5061,7 @@ class EvaluationRulesOperations:
 
     @overload
     async def create_or_update(
-        self, id: str, evaluation_rule: IO[bytes], *, content_type: str = "application/json", **kwargs: Any
+        self, id: str, evaluation_rule: IO[bytes], *, content_type: str = "application/json", request_parameters: Optional[RequestParameters] = None, **kwargs: Any
     ) -> _models.EvaluationRule:
         """Create or update an evaluation rule.
 
@@ -4959,7 +5079,7 @@ class EvaluationRulesOperations:
 
     @distributed_trace_async
     async def create_or_update(
-        self, id: str, evaluation_rule: Union[_models.EvaluationRule, JSON, IO[bytes]], **kwargs: Any
+        self, id: str, evaluation_rule: Union[_models.EvaluationRule, JSON, IO[bytes]], request_parameters: Optional[RequestParameters] = None, **kwargs: Any
     ) -> _models.EvaluationRule:
         """Create or update an evaluation rule.
 
@@ -4972,6 +5092,10 @@ class EvaluationRulesOperations:
         :rtype: ~azure.ai.projects.models.EvaluationRule
         :raises ~azure.core.exceptions.HttpResponseError:
         """
+        if request_parameters:
+            for _rp_key, _rp_value in request_parameters.items():
+                kwargs.setdefault(_rp_key, _rp_value)
+
         error_map: MutableMapping = {
             401: ClientAuthenticationError,
             404: ResourceNotFoundError,
@@ -5154,7 +5278,7 @@ class EvaluationTaxonomiesOperations:
         self._deserialize: Deserializer = input_args.pop(0) if input_args else kwargs.pop("deserializer")
 
     @distributed_trace_async
-    async def get(self, name: str, **kwargs: Any) -> _models.EvaluationTaxonomy:
+    async def get(self, name: str, request_parameters: Optional[RequestParameters] = None, **kwargs: Any) -> _models.EvaluationTaxonomy:
         """Get an evaluation run by name.
 
         :param name: The name of the resource. Required.
@@ -5163,6 +5287,10 @@ class EvaluationTaxonomiesOperations:
         :rtype: ~azure.ai.projects.models.EvaluationTaxonomy
         :raises ~azure.core.exceptions.HttpResponseError:
         """
+        if request_parameters:
+            for _rp_key, _rp_value in request_parameters.items():
+                kwargs.setdefault(_rp_key, _rp_value)
+
         error_map: MutableMapping = {
             401: ClientAuthenticationError,
             404: ResourceNotFoundError,
@@ -5313,7 +5441,7 @@ class EvaluationTaxonomiesOperations:
         return AsyncItemPaged(get_next, extract_data)
 
     @distributed_trace_async
-    async def delete(self, name: str, **kwargs: Any) -> None:
+    async def delete(self, name: str, request_parameters: Optional[RequestParameters] = None, **kwargs: Any) -> None:
         """Delete an evaluation taxonomy by name.
 
         :param name: The name of the resource. Required.
@@ -5322,6 +5450,10 @@ class EvaluationTaxonomiesOperations:
         :rtype: None
         :raises ~azure.core.exceptions.HttpResponseError:
         """
+        if request_parameters:
+            for _rp_key, _rp_value in request_parameters.items():
+                kwargs.setdefault(_rp_key, _rp_value)
+
         error_map: MutableMapping = {
             401: ClientAuthenticationError,
             404: ResourceNotFoundError,
@@ -5367,7 +5499,7 @@ class EvaluationTaxonomiesOperations:
 
     @overload
     async def create(
-        self, name: str, body: _models.EvaluationTaxonomy, *, content_type: str = "application/json", **kwargs: Any
+        self, name: str, body: _models.EvaluationTaxonomy, *, content_type: str = "application/json", request_parameters: Optional[RequestParameters] = None, **kwargs: Any
     ) -> _models.EvaluationTaxonomy:
         """Create an evaluation taxonomy.
 
@@ -5385,7 +5517,7 @@ class EvaluationTaxonomiesOperations:
 
     @overload
     async def create(
-        self, name: str, body: JSON, *, content_type: str = "application/json", **kwargs: Any
+        self, name: str, body: JSON, *, content_type: str = "application/json", request_parameters: Optional[RequestParameters] = None, **kwargs: Any
     ) -> _models.EvaluationTaxonomy:
         """Create an evaluation taxonomy.
 
@@ -5403,7 +5535,7 @@ class EvaluationTaxonomiesOperations:
 
     @overload
     async def create(
-        self, name: str, body: IO[bytes], *, content_type: str = "application/json", **kwargs: Any
+        self, name: str, body: IO[bytes], *, content_type: str = "application/json", request_parameters: Optional[RequestParameters] = None, **kwargs: Any
     ) -> _models.EvaluationTaxonomy:
         """Create an evaluation taxonomy.
 
@@ -5421,7 +5553,7 @@ class EvaluationTaxonomiesOperations:
 
     @distributed_trace_async
     async def create(
-        self, name: str, body: Union[_models.EvaluationTaxonomy, JSON, IO[bytes]], **kwargs: Any
+        self, name: str, body: Union[_models.EvaluationTaxonomy, JSON, IO[bytes]], request_parameters: Optional[RequestParameters] = None, **kwargs: Any
     ) -> _models.EvaluationTaxonomy:
         """Create an evaluation taxonomy.
 
@@ -5434,6 +5566,10 @@ class EvaluationTaxonomiesOperations:
         :rtype: ~azure.ai.projects.models.EvaluationTaxonomy
         :raises ~azure.core.exceptions.HttpResponseError:
         """
+        if request_parameters:
+            for _rp_key, _rp_value in request_parameters.items():
+                kwargs.setdefault(_rp_key, _rp_value)
+
         error_map: MutableMapping = {
             401: ClientAuthenticationError,
             404: ResourceNotFoundError,
@@ -5496,7 +5632,7 @@ class EvaluationTaxonomiesOperations:
 
     @overload
     async def update(
-        self, name: str, body: _models.EvaluationTaxonomy, *, content_type: str = "application/json", **kwargs: Any
+        self, name: str, body: _models.EvaluationTaxonomy, *, content_type: str = "application/json", request_parameters: Optional[RequestParameters] = None, **kwargs: Any
     ) -> _models.EvaluationTaxonomy:
         """Update an evaluation taxonomy.
 
@@ -5514,7 +5650,7 @@ class EvaluationTaxonomiesOperations:
 
     @overload
     async def update(
-        self, name: str, body: JSON, *, content_type: str = "application/json", **kwargs: Any
+        self, name: str, body: JSON, *, content_type: str = "application/json", request_parameters: Optional[RequestParameters] = None, **kwargs: Any
     ) -> _models.EvaluationTaxonomy:
         """Update an evaluation taxonomy.
 
@@ -5532,7 +5668,7 @@ class EvaluationTaxonomiesOperations:
 
     @overload
     async def update(
-        self, name: str, body: IO[bytes], *, content_type: str = "application/json", **kwargs: Any
+        self, name: str, body: IO[bytes], *, content_type: str = "application/json", request_parameters: Optional[RequestParameters] = None, **kwargs: Any
     ) -> _models.EvaluationTaxonomy:
         """Update an evaluation taxonomy.
 
@@ -5550,7 +5686,7 @@ class EvaluationTaxonomiesOperations:
 
     @distributed_trace_async
     async def update(
-        self, name: str, body: Union[_models.EvaluationTaxonomy, JSON, IO[bytes]], **kwargs: Any
+        self, name: str, body: Union[_models.EvaluationTaxonomy, JSON, IO[bytes]], request_parameters: Optional[RequestParameters] = None, **kwargs: Any
     ) -> _models.EvaluationTaxonomy:
         """Update an evaluation taxonomy.
 
@@ -5563,6 +5699,10 @@ class EvaluationTaxonomiesOperations:
         :rtype: ~azure.ai.projects.models.EvaluationTaxonomy
         :raises ~azure.core.exceptions.HttpResponseError:
         """
+        if request_parameters:
+            for _rp_key, _rp_value in request_parameters.items():
+                kwargs.setdefault(_rp_key, _rp_value)
+
         error_map: MutableMapping = {
             401: ClientAuthenticationError,
             404: ResourceNotFoundError,
@@ -5848,7 +5988,7 @@ class EvaluatorsOperations:
         return AsyncItemPaged(get_next, extract_data)
 
     @distributed_trace_async
-    async def get_version(self, name: str, version: str, **kwargs: Any) -> _models.EvaluatorVersion:
+    async def get_version(self, name: str, version: str, request_parameters: Optional[RequestParameters] = None, **kwargs: Any) -> _models.EvaluatorVersion:
         """Get the specific version of the EvaluatorVersion. The service returns 404 Not Found error if
         the EvaluatorVersion does not exist.
 
@@ -5860,6 +6000,10 @@ class EvaluatorsOperations:
         :rtype: ~azure.ai.projects.models.EvaluatorVersion
         :raises ~azure.core.exceptions.HttpResponseError:
         """
+        if request_parameters:
+            for _rp_key, _rp_value in request_parameters.items():
+                kwargs.setdefault(_rp_key, _rp_value)
+
         error_map: MutableMapping = {
             401: ClientAuthenticationError,
             404: ResourceNotFoundError,
@@ -5912,7 +6056,7 @@ class EvaluatorsOperations:
         return deserialized  # type: ignore
 
     @distributed_trace_async
-    async def delete_version(self, name: str, version: str, **kwargs: Any) -> None:
+    async def delete_version(self, name: str, version: str, request_parameters: Optional[RequestParameters] = None, **kwargs: Any) -> None:
         """Delete the specific version of the EvaluatorVersion. The service returns 204 No Content if the
         EvaluatorVersion was deleted successfully or if the EvaluatorVersion does not exist.
 
@@ -5924,6 +6068,10 @@ class EvaluatorsOperations:
         :rtype: None
         :raises ~azure.core.exceptions.HttpResponseError:
         """
+        if request_parameters:
+            for _rp_key, _rp_value in request_parameters.items():
+                kwargs.setdefault(_rp_key, _rp_value)
+
         error_map: MutableMapping = {
             401: ClientAuthenticationError,
             404: ResourceNotFoundError,
@@ -5970,7 +6118,7 @@ class EvaluatorsOperations:
         evaluator_version: _models.EvaluatorVersion,
         *,
         content_type: str = "application/json",
-        **kwargs: Any
+        request_parameters: Optional[RequestParameters] = None, **kwargs: Any
     ) -> _models.EvaluatorVersion:
         """Create a new EvaluatorVersion with auto incremented version id.
 
@@ -5988,7 +6136,7 @@ class EvaluatorsOperations:
 
     @overload
     async def create_version(
-        self, name: str, evaluator_version: JSON, *, content_type: str = "application/json", **kwargs: Any
+        self, name: str, evaluator_version: JSON, *, content_type: str = "application/json", request_parameters: Optional[RequestParameters] = None, **kwargs: Any
     ) -> _models.EvaluatorVersion:
         """Create a new EvaluatorVersion with auto incremented version id.
 
@@ -6006,7 +6154,7 @@ class EvaluatorsOperations:
 
     @overload
     async def create_version(
-        self, name: str, evaluator_version: IO[bytes], *, content_type: str = "application/json", **kwargs: Any
+        self, name: str, evaluator_version: IO[bytes], *, content_type: str = "application/json", request_parameters: Optional[RequestParameters] = None, **kwargs: Any
     ) -> _models.EvaluatorVersion:
         """Create a new EvaluatorVersion with auto incremented version id.
 
@@ -6024,7 +6172,7 @@ class EvaluatorsOperations:
 
     @distributed_trace_async
     async def create_version(
-        self, name: str, evaluator_version: Union[_models.EvaluatorVersion, JSON, IO[bytes]], **kwargs: Any
+        self, name: str, evaluator_version: Union[_models.EvaluatorVersion, JSON, IO[bytes]], request_parameters: Optional[RequestParameters] = None, **kwargs: Any
     ) -> _models.EvaluatorVersion:
         """Create a new EvaluatorVersion with auto incremented version id.
 
@@ -6037,6 +6185,10 @@ class EvaluatorsOperations:
         :rtype: ~azure.ai.projects.models.EvaluatorVersion
         :raises ~azure.core.exceptions.HttpResponseError:
         """
+        if request_parameters:
+            for _rp_key, _rp_value in request_parameters.items():
+                kwargs.setdefault(_rp_key, _rp_value)
+
         error_map: MutableMapping = {
             401: ClientAuthenticationError,
             404: ResourceNotFoundError,
@@ -6105,7 +6257,7 @@ class EvaluatorsOperations:
         evaluator_version: _models.EvaluatorVersion,
         *,
         content_type: str = "application/json",
-        **kwargs: Any
+        request_parameters: Optional[RequestParameters] = None, **kwargs: Any
     ) -> _models.EvaluatorVersion:
         """Update an existing EvaluatorVersion with the given version id.
 
@@ -6125,7 +6277,7 @@ class EvaluatorsOperations:
 
     @overload
     async def update_version(
-        self, name: str, version: str, evaluator_version: JSON, *, content_type: str = "application/json", **kwargs: Any
+        self, name: str, version: str, evaluator_version: JSON, *, content_type: str = "application/json", request_parameters: Optional[RequestParameters] = None, **kwargs: Any
     ) -> _models.EvaluatorVersion:
         """Update an existing EvaluatorVersion with the given version id.
 
@@ -6151,7 +6303,7 @@ class EvaluatorsOperations:
         evaluator_version: IO[bytes],
         *,
         content_type: str = "application/json",
-        **kwargs: Any
+        request_parameters: Optional[RequestParameters] = None, **kwargs: Any
     ) -> _models.EvaluatorVersion:
         """Update an existing EvaluatorVersion with the given version id.
 
@@ -6175,7 +6327,7 @@ class EvaluatorsOperations:
         name: str,
         version: str,
         evaluator_version: Union[_models.EvaluatorVersion, JSON, IO[bytes]],
-        **kwargs: Any
+        request_parameters: Optional[RequestParameters] = None, **kwargs: Any
     ) -> _models.EvaluatorVersion:
         """Update an existing EvaluatorVersion with the given version id.
 
@@ -6190,6 +6342,10 @@ class EvaluatorsOperations:
         :rtype: ~azure.ai.projects.models.EvaluatorVersion
         :raises ~azure.core.exceptions.HttpResponseError:
         """
+        if request_parameters:
+            for _rp_key, _rp_value in request_parameters.items():
+                kwargs.setdefault(_rp_key, _rp_value)
+
         error_map: MutableMapping = {
             401: ClientAuthenticationError,
             404: ResourceNotFoundError,
@@ -6271,7 +6427,7 @@ class InsightsOperations:
 
     @overload
     async def generate(
-        self, insight: _models.Insight, *, content_type: str = "application/json", **kwargs: Any
+        self, insight: _models.Insight, *, content_type: str = "application/json", request_parameters: Optional[RequestParameters] = None, **kwargs: Any
     ) -> _models.Insight:
         """Generate Insights.
 
@@ -6288,7 +6444,7 @@ class InsightsOperations:
 
     @overload
     async def generate(
-        self, insight: JSON, *, content_type: str = "application/json", **kwargs: Any
+        self, insight: JSON, *, content_type: str = "application/json", request_parameters: Optional[RequestParameters] = None, **kwargs: Any
     ) -> _models.Insight:
         """Generate Insights.
 
@@ -6305,7 +6461,7 @@ class InsightsOperations:
 
     @overload
     async def generate(
-        self, insight: IO[bytes], *, content_type: str = "application/json", **kwargs: Any
+        self, insight: IO[bytes], *, content_type: str = "application/json", request_parameters: Optional[RequestParameters] = None, **kwargs: Any
     ) -> _models.Insight:
         """Generate Insights.
 
@@ -6321,7 +6477,7 @@ class InsightsOperations:
         """
 
     @distributed_trace_async
-    async def generate(self, insight: Union[_models.Insight, JSON, IO[bytes]], **kwargs: Any) -> _models.Insight:
+    async def generate(self, insight: Union[_models.Insight, JSON, IO[bytes]], request_parameters: Optional[RequestParameters] = None, **kwargs: Any) -> _models.Insight:
         """Generate Insights.
 
         :param insight: Complete evaluation configuration including data source, evaluators, and result
@@ -6331,6 +6487,10 @@ class InsightsOperations:
         :rtype: ~azure.ai.projects.models.Insight
         :raises ~azure.core.exceptions.HttpResponseError:
         """
+        if request_parameters:
+            for _rp_key, _rp_value in request_parameters.items():
+                kwargs.setdefault(_rp_key, _rp_value)
+
         error_map: MutableMapping = {
             401: ClientAuthenticationError,
             404: ResourceNotFoundError,
@@ -6391,7 +6551,7 @@ class InsightsOperations:
         return deserialized  # type: ignore
 
     @distributed_trace_async
-    async def get(self, id: str, *, include_coordinates: Optional[bool] = None, **kwargs: Any) -> _models.Insight:
+    async def get(self, id: str, *, include_coordinates: Optional[bool] = None, request_parameters: Optional[RequestParameters] = None, **kwargs: Any) -> _models.Insight:
         """Get a specific insight by Id.
 
         :param id: The unique identifier for the insights report. Required.
@@ -6403,6 +6563,10 @@ class InsightsOperations:
         :rtype: ~azure.ai.projects.models.Insight
         :raises ~azure.core.exceptions.HttpResponseError:
         """
+        if request_parameters:
+            for _rp_key, _rp_value in request_parameters.items():
+                kwargs.setdefault(_rp_key, _rp_value)
+
         error_map: MutableMapping = {
             401: ClientAuthenticationError,
             404: ResourceNotFoundError,
@@ -6586,7 +6750,7 @@ class SchedulesOperations:
         self._deserialize: Deserializer = input_args.pop(0) if input_args else kwargs.pop("deserializer")
 
     @distributed_trace_async
-    async def delete(self, id: str, **kwargs: Any) -> None:
+    async def delete(self, id: str, request_parameters: Optional[RequestParameters] = None, **kwargs: Any) -> None:
         """Delete a schedule.
 
         :param id: Identifier of the schedule. Required.
@@ -6595,6 +6759,10 @@ class SchedulesOperations:
         :rtype: None
         :raises ~azure.core.exceptions.HttpResponseError:
         """
+        if request_parameters:
+            for _rp_key, _rp_value in request_parameters.items():
+                kwargs.setdefault(_rp_key, _rp_value)
+
         error_map: MutableMapping = {
             401: ClientAuthenticationError,
             404: ResourceNotFoundError,
@@ -6639,7 +6807,7 @@ class SchedulesOperations:
             return cls(pipeline_response, None, response_headers)  # type: ignore
 
     @distributed_trace_async
-    async def get(self, id: str, **kwargs: Any) -> _models.Schedule:
+    async def get(self, id: str, request_parameters: Optional[RequestParameters] = None, **kwargs: Any) -> _models.Schedule:
         """Get a schedule by id.
 
         :param id: Identifier of the schedule. Required.
@@ -6648,6 +6816,10 @@ class SchedulesOperations:
         :rtype: ~azure.ai.projects.models.Schedule
         :raises ~azure.core.exceptions.HttpResponseError:
         """
+        if request_parameters:
+            for _rp_key, _rp_value in request_parameters.items():
+                kwargs.setdefault(_rp_key, _rp_value)
+
         error_map: MutableMapping = {
             401: ClientAuthenticationError,
             404: ResourceNotFoundError,
@@ -6791,7 +6963,7 @@ class SchedulesOperations:
 
     @overload
     async def create_or_update(
-        self, id: str, schedule: _models.Schedule, *, content_type: str = "application/json", **kwargs: Any
+        self, id: str, schedule: _models.Schedule, *, content_type: str = "application/json", request_parameters: Optional[RequestParameters] = None, **kwargs: Any
     ) -> _models.Schedule:
         """Create or update a schedule by id.
 
@@ -6809,7 +6981,7 @@ class SchedulesOperations:
 
     @overload
     async def create_or_update(
-        self, id: str, schedule: JSON, *, content_type: str = "application/json", **kwargs: Any
+        self, id: str, schedule: JSON, *, content_type: str = "application/json", request_parameters: Optional[RequestParameters] = None, **kwargs: Any
     ) -> _models.Schedule:
         """Create or update a schedule by id.
 
@@ -6827,7 +6999,7 @@ class SchedulesOperations:
 
     @overload
     async def create_or_update(
-        self, id: str, schedule: IO[bytes], *, content_type: str = "application/json", **kwargs: Any
+        self, id: str, schedule: IO[bytes], *, content_type: str = "application/json", request_parameters: Optional[RequestParameters] = None, **kwargs: Any
     ) -> _models.Schedule:
         """Create or update a schedule by id.
 
@@ -6845,7 +7017,7 @@ class SchedulesOperations:
 
     @distributed_trace_async
     async def create_or_update(
-        self, id: str, schedule: Union[_models.Schedule, JSON, IO[bytes]], **kwargs: Any
+        self, id: str, schedule: Union[_models.Schedule, JSON, IO[bytes]], request_parameters: Optional[RequestParameters] = None, **kwargs: Any
     ) -> _models.Schedule:
         """Create or update a schedule by id.
 
@@ -6858,6 +7030,10 @@ class SchedulesOperations:
         :rtype: ~azure.ai.projects.models.Schedule
         :raises ~azure.core.exceptions.HttpResponseError:
         """
+        if request_parameters:
+            for _rp_key, _rp_value in request_parameters.items():
+                kwargs.setdefault(_rp_key, _rp_value)
+
         error_map: MutableMapping = {
             401: ClientAuthenticationError,
             404: ResourceNotFoundError,
@@ -6919,7 +7095,7 @@ class SchedulesOperations:
         return deserialized  # type: ignore
 
     @distributed_trace_async
-    async def get_run(self, schedule_id: str, run_id: str, **kwargs: Any) -> _models.ScheduleRun:
+    async def get_run(self, schedule_id: str, run_id: str, request_parameters: Optional[RequestParameters] = None, **kwargs: Any) -> _models.ScheduleRun:
         """Get a schedule run by id.
 
         :param schedule_id: Identifier of the schedule. Required.
@@ -6930,6 +7106,10 @@ class SchedulesOperations:
         :rtype: ~azure.ai.projects.models.ScheduleRun
         :raises ~azure.core.exceptions.HttpResponseError:
         """
+        if request_parameters:
+            for _rp_key, _rp_value in request_parameters.items():
+                kwargs.setdefault(_rp_key, _rp_value)
+
         error_map: MutableMapping = {
             401: ClientAuthenticationError,
             404: ResourceNotFoundError,

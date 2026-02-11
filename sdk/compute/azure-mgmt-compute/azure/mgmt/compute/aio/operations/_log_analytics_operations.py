@@ -31,6 +31,7 @@ from azure.mgmt.core.polling.async_arm_polling import AsyncARMPolling
 from ... import models as _models
 from ..._utils.serialization import Deserializer, Serializer
 from ...types import LRORequestParameters, RequestParameters
+from ...types import LRORequestParameters, RequestParameters
 from ...operations._log_analytics_operations import (
     build_export_request_rate_by_interval_request,
     build_export_throttled_requests_request,
@@ -136,7 +137,7 @@ class LogAnalyticsOperations:
         parameters: _models.RequestRateByIntervalInput,
         *,
         content_type: str = "application/json",
-        **kwargs: Any
+        request_parameters: Optional[LRORequestParameters] = None, **kwargs: Any
     ) -> AsyncLROPoller[_models.LogAnalyticsOperationResult]:
         """Export logs that show Api requests made by this subscription in the given time window to show
         throttling activities.
@@ -158,7 +159,7 @@ class LogAnalyticsOperations:
 
     @overload
     async def begin_export_request_rate_by_interval(
-        self, location: str, parameters: IO[bytes], *, content_type: str = "application/json", **kwargs: Any
+        self, location: str, parameters: IO[bytes], *, content_type: str = "application/json", request_parameters: Optional[LRORequestParameters] = None, **kwargs: Any
     ) -> AsyncLROPoller[_models.LogAnalyticsOperationResult]:
         """Export logs that show Api requests made by this subscription in the given time window to show
         throttling activities.
@@ -180,7 +181,7 @@ class LogAnalyticsOperations:
 
     @distributed_trace_async
     async def begin_export_request_rate_by_interval(
-        self, location: str, parameters: Union[_models.RequestRateByIntervalInput, IO[bytes]], **kwargs: Any
+        self, location: str, parameters: Union[_models.RequestRateByIntervalInput, IO[bytes]], request_parameters: Optional[LRORequestParameters] = None, **kwargs: Any
     ) -> AsyncLROPoller[_models.LogAnalyticsOperationResult]:
         """Export logs that show Api requests made by this subscription in the given time window to show
         throttling activities.
@@ -196,6 +197,10 @@ class LogAnalyticsOperations:
          ~azure.core.polling.AsyncLROPoller[~azure.mgmt.compute.models.LogAnalyticsOperationResult]
         :raises ~azure.core.exceptions.HttpResponseError:
         """
+        if request_parameters:
+            for _rp_key, _rp_value in request_parameters.items():
+                kwargs.setdefault(_rp_key, _rp_value)
+
         _headers = case_insensitive_dict(kwargs.pop("headers", {}) or {})
         _params = case_insensitive_dict(kwargs.pop("params", {}) or {})
 
@@ -320,7 +325,7 @@ class LogAnalyticsOperations:
         parameters: _models.ThrottledRequestsInput,
         *,
         content_type: str = "application/json",
-        **kwargs: Any
+        request_parameters: Optional[LRORequestParameters] = None, **kwargs: Any
     ) -> AsyncLROPoller[_models.LogAnalyticsOperationResult]:
         """Export logs that show total throttled Api requests for this subscription in the given time
         window.
@@ -341,7 +346,7 @@ class LogAnalyticsOperations:
 
     @overload
     async def begin_export_throttled_requests(
-        self, location: str, parameters: IO[bytes], *, content_type: str = "application/json", **kwargs: Any
+        self, location: str, parameters: IO[bytes], *, content_type: str = "application/json", request_parameters: Optional[LRORequestParameters] = None, **kwargs: Any
     ) -> AsyncLROPoller[_models.LogAnalyticsOperationResult]:
         """Export logs that show total throttled Api requests for this subscription in the given time
         window.
@@ -362,7 +367,7 @@ class LogAnalyticsOperations:
 
     @distributed_trace_async
     async def begin_export_throttled_requests(
-        self, location: str, parameters: Union[_models.ThrottledRequestsInput, IO[bytes]], **kwargs: Any
+        self, location: str, parameters: Union[_models.ThrottledRequestsInput, IO[bytes]], request_parameters: Optional[LRORequestParameters] = None, **kwargs: Any
     ) -> AsyncLROPoller[_models.LogAnalyticsOperationResult]:
         """Export logs that show total throttled Api requests for this subscription in the given time
         window.
@@ -378,6 +383,10 @@ class LogAnalyticsOperations:
          ~azure.core.polling.AsyncLROPoller[~azure.mgmt.compute.models.LogAnalyticsOperationResult]
         :raises ~azure.core.exceptions.HttpResponseError:
         """
+        if request_parameters:
+            for _rp_key, _rp_value in request_parameters.items():
+                kwargs.setdefault(_rp_key, _rp_value)
+
         _headers = case_insensitive_dict(kwargs.pop("headers", {}) or {})
         _params = case_insensitive_dict(kwargs.pop("params", {}) or {})
 

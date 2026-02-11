@@ -210,7 +210,7 @@ class DiskEncryptionSetsOperations:
 
     @distributed_trace_async
     async def get(
-        self, resource_group_name: str, disk_encryption_set_name: str, **kwargs: Any
+        self, resource_group_name: str, disk_encryption_set_name: str, request_parameters: Optional[RequestParameters] = None, **kwargs: Any
     ) -> _models.DiskEncryptionSet:
         """Gets information about a disk encryption set.
 
@@ -225,6 +225,10 @@ class DiskEncryptionSetsOperations:
         :rtype: ~azure.mgmt.compute.models.DiskEncryptionSet
         :raises ~azure.core.exceptions.HttpResponseError:
         """
+        if request_parameters:
+            for _rp_key, _rp_value in request_parameters.items():
+                kwargs.setdefault(_rp_key, _rp_value)
+
         error_map: MutableMapping = {
             401: ClientAuthenticationError,
             404: ResourceNotFoundError,
@@ -346,7 +350,7 @@ class DiskEncryptionSetsOperations:
         disk_encryption_set: _models.DiskEncryptionSet,
         *,
         content_type: str = "application/json",
-        **kwargs: Any
+        request_parameters: Optional[LRORequestParameters] = None, **kwargs: Any
     ) -> AsyncLROPoller[_models.DiskEncryptionSet]:
         """Creates or updates a disk encryption set.
 
@@ -377,7 +381,7 @@ class DiskEncryptionSetsOperations:
         disk_encryption_set: IO[bytes],
         *,
         content_type: str = "application/json",
-        **kwargs: Any
+        request_parameters: Optional[LRORequestParameters] = None, **kwargs: Any
     ) -> AsyncLROPoller[_models.DiskEncryptionSet]:
         """Creates or updates a disk encryption set.
 
@@ -406,7 +410,7 @@ class DiskEncryptionSetsOperations:
         resource_group_name: str,
         disk_encryption_set_name: str,
         disk_encryption_set: Union[_models.DiskEncryptionSet, IO[bytes]],
-        **kwargs: Any
+        request_parameters: Optional[LRORequestParameters] = None, **kwargs: Any
     ) -> AsyncLROPoller[_models.DiskEncryptionSet]:
         """Creates or updates a disk encryption set.
 
@@ -425,6 +429,10 @@ class DiskEncryptionSetsOperations:
         :rtype: ~azure.core.polling.AsyncLROPoller[~azure.mgmt.compute.models.DiskEncryptionSet]
         :raises ~azure.core.exceptions.HttpResponseError:
         """
+        if request_parameters:
+            for _rp_key, _rp_value in request_parameters.items():
+                kwargs.setdefault(_rp_key, _rp_value)
+
         _headers = case_insensitive_dict(kwargs.pop("headers", {}) or {})
         _params = case_insensitive_dict(kwargs.pop("params", {}) or {})
 
@@ -553,7 +561,7 @@ class DiskEncryptionSetsOperations:
         disk_encryption_set: _models.DiskEncryptionSetUpdate,
         *,
         content_type: str = "application/json",
-        **kwargs: Any
+        request_parameters: Optional[LRORequestParameters] = None, **kwargs: Any
     ) -> AsyncLROPoller[_models.DiskEncryptionSet]:
         """Updates (patches) a disk encryption set.
 
@@ -584,7 +592,7 @@ class DiskEncryptionSetsOperations:
         disk_encryption_set: IO[bytes],
         *,
         content_type: str = "application/json",
-        **kwargs: Any
+        request_parameters: Optional[LRORequestParameters] = None, **kwargs: Any
     ) -> AsyncLROPoller[_models.DiskEncryptionSet]:
         """Updates (patches) a disk encryption set.
 
@@ -613,7 +621,7 @@ class DiskEncryptionSetsOperations:
         resource_group_name: str,
         disk_encryption_set_name: str,
         disk_encryption_set: Union[_models.DiskEncryptionSetUpdate, IO[bytes]],
-        **kwargs: Any
+        request_parameters: Optional[LRORequestParameters] = None, **kwargs: Any
     ) -> AsyncLROPoller[_models.DiskEncryptionSet]:
         """Updates (patches) a disk encryption set.
 
@@ -633,6 +641,10 @@ class DiskEncryptionSetsOperations:
         :rtype: ~azure.core.polling.AsyncLROPoller[~azure.mgmt.compute.models.DiskEncryptionSet]
         :raises ~azure.core.exceptions.HttpResponseError:
         """
+        if request_parameters:
+            for _rp_key, _rp_value in request_parameters.items():
+                kwargs.setdefault(_rp_key, _rp_value)
+
         _headers = case_insensitive_dict(kwargs.pop("headers", {}) or {})
         _params = case_insensitive_dict(kwargs.pop("params", {}) or {})
 
@@ -739,7 +751,7 @@ class DiskEncryptionSetsOperations:
 
     @distributed_trace_async
     async def begin_delete(
-        self, resource_group_name: str, disk_encryption_set_name: str, **kwargs: Any
+        self, resource_group_name: str, disk_encryption_set_name: str, request_parameters: Optional[LRORequestParameters] = None, **kwargs: Any
     ) -> AsyncLROPoller[None]:
         """Deletes a disk encryption set.
 
@@ -754,6 +766,10 @@ class DiskEncryptionSetsOperations:
         :rtype: ~azure.core.polling.AsyncLROPoller[None]
         :raises ~azure.core.exceptions.HttpResponseError:
         """
+        if request_parameters:
+            for _rp_key, _rp_value in request_parameters.items():
+                kwargs.setdefault(_rp_key, _rp_value)
+
         _headers = kwargs.pop("headers", {}) or {}
         _params = case_insensitive_dict(kwargs.pop("params", {}) or {})
 

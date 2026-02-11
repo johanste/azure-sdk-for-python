@@ -61,7 +61,7 @@ class CloudServiceOperatingSystemsOperations:
         self._deserialize: Deserializer = input_args.pop(0) if input_args else kwargs.pop("deserializer")
 
     @distributed_trace_async
-    async def get_os_version(self, location: str, os_version_name: str, **kwargs: Any) -> _models.OSVersion:
+    async def get_os_version(self, location: str, os_version_name: str, request_parameters: Optional[RequestParameters] = None, **kwargs: Any) -> _models.OSVersion:
         """Gets properties of a guest operating system version that can be specified in the XML service
         configuration (.cscfg) for a cloud service.
 
@@ -73,6 +73,10 @@ class CloudServiceOperatingSystemsOperations:
         :rtype: ~azure.mgmt.compute.models.OSVersion
         :raises ~azure.core.exceptions.HttpResponseError:
         """
+        if request_parameters:
+            for _rp_key, _rp_value in request_parameters.items():
+                kwargs.setdefault(_rp_key, _rp_value)
+
         error_map: MutableMapping = {
             401: ClientAuthenticationError,
             404: ResourceNotFoundError,
@@ -188,7 +192,7 @@ class CloudServiceOperatingSystemsOperations:
         return AsyncItemPaged(get_next, extract_data)
 
     @distributed_trace_async
-    async def get_os_family(self, location: str, os_family_name: str, **kwargs: Any) -> _models.OSFamily:
+    async def get_os_family(self, location: str, os_family_name: str, request_parameters: Optional[RequestParameters] = None, **kwargs: Any) -> _models.OSFamily:
         """Gets properties of a guest operating system family that can be specified in the XML service
         configuration (.cscfg) for a cloud service.
 
@@ -200,6 +204,10 @@ class CloudServiceOperatingSystemsOperations:
         :rtype: ~azure.mgmt.compute.models.OSFamily
         :raises ~azure.core.exceptions.HttpResponseError:
         """
+        if request_parameters:
+            for _rp_key, _rp_value in request_parameters.items():
+                kwargs.setdefault(_rp_key, _rp_value)
+
         error_map: MutableMapping = {
             401: ClientAuthenticationError,
             404: ResourceNotFoundError,

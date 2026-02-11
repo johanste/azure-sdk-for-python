@@ -184,7 +184,7 @@ class VirtualMachineScaleSetVMsOperations:  # pylint: disable=too-many-public-me
         vm_scale_set_name: str,
         instance_id: str,
         expand: Optional[Union[str, _models.InstanceViewTypes]] = None,
-        **kwargs: Any
+        request_parameters: Optional[RequestParameters] = None, **kwargs: Any
     ) -> _models.VirtualMachineScaleSetVM:
         """Gets a virtual machine from a VM scale set.
 
@@ -204,6 +204,10 @@ class VirtualMachineScaleSetVMsOperations:  # pylint: disable=too-many-public-me
         :rtype: ~azure.mgmt.compute.models.VirtualMachineScaleSetVM
         :raises ~azure.core.exceptions.HttpResponseError:
         """
+        if request_parameters:
+            for _rp_key, _rp_value in request_parameters.items():
+                kwargs.setdefault(_rp_key, _rp_value)
+
         error_map: MutableMapping = {
             401: ClientAuthenticationError,
             404: ResourceNotFoundError,
@@ -336,7 +340,7 @@ class VirtualMachineScaleSetVMsOperations:  # pylint: disable=too-many-public-me
         if_none_match: Optional[str] = None,
         *,
         content_type: str = "application/json",
-        **kwargs: Any
+        request_parameters: Optional[LRORequestParameters] = None, **kwargs: Any
     ) -> AsyncLROPoller[_models.VirtualMachineScaleSetVM]:
         """Updates a virtual machine of a VM scale set.
 
@@ -378,7 +382,7 @@ class VirtualMachineScaleSetVMsOperations:  # pylint: disable=too-many-public-me
         if_none_match: Optional[str] = None,
         *,
         content_type: str = "application/json",
-        **kwargs: Any
+        request_parameters: Optional[LRORequestParameters] = None, **kwargs: Any
     ) -> AsyncLROPoller[_models.VirtualMachineScaleSetVM]:
         """Updates a virtual machine of a VM scale set.
 
@@ -418,7 +422,7 @@ class VirtualMachineScaleSetVMsOperations:  # pylint: disable=too-many-public-me
         parameters: Union[_models.VirtualMachineScaleSetVM, IO[bytes]],
         if_match: Optional[str] = None,
         if_none_match: Optional[str] = None,
-        **kwargs: Any
+        request_parameters: Optional[LRORequestParameters] = None, **kwargs: Any
     ) -> AsyncLROPoller[_models.VirtualMachineScaleSetVM]:
         """Updates a virtual machine of a VM scale set.
 
@@ -445,6 +449,10 @@ class VirtualMachineScaleSetVMsOperations:  # pylint: disable=too-many-public-me
         :rtype: ~azure.core.polling.AsyncLROPoller[~azure.mgmt.compute.models.VirtualMachineScaleSetVM]
         :raises ~azure.core.exceptions.HttpResponseError:
         """
+        if request_parameters:
+            for _rp_key, _rp_value in request_parameters.items():
+                kwargs.setdefault(_rp_key, _rp_value)
+
         _headers = case_insensitive_dict(kwargs.pop("headers", {}) or {})
         _params = case_insensitive_dict(kwargs.pop("params", {}) or {})
 
@@ -566,7 +574,7 @@ class VirtualMachineScaleSetVMsOperations:  # pylint: disable=too-many-public-me
         vm_scale_set_name: str,
         instance_id: str,
         force_deletion: Optional[bool] = None,
-        **kwargs: Any
+        request_parameters: Optional[LRORequestParameters] = None, **kwargs: Any
     ) -> AsyncLROPoller[None]:
         """Deletes a virtual machine from a VM scale set.
 
@@ -584,6 +592,10 @@ class VirtualMachineScaleSetVMsOperations:  # pylint: disable=too-many-public-me
         :rtype: ~azure.core.polling.AsyncLROPoller[None]
         :raises ~azure.core.exceptions.HttpResponseError:
         """
+        if request_parameters:
+            for _rp_key, _rp_value in request_parameters.items():
+                kwargs.setdefault(_rp_key, _rp_value)
+
         _headers = kwargs.pop("headers", {}) or {}
         _params = case_insensitive_dict(kwargs.pop("params", {}) or {})
 
@@ -685,7 +697,7 @@ class VirtualMachineScaleSetVMsOperations:  # pylint: disable=too-many-public-me
 
     @distributed_trace_async
     async def begin_approve_rolling_upgrade(
-        self, resource_group_name: str, vm_scale_set_name: str, instance_id: str, **kwargs: Any
+        self, resource_group_name: str, vm_scale_set_name: str, instance_id: str, request_parameters: Optional[LRORequestParameters] = None, **kwargs: Any
     ) -> AsyncLROPoller[None]:
         """Approve upgrade on deferred rolling upgrade for OS disk on a VM scale set instance.
 
@@ -700,6 +712,10 @@ class VirtualMachineScaleSetVMsOperations:  # pylint: disable=too-many-public-me
         :rtype: ~azure.core.polling.AsyncLROPoller[None]
         :raises ~azure.core.exceptions.HttpResponseError:
         """
+        if request_parameters:
+            for _rp_key, _rp_value in request_parameters.items():
+                kwargs.setdefault(_rp_key, _rp_value)
+
         _headers = kwargs.pop("headers", {}) or {}
         _params = case_insensitive_dict(kwargs.pop("params", {}) or {})
 
@@ -825,7 +841,7 @@ class VirtualMachineScaleSetVMsOperations:  # pylint: disable=too-many-public-me
         parameters: _models.AttachDetachDataDisksRequest,
         *,
         content_type: str = "application/json",
-        **kwargs: Any
+        request_parameters: Optional[LRORequestParameters] = None, **kwargs: Any
     ) -> AsyncLROPoller[_models.StorageProfile]:
         """Attach and detach data disks to/from a virtual machine in a VM scale set.
 
@@ -857,7 +873,7 @@ class VirtualMachineScaleSetVMsOperations:  # pylint: disable=too-many-public-me
         parameters: IO[bytes],
         *,
         content_type: str = "application/json",
-        **kwargs: Any
+        request_parameters: Optional[LRORequestParameters] = None, **kwargs: Any
     ) -> AsyncLROPoller[_models.StorageProfile]:
         """Attach and detach data disks to/from a virtual machine in a VM scale set.
 
@@ -887,7 +903,7 @@ class VirtualMachineScaleSetVMsOperations:  # pylint: disable=too-many-public-me
         vm_scale_set_name: str,
         instance_id: str,
         parameters: Union[_models.AttachDetachDataDisksRequest, IO[bytes]],
-        **kwargs: Any
+        request_parameters: Optional[LRORequestParameters] = None, **kwargs: Any
     ) -> AsyncLROPoller[_models.StorageProfile]:
         """Attach and detach data disks to/from a virtual machine in a VM scale set.
 
@@ -907,6 +923,10 @@ class VirtualMachineScaleSetVMsOperations:  # pylint: disable=too-many-public-me
         :rtype: ~azure.core.polling.AsyncLROPoller[~azure.mgmt.compute.models.StorageProfile]
         :raises ~azure.core.exceptions.HttpResponseError:
         """
+        if request_parameters:
+            for _rp_key, _rp_value in request_parameters.items():
+                kwargs.setdefault(_rp_key, _rp_value)
+
         _headers = case_insensitive_dict(kwargs.pop("headers", {}) or {})
         _params = case_insensitive_dict(kwargs.pop("params", {}) or {})
 
@@ -1015,7 +1035,7 @@ class VirtualMachineScaleSetVMsOperations:  # pylint: disable=too-many-public-me
 
     @distributed_trace_async
     async def begin_deallocate(
-        self, resource_group_name: str, vm_scale_set_name: str, instance_id: str, **kwargs: Any
+        self, resource_group_name: str, vm_scale_set_name: str, instance_id: str, request_parameters: Optional[LRORequestParameters] = None, **kwargs: Any
     ) -> AsyncLROPoller[None]:
         """Deallocates a specific virtual machine in a VM scale set. Shuts down the virtual machine and
         releases the compute resources it uses. You are not billed for the compute resources of this
@@ -1032,6 +1052,10 @@ class VirtualMachineScaleSetVMsOperations:  # pylint: disable=too-many-public-me
         :rtype: ~azure.core.polling.AsyncLROPoller[None]
         :raises ~azure.core.exceptions.HttpResponseError:
         """
+        if request_parameters:
+            for _rp_key, _rp_value in request_parameters.items():
+                kwargs.setdefault(_rp_key, _rp_value)
+
         _headers = kwargs.pop("headers", {}) or {}
         _params = case_insensitive_dict(kwargs.pop("params", {}) or {})
 
@@ -1077,7 +1101,7 @@ class VirtualMachineScaleSetVMsOperations:  # pylint: disable=too-many-public-me
 
     @distributed_trace_async
     async def get_instance_view(
-        self, resource_group_name: str, vm_scale_set_name: str, instance_id: str, **kwargs: Any
+        self, resource_group_name: str, vm_scale_set_name: str, instance_id: str, request_parameters: Optional[RequestParameters] = None, **kwargs: Any
     ) -> _models.VirtualMachineScaleSetVMInstanceView:
         """Gets the status of a virtual machine from a VM scale set.
 
@@ -1092,6 +1116,10 @@ class VirtualMachineScaleSetVMsOperations:  # pylint: disable=too-many-public-me
         :rtype: ~azure.mgmt.compute.models.VirtualMachineScaleSetVMInstanceView
         :raises ~azure.core.exceptions.HttpResponseError:
         """
+        if request_parameters:
+            for _rp_key, _rp_value in request_parameters.items():
+                kwargs.setdefault(_rp_key, _rp_value)
+
         error_map: MutableMapping = {
             401: ClientAuthenticationError,
             404: ResourceNotFoundError,
@@ -1193,7 +1221,7 @@ class VirtualMachineScaleSetVMsOperations:  # pylint: disable=too-many-public-me
 
     @distributed_trace_async
     async def begin_perform_maintenance(
-        self, resource_group_name: str, vm_scale_set_name: str, instance_id: str, **kwargs: Any
+        self, resource_group_name: str, vm_scale_set_name: str, instance_id: str, request_parameters: Optional[LRORequestParameters] = None, **kwargs: Any
     ) -> AsyncLROPoller[None]:
         """Performs maintenance on a virtual machine in a VM scale set.
 
@@ -1208,6 +1236,10 @@ class VirtualMachineScaleSetVMsOperations:  # pylint: disable=too-many-public-me
         :rtype: ~azure.core.polling.AsyncLROPoller[None]
         :raises ~azure.core.exceptions.HttpResponseError:
         """
+        if request_parameters:
+            for _rp_key, _rp_value in request_parameters.items():
+                kwargs.setdefault(_rp_key, _rp_value)
+
         _headers = kwargs.pop("headers", {}) or {}
         _params = case_insensitive_dict(kwargs.pop("params", {}) or {})
 
@@ -1320,7 +1352,7 @@ class VirtualMachineScaleSetVMsOperations:  # pylint: disable=too-many-public-me
         vm_scale_set_name: str,
         instance_id: str,
         skip_shutdown: Optional[bool] = None,
-        **kwargs: Any
+        request_parameters: Optional[LRORequestParameters] = None, **kwargs: Any
     ) -> AsyncLROPoller[None]:
         """Power off (stop) a virtual machine in a VM scale set. Note that resources are still attached
         and you are getting charged for the resources. Instead, use deallocate to release resources and
@@ -1341,6 +1373,10 @@ class VirtualMachineScaleSetVMsOperations:  # pylint: disable=too-many-public-me
         :rtype: ~azure.core.polling.AsyncLROPoller[None]
         :raises ~azure.core.exceptions.HttpResponseError:
         """
+        if request_parameters:
+            for _rp_key, _rp_value in request_parameters.items():
+                kwargs.setdefault(_rp_key, _rp_value)
+
         _headers = kwargs.pop("headers", {}) or {}
         _params = case_insensitive_dict(kwargs.pop("params", {}) or {})
 
@@ -1443,7 +1479,7 @@ class VirtualMachineScaleSetVMsOperations:  # pylint: disable=too-many-public-me
 
     @distributed_trace_async
     async def begin_redeploy(
-        self, resource_group_name: str, vm_scale_set_name: str, instance_id: str, **kwargs: Any
+        self, resource_group_name: str, vm_scale_set_name: str, instance_id: str, request_parameters: Optional[LRORequestParameters] = None, **kwargs: Any
     ) -> AsyncLROPoller[None]:
         """Shuts down the virtual machine in the virtual machine scale set, moves it to a new node, and
         powers it back on.
@@ -1459,6 +1495,10 @@ class VirtualMachineScaleSetVMsOperations:  # pylint: disable=too-many-public-me
         :rtype: ~azure.core.polling.AsyncLROPoller[None]
         :raises ~azure.core.exceptions.HttpResponseError:
         """
+        if request_parameters:
+            for _rp_key, _rp_value in request_parameters.items():
+                kwargs.setdefault(_rp_key, _rp_value)
+
         _headers = kwargs.pop("headers", {}) or {}
         _params = case_insensitive_dict(kwargs.pop("params", {}) or {})
 
@@ -1590,7 +1630,7 @@ class VirtualMachineScaleSetVMsOperations:  # pylint: disable=too-many-public-me
         vm_scale_set_vm_reimage_input: Optional[_models.VirtualMachineScaleSetVMReimageParameters] = None,
         *,
         content_type: str = "application/json",
-        **kwargs: Any
+        request_parameters: Optional[LRORequestParameters] = None, **kwargs: Any
     ) -> AsyncLROPoller[None]:
         """Reimages (upgrade the operating system) a specific virtual machine in a VM scale set.
 
@@ -1622,7 +1662,7 @@ class VirtualMachineScaleSetVMsOperations:  # pylint: disable=too-many-public-me
         vm_scale_set_vm_reimage_input: Optional[IO[bytes]] = None,
         *,
         content_type: str = "application/json",
-        **kwargs: Any
+        request_parameters: Optional[LRORequestParameters] = None, **kwargs: Any
     ) -> AsyncLROPoller[None]:
         """Reimages (upgrade the operating system) a specific virtual machine in a VM scale set.
 
@@ -1653,7 +1693,7 @@ class VirtualMachineScaleSetVMsOperations:  # pylint: disable=too-many-public-me
         vm_scale_set_vm_reimage_input: Optional[
             Union[_models.VirtualMachineScaleSetVMReimageParameters, IO[bytes]]
         ] = None,
-        **kwargs: Any
+        request_parameters: Optional[LRORequestParameters] = None, **kwargs: Any
     ) -> AsyncLROPoller[None]:
         """Reimages (upgrade the operating system) a specific virtual machine in a VM scale set.
 
@@ -1673,6 +1713,10 @@ class VirtualMachineScaleSetVMsOperations:  # pylint: disable=too-many-public-me
         :rtype: ~azure.core.polling.AsyncLROPoller[None]
         :raises ~azure.core.exceptions.HttpResponseError:
         """
+        if request_parameters:
+            for _rp_key, _rp_value in request_parameters.items():
+                kwargs.setdefault(_rp_key, _rp_value)
+
         _headers = case_insensitive_dict(kwargs.pop("headers", {}) or {})
         _params = case_insensitive_dict(kwargs.pop("params", {}) or {})
 
@@ -1778,7 +1822,7 @@ class VirtualMachineScaleSetVMsOperations:  # pylint: disable=too-many-public-me
 
     @distributed_trace_async
     async def begin_reimage_all(
-        self, resource_group_name: str, vm_scale_set_name: str, instance_id: str, **kwargs: Any
+        self, resource_group_name: str, vm_scale_set_name: str, instance_id: str, request_parameters: Optional[LRORequestParameters] = None, **kwargs: Any
     ) -> AsyncLROPoller[None]:
         """Allows you to re-image all the disks ( including data disks ) in the a VM scale set instance.
         This operation is only supported for managed disks.
@@ -1794,6 +1838,10 @@ class VirtualMachineScaleSetVMsOperations:  # pylint: disable=too-many-public-me
         :rtype: ~azure.core.polling.AsyncLROPoller[None]
         :raises ~azure.core.exceptions.HttpResponseError:
         """
+        if request_parameters:
+            for _rp_key, _rp_value in request_parameters.items():
+                kwargs.setdefault(_rp_key, _rp_value)
+
         _headers = kwargs.pop("headers", {}) or {}
         _params = case_insensitive_dict(kwargs.pop("params", {}) or {})
 
@@ -1895,7 +1943,7 @@ class VirtualMachineScaleSetVMsOperations:  # pylint: disable=too-many-public-me
 
     @distributed_trace_async
     async def begin_restart(
-        self, resource_group_name: str, vm_scale_set_name: str, instance_id: str, **kwargs: Any
+        self, resource_group_name: str, vm_scale_set_name: str, instance_id: str, request_parameters: Optional[LRORequestParameters] = None, **kwargs: Any
     ) -> AsyncLROPoller[None]:
         """Restarts a virtual machine in a VM scale set.
 
@@ -1910,6 +1958,10 @@ class VirtualMachineScaleSetVMsOperations:  # pylint: disable=too-many-public-me
         :rtype: ~azure.core.polling.AsyncLROPoller[None]
         :raises ~azure.core.exceptions.HttpResponseError:
         """
+        if request_parameters:
+            for _rp_key, _rp_value in request_parameters.items():
+                kwargs.setdefault(_rp_key, _rp_value)
+
         _headers = kwargs.pop("headers", {}) or {}
         _params = case_insensitive_dict(kwargs.pop("params", {}) or {})
 
@@ -1960,7 +2012,7 @@ class VirtualMachineScaleSetVMsOperations:  # pylint: disable=too-many-public-me
         vm_scale_set_name: str,
         instance_id: str,
         sas_uri_expiration_time_in_minutes: Optional[int] = None,
-        **kwargs: Any
+        request_parameters: Optional[RequestParameters] = None, **kwargs: Any
     ) -> _models.RetrieveBootDiagnosticsDataResult:
         """The operation to retrieve SAS URIs of boot diagnostic logs for a virtual machine in a VM scale
         set.
@@ -1980,6 +2032,10 @@ class VirtualMachineScaleSetVMsOperations:  # pylint: disable=too-many-public-me
         :rtype: ~azure.mgmt.compute.models.RetrieveBootDiagnosticsDataResult
         :raises ~azure.core.exceptions.HttpResponseError:
         """
+        if request_parameters:
+            for _rp_key, _rp_value in request_parameters.items():
+                kwargs.setdefault(_rp_key, _rp_value)
+
         error_map: MutableMapping = {
             401: ClientAuthenticationError,
             404: ResourceNotFoundError,
@@ -2106,7 +2162,7 @@ class VirtualMachineScaleSetVMsOperations:  # pylint: disable=too-many-public-me
         parameters: _models.RunCommandInput,
         *,
         content_type: str = "application/json",
-        **kwargs: Any
+        request_parameters: Optional[LRORequestParameters] = None, **kwargs: Any
     ) -> AsyncLROPoller[_models.RunCommandResult]:
         """Run command on a virtual machine in a VM scale set.
 
@@ -2137,7 +2193,7 @@ class VirtualMachineScaleSetVMsOperations:  # pylint: disable=too-many-public-me
         parameters: IO[bytes],
         *,
         content_type: str = "application/json",
-        **kwargs: Any
+        request_parameters: Optional[LRORequestParameters] = None, **kwargs: Any
     ) -> AsyncLROPoller[_models.RunCommandResult]:
         """Run command on a virtual machine in a VM scale set.
 
@@ -2166,7 +2222,7 @@ class VirtualMachineScaleSetVMsOperations:  # pylint: disable=too-many-public-me
         vm_scale_set_name: str,
         instance_id: str,
         parameters: Union[_models.RunCommandInput, IO[bytes]],
-        **kwargs: Any
+        request_parameters: Optional[LRORequestParameters] = None, **kwargs: Any
     ) -> AsyncLROPoller[_models.RunCommandResult]:
         """Run command on a virtual machine in a VM scale set.
 
@@ -2185,6 +2241,10 @@ class VirtualMachineScaleSetVMsOperations:  # pylint: disable=too-many-public-me
         :rtype: ~azure.core.polling.AsyncLROPoller[~azure.mgmt.compute.models.RunCommandResult]
         :raises ~azure.core.exceptions.HttpResponseError:
         """
+        if request_parameters:
+            for _rp_key, _rp_value in request_parameters.items():
+                kwargs.setdefault(_rp_key, _rp_value)
+
         _headers = case_insensitive_dict(kwargs.pop("headers", {}) or {})
         _params = case_insensitive_dict(kwargs.pop("params", {}) or {})
 
@@ -2237,7 +2297,7 @@ class VirtualMachineScaleSetVMsOperations:  # pylint: disable=too-many-public-me
 
     @distributed_trace_async
     async def simulate_eviction(
-        self, resource_group_name: str, vm_scale_set_name: str, instance_id: str, **kwargs: Any
+        self, resource_group_name: str, vm_scale_set_name: str, instance_id: str, request_parameters: Optional[RequestParameters] = None, **kwargs: Any
     ) -> None:
         """The operation to simulate the eviction of spot virtual machine in a VM scale set.
 
@@ -2252,6 +2312,10 @@ class VirtualMachineScaleSetVMsOperations:  # pylint: disable=too-many-public-me
         :rtype: None
         :raises ~azure.core.exceptions.HttpResponseError:
         """
+        if request_parameters:
+            for _rp_key, _rp_value in request_parameters.items():
+                kwargs.setdefault(_rp_key, _rp_value)
+
         error_map: MutableMapping = {
             401: ClientAuthenticationError,
             404: ResourceNotFoundError,
@@ -2349,7 +2413,7 @@ class VirtualMachineScaleSetVMsOperations:  # pylint: disable=too-many-public-me
 
     @distributed_trace_async
     async def begin_start(
-        self, resource_group_name: str, vm_scale_set_name: str, instance_id: str, **kwargs: Any
+        self, resource_group_name: str, vm_scale_set_name: str, instance_id: str, request_parameters: Optional[LRORequestParameters] = None, **kwargs: Any
     ) -> AsyncLROPoller[None]:
         """Starts a virtual machine in a VM scale set.
 
@@ -2364,6 +2428,10 @@ class VirtualMachineScaleSetVMsOperations:  # pylint: disable=too-many-public-me
         :rtype: ~azure.core.polling.AsyncLROPoller[None]
         :raises ~azure.core.exceptions.HttpResponseError:
         """
+        if request_parameters:
+            for _rp_key, _rp_value in request_parameters.items():
+                kwargs.setdefault(_rp_key, _rp_value)
+
         _headers = kwargs.pop("headers", {}) or {}
         _params = case_insensitive_dict(kwargs.pop("params", {}) or {})
 

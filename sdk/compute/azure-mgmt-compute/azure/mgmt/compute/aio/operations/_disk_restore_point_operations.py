@@ -153,7 +153,7 @@ class DiskRestorePointOperations:
         restore_point_collection_name: str,
         vm_restore_point_name: str,
         disk_restore_point_name: str,
-        **kwargs: Any
+        request_parameters: Optional[RequestParameters] = None, **kwargs: Any
     ) -> _models.DiskRestorePoint:
         """Get disk restorePoint resource.
 
@@ -172,6 +172,10 @@ class DiskRestorePointOperations:
         :rtype: ~azure.mgmt.compute.models.DiskRestorePoint
         :raises ~azure.core.exceptions.HttpResponseError:
         """
+        if request_parameters:
+            for _rp_key, _rp_value in request_parameters.items():
+                kwargs.setdefault(_rp_key, _rp_value)
+
         error_map: MutableMapping = {
             401: ClientAuthenticationError,
             404: ResourceNotFoundError,
@@ -301,7 +305,7 @@ class DiskRestorePointOperations:
         grant_access_data: _models.GrantAccessData,
         *,
         content_type: str = "application/json",
-        **kwargs: Any
+        request_parameters: Optional[LRORequestParameters] = None, **kwargs: Any
     ) -> AsyncLROPoller[_models.AccessUri]:
         """Grants access to a diskRestorePoint.
 
@@ -338,7 +342,7 @@ class DiskRestorePointOperations:
         grant_access_data: IO[bytes],
         *,
         content_type: str = "application/json",
-        **kwargs: Any
+        request_parameters: Optional[LRORequestParameters] = None, **kwargs: Any
     ) -> AsyncLROPoller[_models.AccessUri]:
         """Grants access to a diskRestorePoint.
 
@@ -373,7 +377,7 @@ class DiskRestorePointOperations:
         vm_restore_point_name: str,
         disk_restore_point_name: str,
         grant_access_data: Union[_models.GrantAccessData, IO[bytes]],
-        **kwargs: Any
+        request_parameters: Optional[LRORequestParameters] = None, **kwargs: Any
     ) -> AsyncLROPoller[_models.AccessUri]:
         """Grants access to a diskRestorePoint.
 
@@ -396,6 +400,10 @@ class DiskRestorePointOperations:
         :rtype: ~azure.core.polling.AsyncLROPoller[~azure.mgmt.compute.models.AccessUri]
         :raises ~azure.core.exceptions.HttpResponseError:
         """
+        if request_parameters:
+            for _rp_key, _rp_value in request_parameters.items():
+                kwargs.setdefault(_rp_key, _rp_value)
+
         _headers = case_insensitive_dict(kwargs.pop("headers", {}) or {})
         _params = case_insensitive_dict(kwargs.pop("params", {}) or {})
 
@@ -516,7 +524,7 @@ class DiskRestorePointOperations:
         restore_point_collection_name: str,
         vm_restore_point_name: str,
         disk_restore_point_name: str,
-        **kwargs: Any
+        request_parameters: Optional[LRORequestParameters] = None, **kwargs: Any
     ) -> AsyncLROPoller[None]:
         """Revokes access to a diskRestorePoint.
 
@@ -535,6 +543,10 @@ class DiskRestorePointOperations:
         :rtype: ~azure.core.polling.AsyncLROPoller[None]
         :raises ~azure.core.exceptions.HttpResponseError:
         """
+        if request_parameters:
+            for _rp_key, _rp_value in request_parameters.items():
+                kwargs.setdefault(_rp_key, _rp_value)
+
         _headers = kwargs.pop("headers", {}) or {}
         _params = case_insensitive_dict(kwargs.pop("params", {}) or {})
 

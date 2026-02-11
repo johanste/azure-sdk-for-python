@@ -31,6 +31,7 @@ from azure.mgmt.core.polling.async_arm_polling import AsyncARMPolling
 from ... import models as _models
 from ..._utils.serialization import Deserializer, Serializer
 from ...types import LRORequestParameters, RequestParameters
+from ...types import LRORequestParameters, RequestParameters
 from ...operations._virtual_machine_extensions_operations import (
     build_create_or_update_request,
     build_delete_request,
@@ -66,7 +67,7 @@ class VirtualMachineExtensionsOperations:
 
     @distributed_trace_async
     async def list(
-        self, resource_group_name: str, vm_name: str, expand: Optional[str] = None, **kwargs: Any
+        self, resource_group_name: str, vm_name: str, expand: Optional[str] = None, request_parameters: Optional[RequestParameters] = None, **kwargs: Any
     ) -> _models.VirtualMachineExtensionsListResult:
         """The operation to get all extensions of a Virtual Machine.
 
@@ -81,6 +82,10 @@ class VirtualMachineExtensionsOperations:
         :rtype: ~azure.mgmt.compute.models.VirtualMachineExtensionsListResult
         :raises ~azure.core.exceptions.HttpResponseError:
         """
+        if request_parameters:
+            for _rp_key, _rp_value in request_parameters.items():
+                kwargs.setdefault(_rp_key, _rp_value)
+
         error_map: MutableMapping = {
             401: ClientAuthenticationError,
             404: ResourceNotFoundError,
@@ -131,7 +136,7 @@ class VirtualMachineExtensionsOperations:
         vm_name: str,
         vm_extension_name: str,
         expand: Optional[str] = None,
-        **kwargs: Any
+        request_parameters: Optional[RequestParameters] = None, **kwargs: Any
     ) -> _models.VirtualMachineExtension:
         """The operation to get the extension.
 
@@ -148,6 +153,10 @@ class VirtualMachineExtensionsOperations:
         :rtype: ~azure.mgmt.compute.models.VirtualMachineExtension
         :raises ~azure.core.exceptions.HttpResponseError:
         """
+        if request_parameters:
+            for _rp_key, _rp_value in request_parameters.items():
+                kwargs.setdefault(_rp_key, _rp_value)
+
         error_map: MutableMapping = {
             401: ClientAuthenticationError,
             404: ResourceNotFoundError,
@@ -274,7 +283,7 @@ class VirtualMachineExtensionsOperations:
         extension_parameters: _models.VirtualMachineExtension,
         *,
         content_type: str = "application/json",
-        **kwargs: Any
+        request_parameters: Optional[LRORequestParameters] = None, **kwargs: Any
     ) -> AsyncLROPoller[_models.VirtualMachineExtension]:
         """The operation to create or update the extension.
 
@@ -306,7 +315,7 @@ class VirtualMachineExtensionsOperations:
         extension_parameters: IO[bytes],
         *,
         content_type: str = "application/json",
-        **kwargs: Any
+        request_parameters: Optional[LRORequestParameters] = None, **kwargs: Any
     ) -> AsyncLROPoller[_models.VirtualMachineExtension]:
         """The operation to create or update the extension.
 
@@ -336,7 +345,7 @@ class VirtualMachineExtensionsOperations:
         vm_name: str,
         vm_extension_name: str,
         extension_parameters: Union[_models.VirtualMachineExtension, IO[bytes]],
-        **kwargs: Any
+        request_parameters: Optional[LRORequestParameters] = None, **kwargs: Any
     ) -> AsyncLROPoller[_models.VirtualMachineExtension]:
         """The operation to create or update the extension.
 
@@ -355,6 +364,10 @@ class VirtualMachineExtensionsOperations:
         :rtype: ~azure.core.polling.AsyncLROPoller[~azure.mgmt.compute.models.VirtualMachineExtension]
         :raises ~azure.core.exceptions.HttpResponseError:
         """
+        if request_parameters:
+            for _rp_key, _rp_value in request_parameters.items():
+                kwargs.setdefault(_rp_key, _rp_value)
+
         _headers = case_insensitive_dict(kwargs.pop("headers", {}) or {})
         _params = case_insensitive_dict(kwargs.pop("params", {}) or {})
 
@@ -486,7 +499,7 @@ class VirtualMachineExtensionsOperations:
         extension_parameters: _models.VirtualMachineExtensionUpdate,
         *,
         content_type: str = "application/json",
-        **kwargs: Any
+        request_parameters: Optional[LRORequestParameters] = None, **kwargs: Any
     ) -> AsyncLROPoller[_models.VirtualMachineExtension]:
         """The operation to update the extension.
 
@@ -518,7 +531,7 @@ class VirtualMachineExtensionsOperations:
         extension_parameters: IO[bytes],
         *,
         content_type: str = "application/json",
-        **kwargs: Any
+        request_parameters: Optional[LRORequestParameters] = None, **kwargs: Any
     ) -> AsyncLROPoller[_models.VirtualMachineExtension]:
         """The operation to update the extension.
 
@@ -548,7 +561,7 @@ class VirtualMachineExtensionsOperations:
         vm_name: str,
         vm_extension_name: str,
         extension_parameters: Union[_models.VirtualMachineExtensionUpdate, IO[bytes]],
-        **kwargs: Any
+        request_parameters: Optional[LRORequestParameters] = None, **kwargs: Any
     ) -> AsyncLROPoller[_models.VirtualMachineExtension]:
         """The operation to update the extension.
 
@@ -568,6 +581,10 @@ class VirtualMachineExtensionsOperations:
         :rtype: ~azure.core.polling.AsyncLROPoller[~azure.mgmt.compute.models.VirtualMachineExtension]
         :raises ~azure.core.exceptions.HttpResponseError:
         """
+        if request_parameters:
+            for _rp_key, _rp_value in request_parameters.items():
+                kwargs.setdefault(_rp_key, _rp_value)
+
         _headers = case_insensitive_dict(kwargs.pop("headers", {}) or {})
         _params = case_insensitive_dict(kwargs.pop("params", {}) or {})
 
@@ -681,7 +698,7 @@ class VirtualMachineExtensionsOperations:
 
     @distributed_trace_async
     async def begin_delete(
-        self, resource_group_name: str, vm_name: str, vm_extension_name: str, **kwargs: Any
+        self, resource_group_name: str, vm_name: str, vm_extension_name: str, request_parameters: Optional[LRORequestParameters] = None, **kwargs: Any
     ) -> AsyncLROPoller[None]:
         """The operation to delete the extension.
 
@@ -696,6 +713,10 @@ class VirtualMachineExtensionsOperations:
         :rtype: ~azure.core.polling.AsyncLROPoller[None]
         :raises ~azure.core.exceptions.HttpResponseError:
         """
+        if request_parameters:
+            for _rp_key, _rp_value in request_parameters.items():
+                kwargs.setdefault(_rp_key, _rp_value)
+
         _headers = kwargs.pop("headers", {}) or {}
         _params = case_insensitive_dict(kwargs.pop("params", {}) or {})
 

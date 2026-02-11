@@ -152,6 +152,18 @@ This approach ensures:
 - `request_parameters` provides discoverability and type checking
 - If both are specified, explicit `**kwargs` values take precedence
 
+**Precedence rule**: When a user passes the same parameter through both
+`request_parameters` and `**kwargs`, the `**kwargs` value wins. This is because
+`setdefault` only sets a key if it's not already present in `kwargs`. This behavior
+is intentional — it allows `request_parameters` to provide defaults while explicit
+keyword arguments can still override them. Example:
+
+```python
+# In this call, headers from **kwargs wins:
+client.vms.get("rg", "vm", request_parameters={"headers": {"X-From-RP": "1"}}, headers={"X-From-KW": "1"})
+# Result: headers = {"X-From-KW": "1"}
+```
+
 ### Step 5: Update overloads
 
 If a method has `@overload` decorators, add `request_parameters` to each overload

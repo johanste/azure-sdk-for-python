@@ -17,6 +17,7 @@ from azure.storage.blob.aio import ContainerClient
 from azure.core.tracing.decorator_async import distributed_trace_async
 
 from ._operations import DatasetsOperations as DatasetsOperationsGenerated
+from ...types import RequestParameters
 from ...models._models import (
     FileDatasetVersion,
     FolderDatasetVersion,
@@ -78,7 +79,7 @@ class DatasetsOperations(DatasetsOperationsGenerated):
 
     @distributed_trace_async
     async def upload_file(
-        self, *, name: str, version: str, file_path: str, connection_name: Optional[str] = None, **kwargs: Any
+        self, *, name: str, version: str, file_path: str, connection_name: Optional[str] = None, request_parameters: Optional[RequestParameters] = None, **kwargs: Any
     ) -> FileDatasetVersion:
         """Upload file to a blob storage, and create a dataset that references this file.
         This method uses the `ContainerClient.upload_blob` method from the azure-storage-blob package
@@ -97,6 +98,10 @@ class DatasetsOperations(DatasetsOperationsGenerated):
         :rtype: ~azure.ai.projects.models.FileDatasetVersion
         :raises ~azure.core.exceptions.HttpResponseError: If an error occurs during the HTTP request.
         """
+        if request_parameters:
+            for _rp_key, _rp_value in request_parameters.items():
+                kwargs.setdefault(_rp_key, _rp_value)
+
 
         pathlib_file_path = Path(file_path)
         if not pathlib_file_path.exists():
@@ -150,7 +155,7 @@ class DatasetsOperations(DatasetsOperationsGenerated):
         folder: str,
         connection_name: Optional[str] = None,
         file_pattern: Optional[re.Pattern] = None,
-        **kwargs: Any,
+        request_parameters: Optional[RequestParameters] = None, **kwargs: Any,
     ) -> FolderDatasetVersion:
         """Upload all files in a folder and its sub folders to a blob storage, while maintaining
         relative paths, and create a dataset that references this folder.
@@ -173,6 +178,10 @@ class DatasetsOperations(DatasetsOperationsGenerated):
         :rtype: ~azure.ai.projects.models.FolderDatasetVersion
         :raises ~azure.core.exceptions.HttpResponseError: If an error occurs during the HTTP request.
         """
+        if request_parameters:
+            for _rp_key, _rp_value in request_parameters.items():
+                kwargs.setdefault(_rp_key, _rp_value)
+
         path_folder = Path(folder)
         if not Path(path_folder).exists():
             raise ValueError(f"The provided folder `{folder}` does not exist.")

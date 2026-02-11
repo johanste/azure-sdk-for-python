@@ -343,7 +343,7 @@ class VirtualMachinesOperations:  # pylint: disable=too-many-public-methods
         resource_group_name: str,
         vm_name: str,
         expand: Optional[Union[str, _models.InstanceViewTypes]] = None,
-        **kwargs: Any
+        request_parameters: Optional[RequestParameters] = None, **kwargs: Any
     ) -> _models.VirtualMachine:
         """Retrieves information about the model view or the instance view of a virtual machine.
 
@@ -362,6 +362,10 @@ class VirtualMachinesOperations:  # pylint: disable=too-many-public-methods
         :rtype: ~azure.mgmt.compute.models.VirtualMachine
         :raises ~azure.core.exceptions.HttpResponseError:
         """
+        if request_parameters:
+            for _rp_key, _rp_value in request_parameters.items():
+                kwargs.setdefault(_rp_key, _rp_value)
+
         error_map: MutableMapping = {
             401: ClientAuthenticationError,
             404: ResourceNotFoundError,
@@ -490,7 +494,7 @@ class VirtualMachinesOperations:  # pylint: disable=too-many-public-methods
         if_none_match: Optional[str] = None,
         *,
         content_type: str = "application/json",
-        **kwargs: Any
+        request_parameters: Optional[LRORequestParameters] = None, **kwargs: Any
     ) -> AsyncLROPoller[_models.VirtualMachine]:
         """The operation to create or update a virtual machine. Please note some properties can be set
         only during virtual machine creation.
@@ -529,7 +533,7 @@ class VirtualMachinesOperations:  # pylint: disable=too-many-public-methods
         if_none_match: Optional[str] = None,
         *,
         content_type: str = "application/json",
-        **kwargs: Any
+        request_parameters: Optional[LRORequestParameters] = None, **kwargs: Any
     ) -> AsyncLROPoller[_models.VirtualMachine]:
         """The operation to create or update a virtual machine. Please note some properties can be set
         only during virtual machine creation.
@@ -566,7 +570,7 @@ class VirtualMachinesOperations:  # pylint: disable=too-many-public-methods
         parameters: Union[_models.VirtualMachine, IO[bytes]],
         if_match: Optional[str] = None,
         if_none_match: Optional[str] = None,
-        **kwargs: Any
+        request_parameters: Optional[LRORequestParameters] = None, **kwargs: Any
     ) -> AsyncLROPoller[_models.VirtualMachine]:
         """The operation to create or update a virtual machine. Please note some properties can be set
         only during virtual machine creation.
@@ -592,6 +596,10 @@ class VirtualMachinesOperations:  # pylint: disable=too-many-public-methods
         :rtype: ~azure.core.polling.AsyncLROPoller[~azure.mgmt.compute.models.VirtualMachine]
         :raises ~azure.core.exceptions.HttpResponseError:
         """
+        if request_parameters:
+            for _rp_key, _rp_value in request_parameters.items():
+                kwargs.setdefault(_rp_key, _rp_value)
+
         _headers = case_insensitive_dict(kwargs.pop("headers", {}) or {})
         _params = case_insensitive_dict(kwargs.pop("params", {}) or {})
 
@@ -727,7 +735,7 @@ class VirtualMachinesOperations:  # pylint: disable=too-many-public-methods
         if_none_match: Optional[str] = None,
         *,
         content_type: str = "application/json",
-        **kwargs: Any
+        request_parameters: Optional[LRORequestParameters] = None, **kwargs: Any
     ) -> AsyncLROPoller[_models.VirtualMachine]:
         """The operation to update a virtual machine.
 
@@ -765,7 +773,7 @@ class VirtualMachinesOperations:  # pylint: disable=too-many-public-methods
         if_none_match: Optional[str] = None,
         *,
         content_type: str = "application/json",
-        **kwargs: Any
+        request_parameters: Optional[LRORequestParameters] = None, **kwargs: Any
     ) -> AsyncLROPoller[_models.VirtualMachine]:
         """The operation to update a virtual machine.
 
@@ -801,7 +809,7 @@ class VirtualMachinesOperations:  # pylint: disable=too-many-public-methods
         parameters: Union[_models.VirtualMachineUpdate, IO[bytes]],
         if_match: Optional[str] = None,
         if_none_match: Optional[str] = None,
-        **kwargs: Any
+        request_parameters: Optional[LRORequestParameters] = None, **kwargs: Any
     ) -> AsyncLROPoller[_models.VirtualMachine]:
         """The operation to update a virtual machine.
 
@@ -826,6 +834,10 @@ class VirtualMachinesOperations:  # pylint: disable=too-many-public-methods
         :rtype: ~azure.core.polling.AsyncLROPoller[~azure.mgmt.compute.models.VirtualMachine]
         :raises ~azure.core.exceptions.HttpResponseError:
         """
+        if request_parameters:
+            for _rp_key, _rp_value in request_parameters.items():
+                kwargs.setdefault(_rp_key, _rp_value)
+
         _headers = case_insensitive_dict(kwargs.pop("headers", {}) or {})
         _params = case_insensitive_dict(kwargs.pop("params", {}) or {})
 
@@ -940,7 +952,7 @@ class VirtualMachinesOperations:  # pylint: disable=too-many-public-methods
 
     @distributed_trace_async
     async def begin_delete(
-        self, resource_group_name: str, vm_name: str, force_deletion: Optional[bool] = None, **kwargs: Any
+        self, resource_group_name: str, vm_name: str, force_deletion: Optional[bool] = None, request_parameters: Optional[LRORequestParameters] = None, **kwargs: Any
     ) -> AsyncLROPoller[None]:
         """The operation to delete a virtual machine.
 
@@ -956,6 +968,10 @@ class VirtualMachinesOperations:  # pylint: disable=too-many-public-methods
         :rtype: ~azure.core.polling.AsyncLROPoller[None]
         :raises ~azure.core.exceptions.HttpResponseError:
         """
+        if request_parameters:
+            for _rp_key, _rp_value in request_parameters.items():
+                kwargs.setdefault(_rp_key, _rp_value)
+
         _headers = kwargs.pop("headers", {}) or {}
         _params = case_insensitive_dict(kwargs.pop("params", {}) or {})
 
@@ -1056,7 +1072,7 @@ class VirtualMachinesOperations:  # pylint: disable=too-many-public-methods
 
     @distributed_trace_async
     async def begin_assess_patches(
-        self, resource_group_name: str, vm_name: str, **kwargs: Any
+        self, resource_group_name: str, vm_name: str, request_parameters: Optional[LRORequestParameters] = None, **kwargs: Any
     ) -> AsyncLROPoller[_models.VirtualMachineAssessPatchesResult]:
         """Assess patches on the VM.
 
@@ -1071,6 +1087,10 @@ class VirtualMachinesOperations:  # pylint: disable=too-many-public-methods
          ~azure.core.polling.AsyncLROPoller[~azure.mgmt.compute.models.VirtualMachineAssessPatchesResult]
         :raises ~azure.core.exceptions.HttpResponseError:
         """
+        if request_parameters:
+            for _rp_key, _rp_value in request_parameters.items():
+                kwargs.setdefault(_rp_key, _rp_value)
+
         _headers = kwargs.pop("headers", {}) or {}
         _params = case_insensitive_dict(kwargs.pop("params", {}) or {})
 
@@ -1196,7 +1216,7 @@ class VirtualMachinesOperations:  # pylint: disable=too-many-public-methods
         parameters: _models.AttachDetachDataDisksRequest,
         *,
         content_type: str = "application/json",
-        **kwargs: Any
+        request_parameters: Optional[LRORequestParameters] = None, **kwargs: Any
     ) -> AsyncLROPoller[_models.StorageProfile]:
         """Attach and detach data disks to/from the virtual machine.
 
@@ -1225,7 +1245,7 @@ class VirtualMachinesOperations:  # pylint: disable=too-many-public-methods
         parameters: IO[bytes],
         *,
         content_type: str = "application/json",
-        **kwargs: Any
+        request_parameters: Optional[LRORequestParameters] = None, **kwargs: Any
     ) -> AsyncLROPoller[_models.StorageProfile]:
         """Attach and detach data disks to/from the virtual machine.
 
@@ -1252,7 +1272,7 @@ class VirtualMachinesOperations:  # pylint: disable=too-many-public-methods
         resource_group_name: str,
         vm_name: str,
         parameters: Union[_models.AttachDetachDataDisksRequest, IO[bytes]],
-        **kwargs: Any
+        request_parameters: Optional[LRORequestParameters] = None, **kwargs: Any
     ) -> AsyncLROPoller[_models.StorageProfile]:
         """Attach and detach data disks to/from the virtual machine.
 
@@ -1269,6 +1289,10 @@ class VirtualMachinesOperations:  # pylint: disable=too-many-public-methods
         :rtype: ~azure.core.polling.AsyncLROPoller[~azure.mgmt.compute.models.StorageProfile]
         :raises ~azure.core.exceptions.HttpResponseError:
         """
+        if request_parameters:
+            for _rp_key, _rp_value in request_parameters.items():
+                kwargs.setdefault(_rp_key, _rp_value)
+
         _headers = case_insensitive_dict(kwargs.pop("headers", {}) or {})
         _params = case_insensitive_dict(kwargs.pop("params", {}) or {})
 
@@ -1397,7 +1421,7 @@ class VirtualMachinesOperations:  # pylint: disable=too-many-public-methods
         parameters: _models.VirtualMachineCaptureParameters,
         *,
         content_type: str = "application/json",
-        **kwargs: Any
+        request_parameters: Optional[LRORequestParameters] = None, **kwargs: Any
     ) -> AsyncLROPoller[_models.VirtualMachineCaptureResult]:
         """Captures the VM by copying virtual hard disks of the VM and outputs a template that can be used
         to create similar VMs.
@@ -1427,7 +1451,7 @@ class VirtualMachinesOperations:  # pylint: disable=too-many-public-methods
         parameters: IO[bytes],
         *,
         content_type: str = "application/json",
-        **kwargs: Any
+        request_parameters: Optional[LRORequestParameters] = None, **kwargs: Any
     ) -> AsyncLROPoller[_models.VirtualMachineCaptureResult]:
         """Captures the VM by copying virtual hard disks of the VM and outputs a template that can be used
         to create similar VMs.
@@ -1455,7 +1479,7 @@ class VirtualMachinesOperations:  # pylint: disable=too-many-public-methods
         resource_group_name: str,
         vm_name: str,
         parameters: Union[_models.VirtualMachineCaptureParameters, IO[bytes]],
-        **kwargs: Any
+        request_parameters: Optional[LRORequestParameters] = None, **kwargs: Any
     ) -> AsyncLROPoller[_models.VirtualMachineCaptureResult]:
         """Captures the VM by copying virtual hard disks of the VM and outputs a template that can be used
         to create similar VMs.
@@ -1474,6 +1498,10 @@ class VirtualMachinesOperations:  # pylint: disable=too-many-public-methods
          ~azure.core.polling.AsyncLROPoller[~azure.mgmt.compute.models.VirtualMachineCaptureResult]
         :raises ~azure.core.exceptions.HttpResponseError:
         """
+        if request_parameters:
+            for _rp_key, _rp_value in request_parameters.items():
+                kwargs.setdefault(_rp_key, _rp_value)
+
         _headers = case_insensitive_dict(kwargs.pop("headers", {}) or {})
         _params = case_insensitive_dict(kwargs.pop("params", {}) or {})
 
@@ -1580,7 +1608,7 @@ class VirtualMachinesOperations:  # pylint: disable=too-many-public-methods
 
     @distributed_trace_async
     async def begin_convert_to_managed_disks(
-        self, resource_group_name: str, vm_name: str, **kwargs: Any
+        self, resource_group_name: str, vm_name: str, request_parameters: Optional[LRORequestParameters] = None, **kwargs: Any
     ) -> AsyncLROPoller[None]:
         """Converts virtual machine disks from blob-based to managed disks. Virtual machine must be
         stop-deallocated before invoking this operation.
@@ -1594,6 +1622,10 @@ class VirtualMachinesOperations:  # pylint: disable=too-many-public-methods
         :rtype: ~azure.core.polling.AsyncLROPoller[None]
         :raises ~azure.core.exceptions.HttpResponseError:
         """
+        if request_parameters:
+            for _rp_key, _rp_value in request_parameters.items():
+                kwargs.setdefault(_rp_key, _rp_value)
+
         _headers = kwargs.pop("headers", {}) or {}
         _params = case_insensitive_dict(kwargs.pop("params", {}) or {})
 
@@ -1694,7 +1726,7 @@ class VirtualMachinesOperations:  # pylint: disable=too-many-public-methods
 
     @distributed_trace_async
     async def begin_deallocate(
-        self, resource_group_name: str, vm_name: str, hibernate: Optional[bool] = None, **kwargs: Any
+        self, resource_group_name: str, vm_name: str, hibernate: Optional[bool] = None, request_parameters: Optional[LRORequestParameters] = None, **kwargs: Any
     ) -> AsyncLROPoller[None]:
         """Shuts down the virtual machine and releases the compute resources. You are not billed for the
         compute resources that this virtual machine uses.
@@ -1710,6 +1742,10 @@ class VirtualMachinesOperations:  # pylint: disable=too-many-public-methods
         :rtype: ~azure.core.polling.AsyncLROPoller[None]
         :raises ~azure.core.exceptions.HttpResponseError:
         """
+        if request_parameters:
+            for _rp_key, _rp_value in request_parameters.items():
+                kwargs.setdefault(_rp_key, _rp_value)
+
         _headers = kwargs.pop("headers", {}) or {}
         _params = case_insensitive_dict(kwargs.pop("params", {}) or {})
 
@@ -1754,7 +1790,7 @@ class VirtualMachinesOperations:  # pylint: disable=too-many-public-methods
         return AsyncLROPoller[None](self._client, raw_result, get_long_running_output, polling_method)  # type: ignore
 
     @distributed_trace_async
-    async def generalize(self, resource_group_name: str, vm_name: str, **kwargs: Any) -> None:
+    async def generalize(self, resource_group_name: str, vm_name: str, request_parameters: Optional[RequestParameters] = None, **kwargs: Any) -> None:
         """Sets the OS state of the virtual machine to generalized. It is recommended to sysprep the
         virtual machine before performing this operation. For Windows, please refer to `Create a
         managed image of a generalized VM in Azure
@@ -1771,6 +1807,10 @@ class VirtualMachinesOperations:  # pylint: disable=too-many-public-methods
         :rtype: None
         :raises ~azure.core.exceptions.HttpResponseError:
         """
+        if request_parameters:
+            for _rp_key, _rp_value in request_parameters.items():
+                kwargs.setdefault(_rp_key, _rp_value)
+
         error_map: MutableMapping = {
             401: ClientAuthenticationError,
             404: ResourceNotFoundError,
@@ -1888,7 +1928,7 @@ class VirtualMachinesOperations:  # pylint: disable=too-many-public-methods
         install_patches_input: _models.VirtualMachineInstallPatchesParameters,
         *,
         content_type: str = "application/json",
-        **kwargs: Any
+        request_parameters: Optional[LRORequestParameters] = None, **kwargs: Any
     ) -> AsyncLROPoller[_models.VirtualMachineInstallPatchesResult]:
         """Installs patches on the VM.
 
@@ -1918,7 +1958,7 @@ class VirtualMachinesOperations:  # pylint: disable=too-many-public-methods
         install_patches_input: IO[bytes],
         *,
         content_type: str = "application/json",
-        **kwargs: Any
+        request_parameters: Optional[LRORequestParameters] = None, **kwargs: Any
     ) -> AsyncLROPoller[_models.VirtualMachineInstallPatchesResult]:
         """Installs patches on the VM.
 
@@ -1946,7 +1986,7 @@ class VirtualMachinesOperations:  # pylint: disable=too-many-public-methods
         resource_group_name: str,
         vm_name: str,
         install_patches_input: Union[_models.VirtualMachineInstallPatchesParameters, IO[bytes]],
-        **kwargs: Any
+        request_parameters: Optional[LRORequestParameters] = None, **kwargs: Any
     ) -> AsyncLROPoller[_models.VirtualMachineInstallPatchesResult]:
         """Installs patches on the VM.
 
@@ -1965,6 +2005,10 @@ class VirtualMachinesOperations:  # pylint: disable=too-many-public-methods
          ~azure.core.polling.AsyncLROPoller[~azure.mgmt.compute.models.VirtualMachineInstallPatchesResult]
         :raises ~azure.core.exceptions.HttpResponseError:
         """
+        if request_parameters:
+            for _rp_key, _rp_value in request_parameters.items():
+                kwargs.setdefault(_rp_key, _rp_value)
+
         _headers = case_insensitive_dict(kwargs.pop("headers", {}) or {})
         _params = case_insensitive_dict(kwargs.pop("params", {}) or {})
 
@@ -2016,7 +2060,7 @@ class VirtualMachinesOperations:  # pylint: disable=too-many-public-methods
 
     @distributed_trace_async
     async def instance_view(
-        self, resource_group_name: str, vm_name: str, **kwargs: Any
+        self, resource_group_name: str, vm_name: str, request_parameters: Optional[RequestParameters] = None, **kwargs: Any
     ) -> _models.VirtualMachineInstanceView:
         """Retrieves information about the run-time state of a virtual machine.
 
@@ -2029,6 +2073,10 @@ class VirtualMachinesOperations:  # pylint: disable=too-many-public-methods
         :rtype: ~azure.mgmt.compute.models.VirtualMachineInstanceView
         :raises ~azure.core.exceptions.HttpResponseError:
         """
+        if request_parameters:
+            for _rp_key, _rp_value in request_parameters.items():
+                kwargs.setdefault(_rp_key, _rp_value)
+
         error_map: MutableMapping = {
             401: ClientAuthenticationError,
             404: ResourceNotFoundError,
@@ -2153,7 +2201,7 @@ class VirtualMachinesOperations:  # pylint: disable=too-many-public-methods
         parameters: Optional[_models.MigrateVMToVirtualMachineScaleSetInput] = None,
         *,
         content_type: str = "application/json",
-        **kwargs: Any
+        request_parameters: Optional[LRORequestParameters] = None, **kwargs: Any
     ) -> AsyncLROPoller[None]:
         """Migrate a virtual machine from availability set to Flexible Virtual Machine Scale Set.
 
@@ -2181,7 +2229,7 @@ class VirtualMachinesOperations:  # pylint: disable=too-many-public-methods
         parameters: Optional[IO[bytes]] = None,
         *,
         content_type: str = "application/json",
-        **kwargs: Any
+        request_parameters: Optional[LRORequestParameters] = None, **kwargs: Any
     ) -> AsyncLROPoller[None]:
         """Migrate a virtual machine from availability set to Flexible Virtual Machine Scale Set.
 
@@ -2207,7 +2255,7 @@ class VirtualMachinesOperations:  # pylint: disable=too-many-public-methods
         resource_group_name: str,
         vm_name: str,
         parameters: Optional[Union[_models.MigrateVMToVirtualMachineScaleSetInput, IO[bytes]]] = None,
-        **kwargs: Any
+        request_parameters: Optional[LRORequestParameters] = None, **kwargs: Any
     ) -> AsyncLROPoller[None]:
         """Migrate a virtual machine from availability set to Flexible Virtual Machine Scale Set.
 
@@ -2224,6 +2272,10 @@ class VirtualMachinesOperations:  # pylint: disable=too-many-public-methods
         :rtype: ~azure.core.polling.AsyncLROPoller[None]
         :raises ~azure.core.exceptions.HttpResponseError:
         """
+        if request_parameters:
+            for _rp_key, _rp_value in request_parameters.items():
+                kwargs.setdefault(_rp_key, _rp_value)
+
         _headers = case_insensitive_dict(kwargs.pop("headers", {}) or {})
         _params = case_insensitive_dict(kwargs.pop("params", {}) or {})
 
@@ -2327,7 +2379,7 @@ class VirtualMachinesOperations:  # pylint: disable=too-many-public-methods
 
     @distributed_trace_async
     async def begin_perform_maintenance(
-        self, resource_group_name: str, vm_name: str, **kwargs: Any
+        self, resource_group_name: str, vm_name: str, request_parameters: Optional[LRORequestParameters] = None, **kwargs: Any
     ) -> AsyncLROPoller[None]:
         """The operation to perform maintenance on a virtual machine.
 
@@ -2340,6 +2392,10 @@ class VirtualMachinesOperations:  # pylint: disable=too-many-public-methods
         :rtype: ~azure.core.polling.AsyncLROPoller[None]
         :raises ~azure.core.exceptions.HttpResponseError:
         """
+        if request_parameters:
+            for _rp_key, _rp_value in request_parameters.items():
+                kwargs.setdefault(_rp_key, _rp_value)
+
         _headers = kwargs.pop("headers", {}) or {}
         _params = case_insensitive_dict(kwargs.pop("params", {}) or {})
 
@@ -2440,7 +2496,7 @@ class VirtualMachinesOperations:  # pylint: disable=too-many-public-methods
 
     @distributed_trace_async
     async def begin_power_off(
-        self, resource_group_name: str, vm_name: str, skip_shutdown: Optional[bool] = None, **kwargs: Any
+        self, resource_group_name: str, vm_name: str, skip_shutdown: Optional[bool] = None, request_parameters: Optional[LRORequestParameters] = None, **kwargs: Any
     ) -> AsyncLROPoller[None]:
         """The operation to power off (stop) a virtual machine. The virtual machine can be restarted with
         the same provisioned resources. You are still charged for this virtual machine.
@@ -2458,6 +2514,10 @@ class VirtualMachinesOperations:  # pylint: disable=too-many-public-methods
         :rtype: ~azure.core.polling.AsyncLROPoller[None]
         :raises ~azure.core.exceptions.HttpResponseError:
         """
+        if request_parameters:
+            for _rp_key, _rp_value in request_parameters.items():
+                kwargs.setdefault(_rp_key, _rp_value)
+
         _headers = kwargs.pop("headers", {}) or {}
         _params = case_insensitive_dict(kwargs.pop("params", {}) or {})
 
@@ -2555,7 +2615,7 @@ class VirtualMachinesOperations:  # pylint: disable=too-many-public-methods
         return deserialized  # type: ignore
 
     @distributed_trace_async
-    async def begin_reapply(self, resource_group_name: str, vm_name: str, **kwargs: Any) -> AsyncLROPoller[None]:
+    async def begin_reapply(self, resource_group_name: str, vm_name: str, request_parameters: Optional[LRORequestParameters] = None, **kwargs: Any) -> AsyncLROPoller[None]:
         """The operation to reapply a virtual machine's state.
 
         :param resource_group_name: The name of the resource group. The name is case insensitive.
@@ -2567,6 +2627,10 @@ class VirtualMachinesOperations:  # pylint: disable=too-many-public-methods
         :rtype: ~azure.core.polling.AsyncLROPoller[None]
         :raises ~azure.core.exceptions.HttpResponseError:
         """
+        if request_parameters:
+            for _rp_key, _rp_value in request_parameters.items():
+                kwargs.setdefault(_rp_key, _rp_value)
+
         _headers = kwargs.pop("headers", {}) or {}
         _params = case_insensitive_dict(kwargs.pop("params", {}) or {})
 
@@ -2663,7 +2727,7 @@ class VirtualMachinesOperations:  # pylint: disable=too-many-public-methods
         return deserialized  # type: ignore
 
     @distributed_trace_async
-    async def begin_redeploy(self, resource_group_name: str, vm_name: str, **kwargs: Any) -> AsyncLROPoller[None]:
+    async def begin_redeploy(self, resource_group_name: str, vm_name: str, request_parameters: Optional[LRORequestParameters] = None, **kwargs: Any) -> AsyncLROPoller[None]:
         """Shuts down the virtual machine, moves it to a new node, and powers it back on.
 
         :param resource_group_name: The name of the resource group. The name is case insensitive.
@@ -2675,6 +2739,10 @@ class VirtualMachinesOperations:  # pylint: disable=too-many-public-methods
         :rtype: ~azure.core.polling.AsyncLROPoller[None]
         :raises ~azure.core.exceptions.HttpResponseError:
         """
+        if request_parameters:
+            for _rp_key, _rp_value in request_parameters.items():
+                kwargs.setdefault(_rp_key, _rp_value)
+
         _headers = kwargs.pop("headers", {}) or {}
         _params = case_insensitive_dict(kwargs.pop("params", {}) or {})
 
@@ -2800,7 +2868,7 @@ class VirtualMachinesOperations:  # pylint: disable=too-many-public-methods
         parameters: Optional[_models.VirtualMachineReimageParameters] = None,
         *,
         content_type: str = "application/json",
-        **kwargs: Any
+        request_parameters: Optional[LRORequestParameters] = None, **kwargs: Any
     ) -> AsyncLROPoller[None]:
         """Reimages (upgrade the operating system) a virtual machine which don't have a ephemeral OS disk,
         for virtual machines who have a ephemeral OS disk the virtual machine is reset to initial
@@ -2833,7 +2901,7 @@ class VirtualMachinesOperations:  # pylint: disable=too-many-public-methods
         parameters: Optional[IO[bytes]] = None,
         *,
         content_type: str = "application/json",
-        **kwargs: Any
+        request_parameters: Optional[LRORequestParameters] = None, **kwargs: Any
     ) -> AsyncLROPoller[None]:
         """Reimages (upgrade the operating system) a virtual machine which don't have a ephemeral OS disk,
         for virtual machines who have a ephemeral OS disk the virtual machine is reset to initial
@@ -2864,7 +2932,7 @@ class VirtualMachinesOperations:  # pylint: disable=too-many-public-methods
         resource_group_name: str,
         vm_name: str,
         parameters: Optional[Union[_models.VirtualMachineReimageParameters, IO[bytes]]] = None,
-        **kwargs: Any
+        request_parameters: Optional[LRORequestParameters] = None, **kwargs: Any
     ) -> AsyncLROPoller[None]:
         """Reimages (upgrade the operating system) a virtual machine which don't have a ephemeral OS disk,
         for virtual machines who have a ephemeral OS disk the virtual machine is reset to initial
@@ -2885,6 +2953,10 @@ class VirtualMachinesOperations:  # pylint: disable=too-many-public-methods
         :rtype: ~azure.core.polling.AsyncLROPoller[None]
         :raises ~azure.core.exceptions.HttpResponseError:
         """
+        if request_parameters:
+            for _rp_key, _rp_value in request_parameters.items():
+                kwargs.setdefault(_rp_key, _rp_value)
+
         _headers = case_insensitive_dict(kwargs.pop("headers", {}) or {})
         _params = case_insensitive_dict(kwargs.pop("params", {}) or {})
 
@@ -2985,7 +3057,7 @@ class VirtualMachinesOperations:  # pylint: disable=too-many-public-methods
         return deserialized  # type: ignore
 
     @distributed_trace_async
-    async def begin_restart(self, resource_group_name: str, vm_name: str, **kwargs: Any) -> AsyncLROPoller[None]:
+    async def begin_restart(self, resource_group_name: str, vm_name: str, request_parameters: Optional[LRORequestParameters] = None, **kwargs: Any) -> AsyncLROPoller[None]:
         """The operation to restart a virtual machine.
 
         :param resource_group_name: The name of the resource group. The name is case insensitive.
@@ -2997,6 +3069,10 @@ class VirtualMachinesOperations:  # pylint: disable=too-many-public-methods
         :rtype: ~azure.core.polling.AsyncLROPoller[None]
         :raises ~azure.core.exceptions.HttpResponseError:
         """
+        if request_parameters:
+            for _rp_key, _rp_value in request_parameters.items():
+                kwargs.setdefault(_rp_key, _rp_value)
+
         _headers = kwargs.pop("headers", {}) or {}
         _params = case_insensitive_dict(kwargs.pop("params", {}) or {})
 
@@ -3045,7 +3121,7 @@ class VirtualMachinesOperations:  # pylint: disable=too-many-public-methods
         resource_group_name: str,
         vm_name: str,
         sas_uri_expiration_time_in_minutes: Optional[int] = None,
-        **kwargs: Any
+        request_parameters: Optional[RequestParameters] = None, **kwargs: Any
     ) -> _models.RetrieveBootDiagnosticsDataResult:
         """The operation to retrieve SAS URIs for a virtual machine's boot diagnostic logs.
 
@@ -3062,6 +3138,10 @@ class VirtualMachinesOperations:  # pylint: disable=too-many-public-methods
         :rtype: ~azure.mgmt.compute.models.RetrieveBootDiagnosticsDataResult
         :raises ~azure.core.exceptions.HttpResponseError:
         """
+        if request_parameters:
+            for _rp_key, _rp_value in request_parameters.items():
+                kwargs.setdefault(_rp_key, _rp_value)
+
         error_map: MutableMapping = {
             401: ClientAuthenticationError,
             404: ResourceNotFoundError,
@@ -3184,7 +3264,7 @@ class VirtualMachinesOperations:  # pylint: disable=too-many-public-methods
         parameters: _models.RunCommandInput,
         *,
         content_type: str = "application/json",
-        **kwargs: Any
+        request_parameters: Optional[LRORequestParameters] = None, **kwargs: Any
     ) -> AsyncLROPoller[_models.RunCommandResult]:
         """Run command on the VM.
 
@@ -3212,7 +3292,7 @@ class VirtualMachinesOperations:  # pylint: disable=too-many-public-methods
         parameters: IO[bytes],
         *,
         content_type: str = "application/json",
-        **kwargs: Any
+        request_parameters: Optional[LRORequestParameters] = None, **kwargs: Any
     ) -> AsyncLROPoller[_models.RunCommandResult]:
         """Run command on the VM.
 
@@ -3238,7 +3318,7 @@ class VirtualMachinesOperations:  # pylint: disable=too-many-public-methods
         resource_group_name: str,
         vm_name: str,
         parameters: Union[_models.RunCommandInput, IO[bytes]],
-        **kwargs: Any
+        request_parameters: Optional[LRORequestParameters] = None, **kwargs: Any
     ) -> AsyncLROPoller[_models.RunCommandResult]:
         """Run command on the VM.
 
@@ -3255,6 +3335,10 @@ class VirtualMachinesOperations:  # pylint: disable=too-many-public-methods
         :rtype: ~azure.core.polling.AsyncLROPoller[~azure.mgmt.compute.models.RunCommandResult]
         :raises ~azure.core.exceptions.HttpResponseError:
         """
+        if request_parameters:
+            for _rp_key, _rp_value in request_parameters.items():
+                kwargs.setdefault(_rp_key, _rp_value)
+
         _headers = case_insensitive_dict(kwargs.pop("headers", {}) or {})
         _params = case_insensitive_dict(kwargs.pop("params", {}) or {})
 
@@ -3305,7 +3389,7 @@ class VirtualMachinesOperations:  # pylint: disable=too-many-public-methods
         )
 
     @distributed_trace_async
-    async def simulate_eviction(self, resource_group_name: str, vm_name: str, **kwargs: Any) -> None:
+    async def simulate_eviction(self, resource_group_name: str, vm_name: str, request_parameters: Optional[RequestParameters] = None, **kwargs: Any) -> None:
         """The operation to simulate the eviction of spot virtual machine.
 
         :param resource_group_name: The name of the resource group. The name is case insensitive.
@@ -3317,6 +3401,10 @@ class VirtualMachinesOperations:  # pylint: disable=too-many-public-methods
         :rtype: None
         :raises ~azure.core.exceptions.HttpResponseError:
         """
+        if request_parameters:
+            for _rp_key, _rp_value in request_parameters.items():
+                kwargs.setdefault(_rp_key, _rp_value)
+
         error_map: MutableMapping = {
             401: ClientAuthenticationError,
             404: ResourceNotFoundError,
@@ -3409,7 +3497,7 @@ class VirtualMachinesOperations:  # pylint: disable=too-many-public-methods
         return deserialized  # type: ignore
 
     @distributed_trace_async
-    async def begin_start(self, resource_group_name: str, vm_name: str, **kwargs: Any) -> AsyncLROPoller[None]:
+    async def begin_start(self, resource_group_name: str, vm_name: str, request_parameters: Optional[LRORequestParameters] = None, **kwargs: Any) -> AsyncLROPoller[None]:
         """The operation to start a virtual machine.
 
         :param resource_group_name: The name of the resource group. The name is case insensitive.
@@ -3421,6 +3509,10 @@ class VirtualMachinesOperations:  # pylint: disable=too-many-public-methods
         :rtype: ~azure.core.polling.AsyncLROPoller[None]
         :raises ~azure.core.exceptions.HttpResponseError:
         """
+        if request_parameters:
+            for _rp_key, _rp_value in request_parameters.items():
+                kwargs.setdefault(_rp_key, _rp_value)
+
         _headers = kwargs.pop("headers", {}) or {}
         _params = case_insensitive_dict(kwargs.pop("params", {}) or {})
 

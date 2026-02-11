@@ -134,7 +134,7 @@ class CommunityGalleryImagesOperations:
 
     @distributed_trace_async
     async def get(
-        self, location: str, public_gallery_name: str, gallery_image_name: str, **kwargs: Any
+        self, location: str, public_gallery_name: str, gallery_image_name: str, request_parameters: Optional[RequestParameters] = None, **kwargs: Any
     ) -> _models.CommunityGalleryImage:
         """Get a community gallery image.
 
@@ -148,6 +148,10 @@ class CommunityGalleryImagesOperations:
         :rtype: ~azure.mgmt.compute.models.CommunityGalleryImage
         :raises ~azure.core.exceptions.HttpResponseError:
         """
+        if request_parameters:
+            for _rp_key, _rp_value in request_parameters.items():
+                kwargs.setdefault(_rp_key, _rp_value)
+
         error_map: MutableMapping = {
             401: ClientAuthenticationError,
             404: ResourceNotFoundError,

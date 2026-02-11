@@ -57,7 +57,7 @@ class CloudServiceRolesOperations:
 
     @distributed_trace_async
     async def get(
-        self, role_name: str, resource_group_name: str, cloud_service_name: str, **kwargs: Any
+        self, role_name: str, resource_group_name: str, cloud_service_name: str, request_parameters: Optional[RequestParameters] = None, **kwargs: Any
     ) -> _models.CloudServiceRole:
         """Gets a role from a cloud service.
 
@@ -71,6 +71,10 @@ class CloudServiceRolesOperations:
         :rtype: ~azure.mgmt.compute.models.CloudServiceRole
         :raises ~azure.core.exceptions.HttpResponseError:
         """
+        if request_parameters:
+            for _rp_key, _rp_value in request_parameters.items():
+                kwargs.setdefault(_rp_key, _rp_value)
+
         error_map: MutableMapping = {
             401: ClientAuthenticationError,
             404: ResourceNotFoundError,

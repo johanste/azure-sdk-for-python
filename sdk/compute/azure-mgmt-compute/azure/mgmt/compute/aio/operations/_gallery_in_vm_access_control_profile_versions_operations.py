@@ -155,7 +155,7 @@ class GalleryInVMAccessControlProfileVersionsOperations:  # pylint: disable=name
         gallery_name: str,
         in_vm_access_control_profile_name: str,
         in_vm_access_control_profile_version_name: str,
-        **kwargs: Any
+        request_parameters: Optional[RequestParameters] = None, **kwargs: Any
     ) -> _models.GalleryInVMAccessControlProfileVersion:
         """Retrieves information about a gallery inVMAccessControlProfile version.
 
@@ -174,6 +174,10 @@ class GalleryInVMAccessControlProfileVersionsOperations:  # pylint: disable=name
         :rtype: ~azure.mgmt.compute.models.GalleryInVMAccessControlProfileVersion
         :raises ~azure.core.exceptions.HttpResponseError:
         """
+        if request_parameters:
+            for _rp_key, _rp_value in request_parameters.items():
+                kwargs.setdefault(_rp_key, _rp_value)
+
         error_map: MutableMapping = {
             401: ClientAuthenticationError,
             404: ResourceNotFoundError,
@@ -305,7 +309,7 @@ class GalleryInVMAccessControlProfileVersionsOperations:  # pylint: disable=name
         gallery_in_vm_access_control_profile_version: _models.GalleryInVMAccessControlProfileVersion,
         *,
         content_type: str = "application/json",
-        **kwargs: Any
+        request_parameters: Optional[LRORequestParameters] = None, **kwargs: Any
     ) -> AsyncLROPoller[_models.GalleryInVMAccessControlProfileVersion]:
         """Create or update a gallery inVMAccessControlProfile version.
 
@@ -344,7 +348,7 @@ class GalleryInVMAccessControlProfileVersionsOperations:  # pylint: disable=name
         gallery_in_vm_access_control_profile_version: IO[bytes],
         *,
         content_type: str = "application/json",
-        **kwargs: Any
+        request_parameters: Optional[LRORequestParameters] = None, **kwargs: Any
     ) -> AsyncLROPoller[_models.GalleryInVMAccessControlProfileVersion]:
         """Create or update a gallery inVMAccessControlProfile version.
 
@@ -380,7 +384,7 @@ class GalleryInVMAccessControlProfileVersionsOperations:  # pylint: disable=name
         in_vm_access_control_profile_name: str,
         in_vm_access_control_profile_version_name: str,
         gallery_in_vm_access_control_profile_version: Union[_models.GalleryInVMAccessControlProfileVersion, IO[bytes]],
-        **kwargs: Any
+        request_parameters: Optional[LRORequestParameters] = None, **kwargs: Any
     ) -> AsyncLROPoller[_models.GalleryInVMAccessControlProfileVersion]:
         """Create or update a gallery inVMAccessControlProfile version.
 
@@ -406,6 +410,10 @@ class GalleryInVMAccessControlProfileVersionsOperations:  # pylint: disable=name
          ~azure.core.polling.AsyncLROPoller[~azure.mgmt.compute.models.GalleryInVMAccessControlProfileVersion]
         :raises ~azure.core.exceptions.HttpResponseError:
         """
+        if request_parameters:
+            for _rp_key, _rp_value in request_parameters.items():
+                kwargs.setdefault(_rp_key, _rp_value)
+
         _headers = case_insensitive_dict(kwargs.pop("headers", {}) or {})
         _params = case_insensitive_dict(kwargs.pop("params", {}) or {})
 
@@ -545,7 +553,7 @@ class GalleryInVMAccessControlProfileVersionsOperations:  # pylint: disable=name
         gallery_in_vm_access_control_profile_version: _models.GalleryInVMAccessControlProfileVersionUpdate,
         *,
         content_type: str = "application/json",
-        **kwargs: Any
+        request_parameters: Optional[LRORequestParameters] = None, **kwargs: Any
     ) -> AsyncLROPoller[_models.GalleryInVMAccessControlProfileVersion]:
         """Update a gallery inVMAccessControlProfile version.
 
@@ -584,7 +592,7 @@ class GalleryInVMAccessControlProfileVersionsOperations:  # pylint: disable=name
         gallery_in_vm_access_control_profile_version: IO[bytes],
         *,
         content_type: str = "application/json",
-        **kwargs: Any
+        request_parameters: Optional[LRORequestParameters] = None, **kwargs: Any
     ) -> AsyncLROPoller[_models.GalleryInVMAccessControlProfileVersion]:
         """Update a gallery inVMAccessControlProfile version.
 
@@ -622,7 +630,7 @@ class GalleryInVMAccessControlProfileVersionsOperations:  # pylint: disable=name
         gallery_in_vm_access_control_profile_version: Union[
             _models.GalleryInVMAccessControlProfileVersionUpdate, IO[bytes]
         ],
-        **kwargs: Any
+        request_parameters: Optional[LRORequestParameters] = None, **kwargs: Any
     ) -> AsyncLROPoller[_models.GalleryInVMAccessControlProfileVersion]:
         """Update a gallery inVMAccessControlProfile version.
 
@@ -648,6 +656,10 @@ class GalleryInVMAccessControlProfileVersionsOperations:  # pylint: disable=name
          ~azure.core.polling.AsyncLROPoller[~azure.mgmt.compute.models.GalleryInVMAccessControlProfileVersion]
         :raises ~azure.core.exceptions.HttpResponseError:
         """
+        if request_parameters:
+            for _rp_key, _rp_value in request_parameters.items():
+                kwargs.setdefault(_rp_key, _rp_value)
+
         _headers = case_insensitive_dict(kwargs.pop("headers", {}) or {})
         _params = case_insensitive_dict(kwargs.pop("params", {}) or {})
 
@@ -775,7 +787,7 @@ class GalleryInVMAccessControlProfileVersionsOperations:  # pylint: disable=name
         gallery_name: str,
         in_vm_access_control_profile_name: str,
         in_vm_access_control_profile_version_name: str,
-        **kwargs: Any
+        request_parameters: Optional[LRORequestParameters] = None, **kwargs: Any
     ) -> AsyncLROPoller[None]:
         """Delete a gallery inVMAccessControlProfile version.
 
@@ -794,6 +806,10 @@ class GalleryInVMAccessControlProfileVersionsOperations:  # pylint: disable=name
         :rtype: ~azure.core.polling.AsyncLROPoller[None]
         :raises ~azure.core.exceptions.HttpResponseError:
         """
+        if request_parameters:
+            for _rp_key, _rp_value in request_parameters.items():
+                kwargs.setdefault(_rp_key, _rp_value)
+
         _headers = kwargs.pop("headers", {}) or {}
         _params = case_insensitive_dict(kwargs.pop("params", {}) or {})
 
