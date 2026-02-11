@@ -28,6 +28,7 @@ from azure.mgmt.core.exceptions import ARMErrorFormat
 from .. import models as _models
 from .._configuration import ComputeManagementClientConfiguration
 from .._utils.serialization import Deserializer, Serializer
+from ..types import LRORequestParameters, RequestParameters
 
 T = TypeVar("T")
 ClsType = Optional[Callable[[PipelineResponse[HttpRequest, HttpResponse], T, dict[str, Any]], Any]]
@@ -173,7 +174,7 @@ class CloudServiceOperatingSystemsOperations:
         self._deserialize: Deserializer = input_args.pop(0) if input_args else kwargs.pop("deserializer")
 
     @distributed_trace
-    def get_os_version(self, location: str, os_version_name: str, **kwargs: Any) -> _models.OSVersion:
+    def get_os_version(self, location: str, os_version_name: str, request_parameters: Optional[RequestParameters] = None, **kwargs: Any) -> _models.OSVersion:
         """Gets properties of a guest operating system version that can be specified in the XML service
         configuration (.cscfg) for a cloud service.
 
@@ -185,6 +186,10 @@ class CloudServiceOperatingSystemsOperations:
         :rtype: ~azure.mgmt.compute.models.OSVersion
         :raises ~azure.core.exceptions.HttpResponseError:
         """
+        if request_parameters:
+            for _rp_key, _rp_value in request_parameters.items():
+                kwargs.setdefault(_rp_key, _rp_value)
+
         error_map: MutableMapping = {
             401: ClientAuthenticationError,
             404: ResourceNotFoundError,
@@ -228,7 +233,7 @@ class CloudServiceOperatingSystemsOperations:
         return deserialized  # type: ignore
 
     @distributed_trace
-    def list_os_versions(self, location: str, **kwargs: Any) -> ItemPaged["_models.OSVersion"]:
+    def list_os_versions(self, location: str, request_parameters: Optional[RequestParameters] = None, **kwargs: Any) -> ItemPaged["_models.OSVersion"]:
         """Gets a list of all guest operating system versions available to be specified in the XML service
         configuration (.cscfg) for a cloud service. Use nextLink property in the response to get the
         next page of OS versions. Do this till nextLink is null to fetch all the OS versions.
@@ -239,6 +244,10 @@ class CloudServiceOperatingSystemsOperations:
         :rtype: ~azure.core.paging.ItemPaged[~azure.mgmt.compute.models.OSVersion]
         :raises ~azure.core.exceptions.HttpResponseError:
         """
+        if request_parameters:
+            for _rp_key, _rp_value in request_parameters.items():
+                kwargs.setdefault(_rp_key, _rp_value)
+
         _headers = kwargs.pop("headers", {}) or {}
         _params = case_insensitive_dict(kwargs.pop("params", {}) or {})
 
@@ -296,7 +305,7 @@ class CloudServiceOperatingSystemsOperations:
         return ItemPaged(get_next, extract_data)
 
     @distributed_trace
-    def get_os_family(self, location: str, os_family_name: str, **kwargs: Any) -> _models.OSFamily:
+    def get_os_family(self, location: str, os_family_name: str, request_parameters: Optional[RequestParameters] = None, **kwargs: Any) -> _models.OSFamily:
         """Gets properties of a guest operating system family that can be specified in the XML service
         configuration (.cscfg) for a cloud service.
 
@@ -308,6 +317,10 @@ class CloudServiceOperatingSystemsOperations:
         :rtype: ~azure.mgmt.compute.models.OSFamily
         :raises ~azure.core.exceptions.HttpResponseError:
         """
+        if request_parameters:
+            for _rp_key, _rp_value in request_parameters.items():
+                kwargs.setdefault(_rp_key, _rp_value)
+
         error_map: MutableMapping = {
             401: ClientAuthenticationError,
             404: ResourceNotFoundError,
@@ -351,7 +364,7 @@ class CloudServiceOperatingSystemsOperations:
         return deserialized  # type: ignore
 
     @distributed_trace
-    def list_os_families(self, location: str, **kwargs: Any) -> ItemPaged["_models.OSFamily"]:
+    def list_os_families(self, location: str, request_parameters: Optional[RequestParameters] = None, **kwargs: Any) -> ItemPaged["_models.OSFamily"]:
         """Gets a list of all guest operating system families available to be specified in the XML service
         configuration (.cscfg) for a cloud service. Use nextLink property in the response to get the
         next page of OS Families. Do this till nextLink is null to fetch all the OS Families.
@@ -362,6 +375,10 @@ class CloudServiceOperatingSystemsOperations:
         :rtype: ~azure.core.paging.ItemPaged[~azure.mgmt.compute.models.OSFamily]
         :raises ~azure.core.exceptions.HttpResponseError:
         """
+        if request_parameters:
+            for _rp_key, _rp_value in request_parameters.items():
+                kwargs.setdefault(_rp_key, _rp_value)
+
         _headers = kwargs.pop("headers", {}) or {}
         _params = case_insensitive_dict(kwargs.pop("params", {}) or {})
 

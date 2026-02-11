@@ -32,6 +32,7 @@ from azure.mgmt.core.polling.arm_polling import ARMPolling
 from .. import models as _models
 from .._configuration import ComputeManagementClientConfiguration
 from .._utils.serialization import Deserializer, Serializer
+from ..types import LRORequestParameters, RequestParameters
 
 T = TypeVar("T")
 ClsType = Optional[Callable[[PipelineResponse[HttpRequest, HttpResponse], T, dict[str, Any]], Any]]
@@ -383,7 +384,7 @@ class CloudServiceRoleInstancesOperations:
 
     @distributed_trace
     def begin_delete(
-        self, role_instance_name: str, resource_group_name: str, cloud_service_name: str, **kwargs: Any
+        self, role_instance_name: str, resource_group_name: str, cloud_service_name: str, request_parameters: Optional[LRORequestParameters] = None, **kwargs: Any
     ) -> LROPoller[None]:
         """Deletes a role instance from a cloud service.
 
@@ -397,6 +398,10 @@ class CloudServiceRoleInstancesOperations:
         :rtype: ~azure.core.polling.LROPoller[None]
         :raises ~azure.core.exceptions.HttpResponseError:
         """
+        if request_parameters:
+            for _rp_key, _rp_value in request_parameters.items():
+                kwargs.setdefault(_rp_key, _rp_value)
+
         _headers = kwargs.pop("headers", {}) or {}
         _params = case_insensitive_dict(kwargs.pop("params", {}) or {})
 
@@ -445,7 +450,7 @@ class CloudServiceRoleInstancesOperations:
         resource_group_name: str,
         cloud_service_name: str,
         expand: Optional[Union[str, _models.InstanceViewTypes]] = None,
-        **kwargs: Any
+        request_parameters: Optional[RequestParameters] = None, **kwargs: Any
     ) -> _models.RoleInstance:
         """Gets a role instance from a cloud service.
 
@@ -463,6 +468,10 @@ class CloudServiceRoleInstancesOperations:
         :rtype: ~azure.mgmt.compute.models.RoleInstance
         :raises ~azure.core.exceptions.HttpResponseError:
         """
+        if request_parameters:
+            for _rp_key, _rp_value in request_parameters.items():
+                kwargs.setdefault(_rp_key, _rp_value)
+
         error_map: MutableMapping = {
             401: ClientAuthenticationError,
             404: ResourceNotFoundError,
@@ -509,7 +518,7 @@ class CloudServiceRoleInstancesOperations:
 
     @distributed_trace
     def get_instance_view(
-        self, role_instance_name: str, resource_group_name: str, cloud_service_name: str, **kwargs: Any
+        self, role_instance_name: str, resource_group_name: str, cloud_service_name: str, request_parameters: Optional[RequestParameters] = None, **kwargs: Any
     ) -> _models.RoleInstanceView:
         """Retrieves information about the run-time state of a role instance in a cloud service.
 
@@ -523,6 +532,10 @@ class CloudServiceRoleInstancesOperations:
         :rtype: ~azure.mgmt.compute.models.RoleInstanceView
         :raises ~azure.core.exceptions.HttpResponseError:
         """
+        if request_parameters:
+            for _rp_key, _rp_value in request_parameters.items():
+                kwargs.setdefault(_rp_key, _rp_value)
+
         error_map: MutableMapping = {
             401: ClientAuthenticationError,
             404: ResourceNotFoundError,
@@ -572,7 +585,7 @@ class CloudServiceRoleInstancesOperations:
         resource_group_name: str,
         cloud_service_name: str,
         expand: Optional[Union[str, _models.InstanceViewTypes]] = None,
-        **kwargs: Any
+        request_parameters: Optional[RequestParameters] = None, **kwargs: Any
     ) -> ItemPaged["_models.RoleInstance"]:
         """Gets the list of all role instances in a cloud service. Use nextLink property in the response
         to get the next page of role instances. Do this till nextLink is null to fetch all the role
@@ -590,6 +603,10 @@ class CloudServiceRoleInstancesOperations:
         :rtype: ~azure.core.paging.ItemPaged[~azure.mgmt.compute.models.RoleInstance]
         :raises ~azure.core.exceptions.HttpResponseError:
         """
+        if request_parameters:
+            for _rp_key, _rp_value in request_parameters.items():
+                kwargs.setdefault(_rp_key, _rp_value)
+
         _headers = kwargs.pop("headers", {}) or {}
         _params = case_insensitive_dict(kwargs.pop("params", {}) or {})
 
@@ -701,7 +718,7 @@ class CloudServiceRoleInstancesOperations:
 
     @distributed_trace
     def begin_restart(
-        self, role_instance_name: str, resource_group_name: str, cloud_service_name: str, **kwargs: Any
+        self, role_instance_name: str, resource_group_name: str, cloud_service_name: str, request_parameters: Optional[LRORequestParameters] = None, **kwargs: Any
     ) -> LROPoller[None]:
         """The Reboot Role Instance asynchronous operation requests a reboot of a role instance in the
         cloud service.
@@ -716,6 +733,10 @@ class CloudServiceRoleInstancesOperations:
         :rtype: ~azure.core.polling.LROPoller[None]
         :raises ~azure.core.exceptions.HttpResponseError:
         """
+        if request_parameters:
+            for _rp_key, _rp_value in request_parameters.items():
+                kwargs.setdefault(_rp_key, _rp_value)
+
         _headers = kwargs.pop("headers", {}) or {}
         _params = case_insensitive_dict(kwargs.pop("params", {}) or {})
 
@@ -810,7 +831,7 @@ class CloudServiceRoleInstancesOperations:
 
     @distributed_trace
     def begin_reimage(
-        self, role_instance_name: str, resource_group_name: str, cloud_service_name: str, **kwargs: Any
+        self, role_instance_name: str, resource_group_name: str, cloud_service_name: str, request_parameters: Optional[LRORequestParameters] = None, **kwargs: Any
     ) -> LROPoller[None]:
         """The Reimage Role Instance asynchronous operation reinstalls the operating system on instances
         of web roles or worker roles.
@@ -825,6 +846,10 @@ class CloudServiceRoleInstancesOperations:
         :rtype: ~azure.core.polling.LROPoller[None]
         :raises ~azure.core.exceptions.HttpResponseError:
         """
+        if request_parameters:
+            for _rp_key, _rp_value in request_parameters.items():
+                kwargs.setdefault(_rp_key, _rp_value)
+
         _headers = kwargs.pop("headers", {}) or {}
         _params = case_insensitive_dict(kwargs.pop("params", {}) or {})
 
@@ -919,7 +944,7 @@ class CloudServiceRoleInstancesOperations:
 
     @distributed_trace
     def begin_rebuild(
-        self, role_instance_name: str, resource_group_name: str, cloud_service_name: str, **kwargs: Any
+        self, role_instance_name: str, resource_group_name: str, cloud_service_name: str, request_parameters: Optional[LRORequestParameters] = None, **kwargs: Any
     ) -> LROPoller[None]:
         """The Rebuild Role Instance asynchronous operation reinstalls the operating system on instances
         of web roles or worker roles and initializes the storage resources that are used by them. If
@@ -935,6 +960,10 @@ class CloudServiceRoleInstancesOperations:
         :rtype: ~azure.core.polling.LROPoller[None]
         :raises ~azure.core.exceptions.HttpResponseError:
         """
+        if request_parameters:
+            for _rp_key, _rp_value in request_parameters.items():
+                kwargs.setdefault(_rp_key, _rp_value)
+
         _headers = kwargs.pop("headers", {}) or {}
         _params = case_insensitive_dict(kwargs.pop("params", {}) or {})
 
@@ -978,7 +1007,7 @@ class CloudServiceRoleInstancesOperations:
 
     @distributed_trace
     def get_remote_desktop_file(
-        self, role_instance_name: str, resource_group_name: str, cloud_service_name: str, **kwargs: Any
+        self, role_instance_name: str, resource_group_name: str, cloud_service_name: str, request_parameters: Optional[RequestParameters] = None, **kwargs: Any
     ) -> Iterator[bytes]:
         """Gets a remote desktop file for a role instance in a cloud service.
 
@@ -992,6 +1021,10 @@ class CloudServiceRoleInstancesOperations:
         :rtype: Iterator[bytes]
         :raises ~azure.core.exceptions.HttpResponseError:
         """
+        if request_parameters:
+            for _rp_key, _rp_value in request_parameters.items():
+                kwargs.setdefault(_rp_key, _rp_value)
+
         error_map: MutableMapping = {
             401: ClientAuthenticationError,
             404: ResourceNotFoundError,

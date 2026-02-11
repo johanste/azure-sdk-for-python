@@ -32,6 +32,7 @@ from azure.mgmt.core.polling.async_arm_polling import AsyncARMPolling
 
 from ... import models as _models
 from ..._utils.serialization import Deserializer, Serializer
+from ...types import LRORequestParameters, RequestParameters
 from ...operations._images_operations import (
     build_create_or_update_request,
     build_delete_request,
@@ -67,7 +68,7 @@ class ImagesOperations:
         self._deserialize: Deserializer = input_args.pop(0) if input_args else kwargs.pop("deserializer")
 
     @distributed_trace
-    def list(self, **kwargs: Any) -> AsyncItemPaged["_models.Image"]:
+    def list(self, request_parameters: Optional[RequestParameters] = None, **kwargs: Any) -> AsyncItemPaged["_models.Image"]:
         """Gets the list of Images in the subscription. Use nextLink property in the response to get the
         next page of Images. Do this till nextLink is null to fetch all the Images.
 
@@ -75,6 +76,10 @@ class ImagesOperations:
         :rtype: ~azure.core.async_paging.AsyncItemPaged[~azure.mgmt.compute.models.Image]
         :raises ~azure.core.exceptions.HttpResponseError:
         """
+        if request_parameters:
+            for _rp_key, _rp_value in request_parameters.items():
+                kwargs.setdefault(_rp_key, _rp_value)
+
         _headers = kwargs.pop("headers", {}) or {}
         _params = case_insensitive_dict(kwargs.pop("params", {}) or {})
 
@@ -131,7 +136,7 @@ class ImagesOperations:
         return AsyncItemPaged(get_next, extract_data)
 
     @distributed_trace
-    def list_by_resource_group(self, resource_group_name: str, **kwargs: Any) -> AsyncItemPaged["_models.Image"]:
+    def list_by_resource_group(self, resource_group_name: str, request_parameters: Optional[RequestParameters] = None, **kwargs: Any) -> AsyncItemPaged["_models.Image"]:
         """Gets the list of images under a resource group. Use nextLink property in the response to get
         the next page of Images. Do this till nextLink is null to fetch all the Images.
 
@@ -142,6 +147,10 @@ class ImagesOperations:
         :rtype: ~azure.core.async_paging.AsyncItemPaged[~azure.mgmt.compute.models.Image]
         :raises ~azure.core.exceptions.HttpResponseError:
         """
+        if request_parameters:
+            for _rp_key, _rp_value in request_parameters.items():
+                kwargs.setdefault(_rp_key, _rp_value)
+
         _headers = kwargs.pop("headers", {}) or {}
         _params = case_insensitive_dict(kwargs.pop("params", {}) or {})
 

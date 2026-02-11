@@ -29,6 +29,7 @@ from azure.mgmt.core.exceptions import ARMErrorFormat
 from .. import models as _models
 from .._configuration import ComputeManagementClientConfiguration
 from .._utils.serialization import Deserializer, Serializer
+from ..types import LRORequestParameters, RequestParameters
 
 T = TypeVar("T")
 ClsType = Optional[Callable[[PipelineResponse[HttpRequest, HttpResponse], T, dict[str, Any]], Any]]
@@ -286,7 +287,7 @@ class SshPublicKeysOperations:
         self._deserialize: Deserializer = input_args.pop(0) if input_args else kwargs.pop("deserializer")
 
     @distributed_trace
-    def list_by_subscription(self, **kwargs: Any) -> ItemPaged["_models.SshPublicKeyResource"]:
+    def list_by_subscription(self, request_parameters: Optional[RequestParameters] = None, **kwargs: Any) -> ItemPaged["_models.SshPublicKeyResource"]:
         """Lists all of the SSH public keys in the subscription. Use the nextLink property in the response
         to get the next page of SSH public keys.
 
@@ -295,6 +296,10 @@ class SshPublicKeysOperations:
         :rtype: ~azure.core.paging.ItemPaged[~azure.mgmt.compute.models.SshPublicKeyResource]
         :raises ~azure.core.exceptions.HttpResponseError:
         """
+        if request_parameters:
+            for _rp_key, _rp_value in request_parameters.items():
+                kwargs.setdefault(_rp_key, _rp_value)
+
         _headers = kwargs.pop("headers", {}) or {}
         _params = case_insensitive_dict(kwargs.pop("params", {}) or {})
 
@@ -352,7 +357,7 @@ class SshPublicKeysOperations:
 
     @distributed_trace
     def list_by_resource_group(
-        self, resource_group_name: str, **kwargs: Any
+        self, resource_group_name: str, request_parameters: Optional[RequestParameters] = None, **kwargs: Any
     ) -> ItemPaged["_models.SshPublicKeyResource"]:
         """Lists all of the SSH public keys in the specified resource group. Use the nextLink property in
         the response to get the next page of SSH public keys.
@@ -365,6 +370,10 @@ class SshPublicKeysOperations:
         :rtype: ~azure.core.paging.ItemPaged[~azure.mgmt.compute.models.SshPublicKeyResource]
         :raises ~azure.core.exceptions.HttpResponseError:
         """
+        if request_parameters:
+            for _rp_key, _rp_value in request_parameters.items():
+                kwargs.setdefault(_rp_key, _rp_value)
+
         _headers = kwargs.pop("headers", {}) or {}
         _params = case_insensitive_dict(kwargs.pop("params", {}) or {})
 
@@ -422,7 +431,7 @@ class SshPublicKeysOperations:
         return ItemPaged(get_next, extract_data)
 
     @distributed_trace
-    def get(self, resource_group_name: str, ssh_public_key_name: str, **kwargs: Any) -> _models.SshPublicKeyResource:
+    def get(self, resource_group_name: str, ssh_public_key_name: str, request_parameters: Optional[RequestParameters] = None, **kwargs: Any) -> _models.SshPublicKeyResource:
         """Retrieves information about an SSH public key.
 
         :param resource_group_name: The name of the resource group. The name is case insensitive.
@@ -434,6 +443,10 @@ class SshPublicKeysOperations:
         :rtype: ~azure.mgmt.compute.models.SshPublicKeyResource
         :raises ~azure.core.exceptions.HttpResponseError:
         """
+        if request_parameters:
+            for _rp_key, _rp_value in request_parameters.items():
+                kwargs.setdefault(_rp_key, _rp_value)
+
         error_map: MutableMapping = {
             401: ClientAuthenticationError,
             404: ResourceNotFoundError,
@@ -484,7 +497,7 @@ class SshPublicKeysOperations:
         parameters: _models.SshPublicKeyResource,
         *,
         content_type: str = "application/json",
-        **kwargs: Any
+        request_parameters: Optional[RequestParameters] = None, **kwargs: Any
     ) -> _models.SshPublicKeyResource:
         """Creates a new SSH public key resource.
 
@@ -511,7 +524,7 @@ class SshPublicKeysOperations:
         parameters: IO[bytes],
         *,
         content_type: str = "application/json",
-        **kwargs: Any
+        request_parameters: Optional[RequestParameters] = None, **kwargs: Any
     ) -> _models.SshPublicKeyResource:
         """Creates a new SSH public key resource.
 
@@ -536,7 +549,7 @@ class SshPublicKeysOperations:
         resource_group_name: str,
         ssh_public_key_name: str,
         parameters: Union[_models.SshPublicKeyResource, IO[bytes]],
-        **kwargs: Any
+        request_parameters: Optional[RequestParameters] = None, **kwargs: Any
     ) -> _models.SshPublicKeyResource:
         """Creates a new SSH public key resource.
 
@@ -552,6 +565,10 @@ class SshPublicKeysOperations:
         :rtype: ~azure.mgmt.compute.models.SshPublicKeyResource
         :raises ~azure.core.exceptions.HttpResponseError:
         """
+        if request_parameters:
+            for _rp_key, _rp_value in request_parameters.items():
+                kwargs.setdefault(_rp_key, _rp_value)
+
         error_map: MutableMapping = {
             401: ClientAuthenticationError,
             404: ResourceNotFoundError,
@@ -614,7 +631,7 @@ class SshPublicKeysOperations:
         parameters: _models.SshPublicKeyUpdateResource,
         *,
         content_type: str = "application/json",
-        **kwargs: Any
+        request_parameters: Optional[RequestParameters] = None, **kwargs: Any
     ) -> _models.SshPublicKeyResource:
         """Updates a new SSH public key resource.
 
@@ -641,7 +658,7 @@ class SshPublicKeysOperations:
         parameters: IO[bytes],
         *,
         content_type: str = "application/json",
-        **kwargs: Any
+        request_parameters: Optional[RequestParameters] = None, **kwargs: Any
     ) -> _models.SshPublicKeyResource:
         """Updates a new SSH public key resource.
 
@@ -666,7 +683,7 @@ class SshPublicKeysOperations:
         resource_group_name: str,
         ssh_public_key_name: str,
         parameters: Union[_models.SshPublicKeyUpdateResource, IO[bytes]],
-        **kwargs: Any
+        request_parameters: Optional[RequestParameters] = None, **kwargs: Any
     ) -> _models.SshPublicKeyResource:
         """Updates a new SSH public key resource.
 
@@ -682,6 +699,10 @@ class SshPublicKeysOperations:
         :rtype: ~azure.mgmt.compute.models.SshPublicKeyResource
         :raises ~azure.core.exceptions.HttpResponseError:
         """
+        if request_parameters:
+            for _rp_key, _rp_value in request_parameters.items():
+                kwargs.setdefault(_rp_key, _rp_value)
+
         error_map: MutableMapping = {
             401: ClientAuthenticationError,
             404: ResourceNotFoundError,
@@ -738,7 +759,7 @@ class SshPublicKeysOperations:
 
     @distributed_trace
     def delete(  # pylint: disable=inconsistent-return-statements
-        self, resource_group_name: str, ssh_public_key_name: str, **kwargs: Any
+        self, resource_group_name: str, ssh_public_key_name: str, request_parameters: Optional[RequestParameters] = None, **kwargs: Any
     ) -> None:
         """Delete an SSH public key.
 
@@ -751,6 +772,10 @@ class SshPublicKeysOperations:
         :rtype: None
         :raises ~azure.core.exceptions.HttpResponseError:
         """
+        if request_parameters:
+            for _rp_key, _rp_value in request_parameters.items():
+                kwargs.setdefault(_rp_key, _rp_value)
+
         error_map: MutableMapping = {
             401: ClientAuthenticationError,
             404: ResourceNotFoundError,
@@ -797,7 +822,7 @@ class SshPublicKeysOperations:
         parameters: Optional[_models.SshGenerateKeyPairInputParameters] = None,
         *,
         content_type: str = "application/json",
-        **kwargs: Any
+        request_parameters: Optional[RequestParameters] = None, **kwargs: Any
     ) -> _models.SshPublicKeyGenerateKeyPairResult:
         """Generates and returns a public/private key pair and populates the SSH public key resource with
         the public key. The length of the key will be 3072 bits. This operation can only be performed
@@ -826,7 +851,7 @@ class SshPublicKeysOperations:
         parameters: Optional[IO[bytes]] = None,
         *,
         content_type: str = "application/json",
-        **kwargs: Any
+        request_parameters: Optional[RequestParameters] = None, **kwargs: Any
     ) -> _models.SshPublicKeyGenerateKeyPairResult:
         """Generates and returns a public/private key pair and populates the SSH public key resource with
         the public key. The length of the key will be 3072 bits. This operation can only be performed
@@ -853,7 +878,7 @@ class SshPublicKeysOperations:
         resource_group_name: str,
         ssh_public_key_name: str,
         parameters: Optional[Union[_models.SshGenerateKeyPairInputParameters, IO[bytes]]] = None,
-        **kwargs: Any
+        request_parameters: Optional[RequestParameters] = None, **kwargs: Any
     ) -> _models.SshPublicKeyGenerateKeyPairResult:
         """Generates and returns a public/private key pair and populates the SSH public key resource with
         the public key. The length of the key will be 3072 bits. This operation can only be performed
@@ -871,6 +896,10 @@ class SshPublicKeysOperations:
         :rtype: ~azure.mgmt.compute.models.SshPublicKeyGenerateKeyPairResult
         :raises ~azure.core.exceptions.HttpResponseError:
         """
+        if request_parameters:
+            for _rp_key, _rp_value in request_parameters.items():
+                kwargs.setdefault(_rp_key, _rp_value)
+
         error_map: MutableMapping = {
             401: ClientAuthenticationError,
             404: ResourceNotFoundError,

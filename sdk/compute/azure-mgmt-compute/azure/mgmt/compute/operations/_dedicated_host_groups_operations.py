@@ -29,6 +29,7 @@ from azure.mgmt.core.exceptions import ARMErrorFormat
 from .. import models as _models
 from .._configuration import ComputeManagementClientConfiguration
 from .._utils.serialization import Deserializer, Serializer
+from ..types import LRORequestParameters, RequestParameters
 
 T = TypeVar("T")
 ClsType = Optional[Callable[[PipelineResponse[HttpRequest, HttpResponse], T, dict[str, Any]], Any]]
@@ -257,7 +258,7 @@ class DedicatedHostGroupsOperations:
         self._deserialize: Deserializer = input_args.pop(0) if input_args else kwargs.pop("deserializer")
 
     @distributed_trace
-    def list_by_subscription(self, **kwargs: Any) -> ItemPaged["_models.DedicatedHostGroup"]:
+    def list_by_subscription(self, request_parameters: Optional[RequestParameters] = None, **kwargs: Any) -> ItemPaged["_models.DedicatedHostGroup"]:
         """Lists all of the dedicated host groups in the subscription. Use the nextLink property in the
         response to get the next page of dedicated host groups.
 
@@ -265,6 +266,10 @@ class DedicatedHostGroupsOperations:
         :rtype: ~azure.core.paging.ItemPaged[~azure.mgmt.compute.models.DedicatedHostGroup]
         :raises ~azure.core.exceptions.HttpResponseError:
         """
+        if request_parameters:
+            for _rp_key, _rp_value in request_parameters.items():
+                kwargs.setdefault(_rp_key, _rp_value)
+
         _headers = kwargs.pop("headers", {}) or {}
         _params = case_insensitive_dict(kwargs.pop("params", {}) or {})
 
@@ -322,7 +327,7 @@ class DedicatedHostGroupsOperations:
 
     @distributed_trace
     def list_by_resource_group(
-        self, resource_group_name: str, **kwargs: Any
+        self, resource_group_name: str, request_parameters: Optional[RequestParameters] = None, **kwargs: Any
     ) -> ItemPaged["_models.DedicatedHostGroup"]:
         """Lists all of the dedicated host groups in the specified resource group. Use the nextLink
         property in the response to get the next page of dedicated host groups.
@@ -334,6 +339,10 @@ class DedicatedHostGroupsOperations:
         :rtype: ~azure.core.paging.ItemPaged[~azure.mgmt.compute.models.DedicatedHostGroup]
         :raises ~azure.core.exceptions.HttpResponseError:
         """
+        if request_parameters:
+            for _rp_key, _rp_value in request_parameters.items():
+                kwargs.setdefault(_rp_key, _rp_value)
+
         _headers = kwargs.pop("headers", {}) or {}
         _params = case_insensitive_dict(kwargs.pop("params", {}) or {})
 
@@ -396,7 +405,7 @@ class DedicatedHostGroupsOperations:
         resource_group_name: str,
         host_group_name: str,
         expand: Optional[Union[str, _models.InstanceViewTypes]] = None,
-        **kwargs: Any
+        request_parameters: Optional[RequestParameters] = None, **kwargs: Any
     ) -> _models.DedicatedHostGroup:
         """Retrieves information about a dedicated host group.
 
@@ -414,6 +423,10 @@ class DedicatedHostGroupsOperations:
         :rtype: ~azure.mgmt.compute.models.DedicatedHostGroup
         :raises ~azure.core.exceptions.HttpResponseError:
         """
+        if request_parameters:
+            for _rp_key, _rp_value in request_parameters.items():
+                kwargs.setdefault(_rp_key, _rp_value)
+
         error_map: MutableMapping = {
             401: ClientAuthenticationError,
             404: ResourceNotFoundError,
@@ -465,7 +478,7 @@ class DedicatedHostGroupsOperations:
         parameters: _models.DedicatedHostGroup,
         *,
         content_type: str = "application/json",
-        **kwargs: Any
+        request_parameters: Optional[RequestParameters] = None, **kwargs: Any
     ) -> _models.DedicatedHostGroup:
         """Create or update a dedicated host group. For details of Dedicated Host and Dedicated Host
         Groups please see [Dedicated Host Documentation]
@@ -494,7 +507,7 @@ class DedicatedHostGroupsOperations:
         parameters: IO[bytes],
         *,
         content_type: str = "application/json",
-        **kwargs: Any
+        request_parameters: Optional[RequestParameters] = None, **kwargs: Any
     ) -> _models.DedicatedHostGroup:
         """Create or update a dedicated host group. For details of Dedicated Host and Dedicated Host
         Groups please see [Dedicated Host Documentation]
@@ -521,7 +534,7 @@ class DedicatedHostGroupsOperations:
         resource_group_name: str,
         host_group_name: str,
         parameters: Union[_models.DedicatedHostGroup, IO[bytes]],
-        **kwargs: Any
+        request_parameters: Optional[RequestParameters] = None, **kwargs: Any
     ) -> _models.DedicatedHostGroup:
         """Create or update a dedicated host group. For details of Dedicated Host and Dedicated Host
         Groups please see [Dedicated Host Documentation]
@@ -539,6 +552,10 @@ class DedicatedHostGroupsOperations:
         :rtype: ~azure.mgmt.compute.models.DedicatedHostGroup
         :raises ~azure.core.exceptions.HttpResponseError:
         """
+        if request_parameters:
+            for _rp_key, _rp_value in request_parameters.items():
+                kwargs.setdefault(_rp_key, _rp_value)
+
         error_map: MutableMapping = {
             401: ClientAuthenticationError,
             404: ResourceNotFoundError,
@@ -601,7 +618,7 @@ class DedicatedHostGroupsOperations:
         parameters: _models.DedicatedHostGroupUpdate,
         *,
         content_type: str = "application/json",
-        **kwargs: Any
+        request_parameters: Optional[RequestParameters] = None, **kwargs: Any
     ) -> _models.DedicatedHostGroup:
         """Update an dedicated host group.
 
@@ -628,7 +645,7 @@ class DedicatedHostGroupsOperations:
         parameters: IO[bytes],
         *,
         content_type: str = "application/json",
-        **kwargs: Any
+        request_parameters: Optional[RequestParameters] = None, **kwargs: Any
     ) -> _models.DedicatedHostGroup:
         """Update an dedicated host group.
 
@@ -653,7 +670,7 @@ class DedicatedHostGroupsOperations:
         resource_group_name: str,
         host_group_name: str,
         parameters: Union[_models.DedicatedHostGroupUpdate, IO[bytes]],
-        **kwargs: Any
+        request_parameters: Optional[RequestParameters] = None, **kwargs: Any
     ) -> _models.DedicatedHostGroup:
         """Update an dedicated host group.
 
@@ -669,6 +686,10 @@ class DedicatedHostGroupsOperations:
         :rtype: ~azure.mgmt.compute.models.DedicatedHostGroup
         :raises ~azure.core.exceptions.HttpResponseError:
         """
+        if request_parameters:
+            for _rp_key, _rp_value in request_parameters.items():
+                kwargs.setdefault(_rp_key, _rp_value)
+
         error_map: MutableMapping = {
             401: ClientAuthenticationError,
             404: ResourceNotFoundError,
@@ -725,7 +746,7 @@ class DedicatedHostGroupsOperations:
 
     @distributed_trace
     def delete(  # pylint: disable=inconsistent-return-statements
-        self, resource_group_name: str, host_group_name: str, **kwargs: Any
+        self, resource_group_name: str, host_group_name: str, request_parameters: Optional[RequestParameters] = None, **kwargs: Any
     ) -> None:
         """Delete a dedicated host group.
 
@@ -738,6 +759,10 @@ class DedicatedHostGroupsOperations:
         :rtype: None
         :raises ~azure.core.exceptions.HttpResponseError:
         """
+        if request_parameters:
+            for _rp_key, _rp_value in request_parameters.items():
+                kwargs.setdefault(_rp_key, _rp_value)
+
         error_map: MutableMapping = {
             401: ClientAuthenticationError,
             404: ResourceNotFoundError,

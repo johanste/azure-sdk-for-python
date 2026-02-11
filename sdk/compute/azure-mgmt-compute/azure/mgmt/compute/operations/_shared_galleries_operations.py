@@ -28,6 +28,7 @@ from azure.mgmt.core.exceptions import ARMErrorFormat
 from .. import models as _models
 from .._configuration import ComputeManagementClientConfiguration
 from .._utils.serialization import Deserializer, Serializer
+from ..types import LRORequestParameters, RequestParameters
 
 T = TypeVar("T")
 ClsType = Optional[Callable[[PipelineResponse[HttpRequest, HttpResponse], T, dict[str, Any]], Any]]
@@ -123,7 +124,7 @@ class SharedGalleriesOperations:
 
     @distributed_trace
     def list(
-        self, location: str, shared_to: Optional[Union[str, _models.SharedToValues]] = None, **kwargs: Any
+        self, location: str, shared_to: Optional[Union[str, _models.SharedToValues]] = None, request_parameters: Optional[RequestParameters] = None, **kwargs: Any
     ) -> ItemPaged["_models.SharedGallery"]:
         """List shared galleries by subscription id or tenant id.
 
@@ -136,6 +137,10 @@ class SharedGalleriesOperations:
         :rtype: ~azure.core.paging.ItemPaged[~azure.mgmt.compute.models.SharedGallery]
         :raises ~azure.core.exceptions.HttpResponseError:
         """
+        if request_parameters:
+            for _rp_key, _rp_value in request_parameters.items():
+                kwargs.setdefault(_rp_key, _rp_value)
+
         _headers = kwargs.pop("headers", {}) or {}
         _params = case_insensitive_dict(kwargs.pop("params", {}) or {})
 
@@ -194,7 +199,7 @@ class SharedGalleriesOperations:
         return ItemPaged(get_next, extract_data)
 
     @distributed_trace
-    def get(self, location: str, gallery_unique_name: str, **kwargs: Any) -> _models.SharedGallery:
+    def get(self, location: str, gallery_unique_name: str, request_parameters: Optional[RequestParameters] = None, **kwargs: Any) -> _models.SharedGallery:
         """Get a shared gallery by subscription id or tenant id.
 
         :param location: The name of Azure region. Required.
@@ -205,6 +210,10 @@ class SharedGalleriesOperations:
         :rtype: ~azure.mgmt.compute.models.SharedGallery
         :raises ~azure.core.exceptions.HttpResponseError:
         """
+        if request_parameters:
+            for _rp_key, _rp_value in request_parameters.items():
+                kwargs.setdefault(_rp_key, _rp_value)
+
         error_map: MutableMapping = {
             401: ClientAuthenticationError,
             404: ResourceNotFoundError,

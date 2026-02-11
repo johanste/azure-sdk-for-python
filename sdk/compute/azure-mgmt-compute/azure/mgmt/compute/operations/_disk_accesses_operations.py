@@ -33,6 +33,7 @@ from azure.mgmt.core.polling.arm_polling import ARMPolling
 from .. import models as _models
 from .._configuration import ComputeManagementClientConfiguration
 from .._utils.serialization import Deserializer, Serializer
+from ..types import LRORequestParameters, RequestParameters
 
 T = TypeVar("T")
 ClsType = Optional[Callable[[PipelineResponse[HttpRequest, HttpResponse], T, dict[str, Any]], Any]]
@@ -443,13 +444,17 @@ class DiskAccessesOperations:
         self._deserialize: Deserializer = input_args.pop(0) if input_args else kwargs.pop("deserializer")
 
     @distributed_trace
-    def list(self, **kwargs: Any) -> ItemPaged["_models.DiskAccess"]:
+    def list(self, request_parameters: Optional[RequestParameters] = None, **kwargs: Any) -> ItemPaged["_models.DiskAccess"]:
         """Lists all the disk access resources under a subscription.
 
         :return: An iterator like instance of either DiskAccess or the result of cls(response)
         :rtype: ~azure.core.paging.ItemPaged[~azure.mgmt.compute.models.DiskAccess]
         :raises ~azure.core.exceptions.HttpResponseError:
         """
+        if request_parameters:
+            for _rp_key, _rp_value in request_parameters.items():
+                kwargs.setdefault(_rp_key, _rp_value)
+
         _headers = kwargs.pop("headers", {}) or {}
         _params = case_insensitive_dict(kwargs.pop("params", {}) or {})
 
@@ -506,7 +511,7 @@ class DiskAccessesOperations:
         return ItemPaged(get_next, extract_data)
 
     @distributed_trace
-    def list_by_resource_group(self, resource_group_name: str, **kwargs: Any) -> ItemPaged["_models.DiskAccess"]:
+    def list_by_resource_group(self, resource_group_name: str, request_parameters: Optional[RequestParameters] = None, **kwargs: Any) -> ItemPaged["_models.DiskAccess"]:
         """Lists all the disk access resources under a resource group.
 
         :param resource_group_name: The name of the resource group. The name is case insensitive.
@@ -516,6 +521,10 @@ class DiskAccessesOperations:
         :rtype: ~azure.core.paging.ItemPaged[~azure.mgmt.compute.models.DiskAccess]
         :raises ~azure.core.exceptions.HttpResponseError:
         """
+        if request_parameters:
+            for _rp_key, _rp_value in request_parameters.items():
+                kwargs.setdefault(_rp_key, _rp_value)
+
         _headers = kwargs.pop("headers", {}) or {}
         _params = case_insensitive_dict(kwargs.pop("params", {}) or {})
 
@@ -573,7 +582,7 @@ class DiskAccessesOperations:
         return ItemPaged(get_next, extract_data)
 
     @distributed_trace
-    def get(self, resource_group_name: str, disk_access_name: str, **kwargs: Any) -> _models.DiskAccess:
+    def get(self, resource_group_name: str, disk_access_name: str, request_parameters: Optional[RequestParameters] = None, **kwargs: Any) -> _models.DiskAccess:
         """Gets information about a disk access resource.
 
         :param resource_group_name: The name of the resource group. The name is case insensitive.
@@ -587,6 +596,10 @@ class DiskAccessesOperations:
         :rtype: ~azure.mgmt.compute.models.DiskAccess
         :raises ~azure.core.exceptions.HttpResponseError:
         """
+        if request_parameters:
+            for _rp_key, _rp_value in request_parameters.items():
+                kwargs.setdefault(_rp_key, _rp_value)
+
         error_map: MutableMapping = {
             401: ClientAuthenticationError,
             404: ResourceNotFoundError,
@@ -708,7 +721,7 @@ class DiskAccessesOperations:
         disk_access: _models.DiskAccess,
         *,
         content_type: str = "application/json",
-        **kwargs: Any
+        request_parameters: Optional[LRORequestParameters] = None, **kwargs: Any
     ) -> LROPoller[_models.DiskAccess]:
         """Creates or updates a disk access resource.
 
@@ -738,7 +751,7 @@ class DiskAccessesOperations:
         disk_access: IO[bytes],
         *,
         content_type: str = "application/json",
-        **kwargs: Any
+        request_parameters: Optional[LRORequestParameters] = None, **kwargs: Any
     ) -> LROPoller[_models.DiskAccess]:
         """Creates or updates a disk access resource.
 
@@ -766,7 +779,7 @@ class DiskAccessesOperations:
         resource_group_name: str,
         disk_access_name: str,
         disk_access: Union[_models.DiskAccess, IO[bytes]],
-        **kwargs: Any
+        request_parameters: Optional[LRORequestParameters] = None, **kwargs: Any
     ) -> LROPoller[_models.DiskAccess]:
         """Creates or updates a disk access resource.
 
@@ -784,6 +797,10 @@ class DiskAccessesOperations:
         :rtype: ~azure.core.polling.LROPoller[~azure.mgmt.compute.models.DiskAccess]
         :raises ~azure.core.exceptions.HttpResponseError:
         """
+        if request_parameters:
+            for _rp_key, _rp_value in request_parameters.items():
+                kwargs.setdefault(_rp_key, _rp_value)
+
         _headers = case_insensitive_dict(kwargs.pop("headers", {}) or {})
         _params = case_insensitive_dict(kwargs.pop("params", {}) or {})
 
@@ -912,7 +929,7 @@ class DiskAccessesOperations:
         disk_access: _models.DiskAccessUpdate,
         *,
         content_type: str = "application/json",
-        **kwargs: Any
+        request_parameters: Optional[LRORequestParameters] = None, **kwargs: Any
     ) -> LROPoller[_models.DiskAccess]:
         """Updates (patches) a disk access resource.
 
@@ -942,7 +959,7 @@ class DiskAccessesOperations:
         disk_access: IO[bytes],
         *,
         content_type: str = "application/json",
-        **kwargs: Any
+        request_parameters: Optional[LRORequestParameters] = None, **kwargs: Any
     ) -> LROPoller[_models.DiskAccess]:
         """Updates (patches) a disk access resource.
 
@@ -970,7 +987,7 @@ class DiskAccessesOperations:
         resource_group_name: str,
         disk_access_name: str,
         disk_access: Union[_models.DiskAccessUpdate, IO[bytes]],
-        **kwargs: Any
+        request_parameters: Optional[LRORequestParameters] = None, **kwargs: Any
     ) -> LROPoller[_models.DiskAccess]:
         """Updates (patches) a disk access resource.
 
@@ -988,6 +1005,10 @@ class DiskAccessesOperations:
         :rtype: ~azure.core.polling.LROPoller[~azure.mgmt.compute.models.DiskAccess]
         :raises ~azure.core.exceptions.HttpResponseError:
         """
+        if request_parameters:
+            for _rp_key, _rp_value in request_parameters.items():
+                kwargs.setdefault(_rp_key, _rp_value)
+
         _headers = case_insensitive_dict(kwargs.pop("headers", {}) or {})
         _params = case_insensitive_dict(kwargs.pop("params", {}) or {})
 
@@ -1091,7 +1112,7 @@ class DiskAccessesOperations:
         return deserialized  # type: ignore
 
     @distributed_trace
-    def begin_delete(self, resource_group_name: str, disk_access_name: str, **kwargs: Any) -> LROPoller[None]:
+    def begin_delete(self, resource_group_name: str, disk_access_name: str, request_parameters: Optional[LRORequestParameters] = None, **kwargs: Any) -> LROPoller[None]:
         """Deletes a disk access resource.
 
         :param resource_group_name: The name of the resource group. The name is case insensitive.
@@ -1105,6 +1126,10 @@ class DiskAccessesOperations:
         :rtype: ~azure.core.polling.LROPoller[None]
         :raises ~azure.core.exceptions.HttpResponseError:
         """
+        if request_parameters:
+            for _rp_key, _rp_value in request_parameters.items():
+                kwargs.setdefault(_rp_key, _rp_value)
+
         _headers = kwargs.pop("headers", {}) or {}
         _params = case_insensitive_dict(kwargs.pop("params", {}) or {})
 
@@ -1149,7 +1174,7 @@ class DiskAccessesOperations:
 
     @distributed_trace
     def list_private_endpoint_connections(
-        self, resource_group_name: str, disk_access_name: str, **kwargs: Any
+        self, resource_group_name: str, disk_access_name: str, request_parameters: Optional[RequestParameters] = None, **kwargs: Any
     ) -> ItemPaged["_models.PrivateEndpointConnection"]:
         """List information about private endpoint connections under a disk access resource.
 
@@ -1165,6 +1190,10 @@ class DiskAccessesOperations:
         :rtype: ~azure.core.paging.ItemPaged[~azure.mgmt.compute.models.PrivateEndpointConnection]
         :raises ~azure.core.exceptions.HttpResponseError:
         """
+        if request_parameters:
+            for _rp_key, _rp_value in request_parameters.items():
+                kwargs.setdefault(_rp_key, _rp_value)
+
         _headers = kwargs.pop("headers", {}) or {}
         _params = case_insensitive_dict(kwargs.pop("params", {}) or {})
 
@@ -1224,7 +1253,7 @@ class DiskAccessesOperations:
 
     @distributed_trace
     def get_a_private_endpoint_connection(
-        self, resource_group_name: str, disk_access_name: str, private_endpoint_connection_name: str, **kwargs: Any
+        self, resource_group_name: str, disk_access_name: str, private_endpoint_connection_name: str, request_parameters: Optional[RequestParameters] = None, **kwargs: Any
     ) -> _models.PrivateEndpointConnection:
         """Gets information about a private endpoint connection under a disk access resource.
 
@@ -1241,6 +1270,10 @@ class DiskAccessesOperations:
         :rtype: ~azure.mgmt.compute.models.PrivateEndpointConnection
         :raises ~azure.core.exceptions.HttpResponseError:
         """
+        if request_parameters:
+            for _rp_key, _rp_value in request_parameters.items():
+                kwargs.setdefault(_rp_key, _rp_value)
+
         error_map: MutableMapping = {
             401: ClientAuthenticationError,
             404: ResourceNotFoundError,
@@ -1366,7 +1399,7 @@ class DiskAccessesOperations:
         private_endpoint_connection: _models.PrivateEndpointConnection,
         *,
         content_type: str = "application/json",
-        **kwargs: Any
+        request_parameters: Optional[LRORequestParameters] = None, **kwargs: Any
     ) -> LROPoller[_models.PrivateEndpointConnection]:
         """Approve or reject a private endpoint connection under disk access resource, this can't be used
         to create a new private endpoint connection.
@@ -1401,7 +1434,7 @@ class DiskAccessesOperations:
         private_endpoint_connection: IO[bytes],
         *,
         content_type: str = "application/json",
-        **kwargs: Any
+        request_parameters: Optional[LRORequestParameters] = None, **kwargs: Any
     ) -> LROPoller[_models.PrivateEndpointConnection]:
         """Approve or reject a private endpoint connection under disk access resource, this can't be used
         to create a new private endpoint connection.
@@ -1434,7 +1467,7 @@ class DiskAccessesOperations:
         disk_access_name: str,
         private_endpoint_connection_name: str,
         private_endpoint_connection: Union[_models.PrivateEndpointConnection, IO[bytes]],
-        **kwargs: Any
+        request_parameters: Optional[LRORequestParameters] = None, **kwargs: Any
     ) -> LROPoller[_models.PrivateEndpointConnection]:
         """Approve or reject a private endpoint connection under disk access resource, this can't be used
         to create a new private endpoint connection.
@@ -1458,6 +1491,10 @@ class DiskAccessesOperations:
         :rtype: ~azure.core.polling.LROPoller[~azure.mgmt.compute.models.PrivateEndpointConnection]
         :raises ~azure.core.exceptions.HttpResponseError:
         """
+        if request_parameters:
+            for _rp_key, _rp_value in request_parameters.items():
+                kwargs.setdefault(_rp_key, _rp_value)
+
         _headers = case_insensitive_dict(kwargs.pop("headers", {}) or {})
         _params = case_insensitive_dict(kwargs.pop("params", {}) or {})
 
@@ -1566,7 +1603,7 @@ class DiskAccessesOperations:
 
     @distributed_trace
     def begin_delete_a_private_endpoint_connection(  # pylint: disable=name-too-long
-        self, resource_group_name: str, disk_access_name: str, private_endpoint_connection_name: str, **kwargs: Any
+        self, resource_group_name: str, disk_access_name: str, private_endpoint_connection_name: str, request_parameters: Optional[LRORequestParameters] = None, **kwargs: Any
     ) -> LROPoller[None]:
         """Deletes a private endpoint connection under a disk access resource.
 
@@ -1583,6 +1620,10 @@ class DiskAccessesOperations:
         :rtype: ~azure.core.polling.LROPoller[None]
         :raises ~azure.core.exceptions.HttpResponseError:
         """
+        if request_parameters:
+            for _rp_key, _rp_value in request_parameters.items():
+                kwargs.setdefault(_rp_key, _rp_value)
+
         _headers = kwargs.pop("headers", {}) or {}
         _params = case_insensitive_dict(kwargs.pop("params", {}) or {})
 
@@ -1628,7 +1669,7 @@ class DiskAccessesOperations:
 
     @distributed_trace
     def get_private_link_resources(
-        self, resource_group_name: str, disk_access_name: str, **kwargs: Any
+        self, resource_group_name: str, disk_access_name: str, request_parameters: Optional[RequestParameters] = None, **kwargs: Any
     ) -> _models.PrivateLinkResourceListResult:
         """Gets the private link resources possible under disk access resource.
 
@@ -1643,6 +1684,10 @@ class DiskAccessesOperations:
         :rtype: ~azure.mgmt.compute.models.PrivateLinkResourceListResult
         :raises ~azure.core.exceptions.HttpResponseError:
         """
+        if request_parameters:
+            for _rp_key, _rp_value in request_parameters.items():
+                kwargs.setdefault(_rp_key, _rp_value)
+
         error_map: MutableMapping = {
             401: ClientAuthenticationError,
             404: ResourceNotFoundError,

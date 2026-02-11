@@ -25,6 +25,7 @@ from azure.mgmt.core.exceptions import ARMErrorFormat
 
 from ... import models as _models
 from ..._utils.serialization import Deserializer, Serializer
+from ...types import LRORequestParameters, RequestParameters
 from ...operations._virtual_machine_images_edge_zone_operations import (
     build_get_request,
     build_list_offers_request,

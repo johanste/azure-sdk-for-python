@@ -30,6 +30,7 @@ from azure.mgmt.core.polling.async_arm_polling import AsyncARMPolling
 
 from ... import models as _models
 from ..._utils.serialization import Deserializer, Serializer
+from ...types import LRORequestParameters, RequestParameters
 from ...operations._restore_points_operations import build_create_request, build_delete_request, build_get_request
 from .._configuration import ComputeManagementClientConfiguration
 

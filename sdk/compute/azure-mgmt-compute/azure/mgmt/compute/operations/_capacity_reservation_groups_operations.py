@@ -29,6 +29,7 @@ from azure.mgmt.core.exceptions import ARMErrorFormat
 from .. import models as _models
 from .._configuration import ComputeManagementClientConfiguration
 from .._utils.serialization import Deserializer, Serializer
+from ..types import LRORequestParameters, RequestParameters
 
 T = TypeVar("T")
 ClsType = Optional[Callable[[PipelineResponse[HttpRequest, HttpResponse], T, dict[str, Any]], Any]]
@@ -289,7 +290,7 @@ class CapacityReservationGroupsOperations:
         self,
         expand: Optional[Union[str, _models.ExpandTypesForGetCapacityReservationGroups]] = None,
         resource_ids_only: Optional[Union[str, _models.ResourceIdOptionsForGetCapacityReservationGroups]] = None,
-        **kwargs: Any
+        request_parameters: Optional[RequestParameters] = None, **kwargs: Any
     ) -> ItemPaged["_models.CapacityReservationGroup"]:
         """Lists all of the capacity reservation groups in the subscription. Use the nextLink property in
         the response to get the next page of capacity reservation groups.
@@ -313,6 +314,10 @@ class CapacityReservationGroupsOperations:
         :rtype: ~azure.core.paging.ItemPaged[~azure.mgmt.compute.models.CapacityReservationGroup]
         :raises ~azure.core.exceptions.HttpResponseError:
         """
+        if request_parameters:
+            for _rp_key, _rp_value in request_parameters.items():
+                kwargs.setdefault(_rp_key, _rp_value)
+
         _headers = kwargs.pop("headers", {}) or {}
         _params = case_insensitive_dict(kwargs.pop("params", {}) or {})
 
@@ -375,7 +380,7 @@ class CapacityReservationGroupsOperations:
         self,
         resource_group_name: str,
         expand: Optional[Union[str, _models.ExpandTypesForGetCapacityReservationGroups]] = None,
-        **kwargs: Any
+        request_parameters: Optional[RequestParameters] = None, **kwargs: Any
     ) -> ItemPaged["_models.CapacityReservationGroup"]:
         """Lists all of the capacity reservation groups in the specified resource group. Use the nextLink
         property in the response to get the next page of capacity reservation groups.
@@ -393,6 +398,10 @@ class CapacityReservationGroupsOperations:
         :rtype: ~azure.core.paging.ItemPaged[~azure.mgmt.compute.models.CapacityReservationGroup]
         :raises ~azure.core.exceptions.HttpResponseError:
         """
+        if request_parameters:
+            for _rp_key, _rp_value in request_parameters.items():
+                kwargs.setdefault(_rp_key, _rp_value)
+
         _headers = kwargs.pop("headers", {}) or {}
         _params = case_insensitive_dict(kwargs.pop("params", {}) or {})
 
@@ -456,7 +465,7 @@ class CapacityReservationGroupsOperations:
         resource_group_name: str,
         capacity_reservation_group_name: str,
         expand: Optional[Union[str, _models.CapacityReservationGroupInstanceViewTypes]] = None,
-        **kwargs: Any
+        request_parameters: Optional[RequestParameters] = None, **kwargs: Any
     ) -> _models.CapacityReservationGroup:
         """The operation that retrieves information about a capacity reservation group.
 
@@ -475,6 +484,10 @@ class CapacityReservationGroupsOperations:
         :rtype: ~azure.mgmt.compute.models.CapacityReservationGroup
         :raises ~azure.core.exceptions.HttpResponseError:
         """
+        if request_parameters:
+            for _rp_key, _rp_value in request_parameters.items():
+                kwargs.setdefault(_rp_key, _rp_value)
+
         error_map: MutableMapping = {
             401: ClientAuthenticationError,
             404: ResourceNotFoundError,
@@ -526,7 +539,7 @@ class CapacityReservationGroupsOperations:
         parameters: _models.CapacityReservationGroup,
         *,
         content_type: str = "application/json",
-        **kwargs: Any
+        request_parameters: Optional[RequestParameters] = None, **kwargs: Any
     ) -> _models.CapacityReservationGroup:
         """The operation to create or update a capacity reservation group. When updating a capacity
         reservation group, only tags and sharing profile may be modified. Please refer to
@@ -555,7 +568,7 @@ class CapacityReservationGroupsOperations:
         parameters: IO[bytes],
         *,
         content_type: str = "application/json",
-        **kwargs: Any
+        request_parameters: Optional[RequestParameters] = None, **kwargs: Any
     ) -> _models.CapacityReservationGroup:
         """The operation to create or update a capacity reservation group. When updating a capacity
         reservation group, only tags and sharing profile may be modified. Please refer to
@@ -582,7 +595,7 @@ class CapacityReservationGroupsOperations:
         resource_group_name: str,
         capacity_reservation_group_name: str,
         parameters: Union[_models.CapacityReservationGroup, IO[bytes]],
-        **kwargs: Any
+        request_parameters: Optional[RequestParameters] = None, **kwargs: Any
     ) -> _models.CapacityReservationGroup:
         """The operation to create or update a capacity reservation group. When updating a capacity
         reservation group, only tags and sharing profile may be modified. Please refer to
@@ -600,6 +613,10 @@ class CapacityReservationGroupsOperations:
         :rtype: ~azure.mgmt.compute.models.CapacityReservationGroup
         :raises ~azure.core.exceptions.HttpResponseError:
         """
+        if request_parameters:
+            for _rp_key, _rp_value in request_parameters.items():
+                kwargs.setdefault(_rp_key, _rp_value)
+
         error_map: MutableMapping = {
             401: ClientAuthenticationError,
             404: ResourceNotFoundError,
@@ -662,7 +679,7 @@ class CapacityReservationGroupsOperations:
         parameters: _models.CapacityReservationGroupUpdate,
         *,
         content_type: str = "application/json",
-        **kwargs: Any
+        request_parameters: Optional[RequestParameters] = None, **kwargs: Any
     ) -> _models.CapacityReservationGroup:
         """The operation to update a capacity reservation group. When updating a capacity reservation
         group, only tags and sharing profile may be modified.
@@ -691,7 +708,7 @@ class CapacityReservationGroupsOperations:
         parameters: IO[bytes],
         *,
         content_type: str = "application/json",
-        **kwargs: Any
+        request_parameters: Optional[RequestParameters] = None, **kwargs: Any
     ) -> _models.CapacityReservationGroup:
         """The operation to update a capacity reservation group. When updating a capacity reservation
         group, only tags and sharing profile may be modified.
@@ -718,7 +735,7 @@ class CapacityReservationGroupsOperations:
         resource_group_name: str,
         capacity_reservation_group_name: str,
         parameters: Union[_models.CapacityReservationGroupUpdate, IO[bytes]],
-        **kwargs: Any
+        request_parameters: Optional[RequestParameters] = None, **kwargs: Any
     ) -> _models.CapacityReservationGroup:
         """The operation to update a capacity reservation group. When updating a capacity reservation
         group, only tags and sharing profile may be modified.
@@ -735,6 +752,10 @@ class CapacityReservationGroupsOperations:
         :rtype: ~azure.mgmt.compute.models.CapacityReservationGroup
         :raises ~azure.core.exceptions.HttpResponseError:
         """
+        if request_parameters:
+            for _rp_key, _rp_value in request_parameters.items():
+                kwargs.setdefault(_rp_key, _rp_value)
+
         error_map: MutableMapping = {
             401: ClientAuthenticationError,
             404: ResourceNotFoundError,
@@ -791,7 +812,7 @@ class CapacityReservationGroupsOperations:
 
     @distributed_trace
     def delete(  # pylint: disable=inconsistent-return-statements
-        self, resource_group_name: str, capacity_reservation_group_name: str, **kwargs: Any
+        self, resource_group_name: str, capacity_reservation_group_name: str, request_parameters: Optional[RequestParameters] = None, **kwargs: Any
     ) -> None:
         """The operation to delete a capacity reservation group. This operation is allowed only if all the
         associated resources are disassociated from the reservation group and all capacity reservations
@@ -807,6 +828,10 @@ class CapacityReservationGroupsOperations:
         :rtype: None
         :raises ~azure.core.exceptions.HttpResponseError:
         """
+        if request_parameters:
+            for _rp_key, _rp_value in request_parameters.items():
+                kwargs.setdefault(_rp_key, _rp_value)
+
         error_map: MutableMapping = {
             401: ClientAuthenticationError,
             404: ResourceNotFoundError,

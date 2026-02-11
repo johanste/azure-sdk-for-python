@@ -32,6 +32,7 @@ from azure.mgmt.core.polling.async_arm_polling import AsyncARMPolling
 
 from ... import models as _models
 from ..._utils.serialization import Deserializer, Serializer
+from ...types import LRORequestParameters, RequestParameters
 from ...operations._gallery_script_versions_operations import (
     build_create_or_update_request,
     build_delete_request,
@@ -67,7 +68,7 @@ class GalleryScriptVersionsOperations:
 
     @distributed_trace
     def list_by_gallery_script(
-        self, resource_group_name: str, gallery_name: str, gallery_script_name: str, **kwargs: Any
+        self, resource_group_name: str, gallery_name: str, gallery_script_name: str, request_parameters: Optional[RequestParameters] = None, **kwargs: Any
     ) -> AsyncItemPaged["_models.GalleryScriptVersion"]:
         """List gallery Script Versions in a gallery Script Definition.
 
@@ -85,6 +86,10 @@ class GalleryScriptVersionsOperations:
          ~azure.core.async_paging.AsyncItemPaged[~azure.mgmt.compute.models.GalleryScriptVersion]
         :raises ~azure.core.exceptions.HttpResponseError:
         """
+        if request_parameters:
+            for _rp_key, _rp_value in request_parameters.items():
+                kwargs.setdefault(_rp_key, _rp_value)
+
         _headers = kwargs.pop("headers", {}) or {}
         _params = case_insensitive_dict(kwargs.pop("params", {}) or {})
 

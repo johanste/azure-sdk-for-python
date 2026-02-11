@@ -28,6 +28,7 @@ from azure.mgmt.core.exceptions import ARMErrorFormat
 from .. import models as _models
 from .._configuration import ComputeManagementClientConfiguration
 from .._utils.serialization import Deserializer, Serializer
+from ..types import LRORequestParameters, RequestParameters
 
 T = TypeVar("T")
 ClsType = Optional[Callable[[PipelineResponse[HttpRequest, HttpResponse], T, dict[str, Any]], Any]]
@@ -102,7 +103,7 @@ class SoftDeletedResourceOperations:
 
     @distributed_trace
     def list_by_artifact_name(
-        self, resource_group_name: str, gallery_name: str, artifact_type: str, artifact_name: str, **kwargs: Any
+        self, resource_group_name: str, gallery_name: str, artifact_type: str, artifact_name: str, request_parameters: Optional[RequestParameters] = None, **kwargs: Any
     ) -> ItemPaged["_models.GallerySoftDeletedResource"]:
         """List soft-deleted resources of an artifact in the gallery, such as soft-deleted gallery image
         version of an image.
@@ -123,6 +124,10 @@ class SoftDeletedResourceOperations:
         :rtype: ~azure.core.paging.ItemPaged[~azure.mgmt.compute.models.GallerySoftDeletedResource]
         :raises ~azure.core.exceptions.HttpResponseError:
         """
+        if request_parameters:
+            for _rp_key, _rp_value in request_parameters.items():
+                kwargs.setdefault(_rp_key, _rp_value)
+
         _headers = kwargs.pop("headers", {}) or {}
         _params = case_insensitive_dict(kwargs.pop("params", {}) or {})
 

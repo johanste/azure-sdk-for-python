@@ -33,6 +33,7 @@ from azure.mgmt.core.polling.async_arm_polling import AsyncARMPolling
 
 from ... import models as _models
 from ..._utils.serialization import Deserializer, Serializer
+from ...types import LRORequestParameters, RequestParameters
 from ...operations._virtual_machines_operations import (
     build_assess_patches_request,
     build_attach_detach_data_disks_request,
@@ -89,7 +90,7 @@ class VirtualMachinesOperations:  # pylint: disable=too-many-public-methods
         self._deserialize: Deserializer = input_args.pop(0) if input_args else kwargs.pop("deserializer")
 
     @distributed_trace
-    def list_by_location(self, location: str, **kwargs: Any) -> AsyncItemPaged["_models.VirtualMachine"]:
+    def list_by_location(self, location: str, request_parameters: Optional[RequestParameters] = None, **kwargs: Any) -> AsyncItemPaged["_models.VirtualMachine"]:
         """Gets all the virtual machines under the specified subscription for the specified location.
 
         :param location: The name of Azure region. Required.
@@ -98,6 +99,10 @@ class VirtualMachinesOperations:  # pylint: disable=too-many-public-methods
         :rtype: ~azure.core.async_paging.AsyncItemPaged[~azure.mgmt.compute.models.VirtualMachine]
         :raises ~azure.core.exceptions.HttpResponseError:
         """
+        if request_parameters:
+            for _rp_key, _rp_value in request_parameters.items():
+                kwargs.setdefault(_rp_key, _rp_value)
+
         _headers = kwargs.pop("headers", {}) or {}
         _params = case_insensitive_dict(kwargs.pop("params", {}) or {})
 
@@ -160,7 +165,7 @@ class VirtualMachinesOperations:  # pylint: disable=too-many-public-methods
         status_only: Optional[str] = None,
         filter: Optional[str] = None,
         expand: Optional[Union[str, _models.ExpandTypesForListVMs]] = None,
-        **kwargs: Any
+        request_parameters: Optional[RequestParameters] = None, **kwargs: Any
     ) -> AsyncItemPaged["_models.VirtualMachine"]:
         """Lists all of the virtual machines in the specified subscription. Use the nextLink property in
         the response to get the next page of virtual machines.
@@ -181,6 +186,10 @@ class VirtualMachinesOperations:  # pylint: disable=too-many-public-methods
         :rtype: ~azure.core.async_paging.AsyncItemPaged[~azure.mgmt.compute.models.VirtualMachine]
         :raises ~azure.core.exceptions.HttpResponseError:
         """
+        if request_parameters:
+            for _rp_key, _rp_value in request_parameters.items():
+                kwargs.setdefault(_rp_key, _rp_value)
+
         _headers = kwargs.pop("headers", {}) or {}
         _params = case_insensitive_dict(kwargs.pop("params", {}) or {})
 
@@ -245,7 +254,7 @@ class VirtualMachinesOperations:  # pylint: disable=too-many-public-methods
         resource_group_name: str,
         filter: Optional[str] = None,
         expand: Optional[Union[str, _models.ExpandTypeForListVMs]] = None,
-        **kwargs: Any
+        request_parameters: Optional[RequestParameters] = None, **kwargs: Any
     ) -> AsyncItemPaged["_models.VirtualMachine"]:
         """Lists all of the virtual machines in the specified resource group. Use the nextLink property in
         the response to get the next page of virtual machines.
@@ -266,6 +275,10 @@ class VirtualMachinesOperations:  # pylint: disable=too-many-public-methods
         :rtype: ~azure.core.async_paging.AsyncItemPaged[~azure.mgmt.compute.models.VirtualMachine]
         :raises ~azure.core.exceptions.HttpResponseError:
         """
+        if request_parameters:
+            for _rp_key, _rp_value in request_parameters.items():
+                kwargs.setdefault(_rp_key, _rp_value)
+
         _headers = kwargs.pop("headers", {}) or {}
         _params = case_insensitive_dict(kwargs.pop("params", {}) or {})
 
@@ -3452,7 +3465,7 @@ class VirtualMachinesOperations:  # pylint: disable=too-many-public-methods
 
     @distributed_trace
     def list_available_sizes(
-        self, resource_group_name: str, vm_name: str, **kwargs: Any
+        self, resource_group_name: str, vm_name: str, request_parameters: Optional[RequestParameters] = None, **kwargs: Any
     ) -> AsyncItemPaged["_models.VirtualMachineSize"]:
         """Lists all available virtual machine sizes to which the specified virtual machine can be
         resized.
@@ -3466,6 +3479,10 @@ class VirtualMachinesOperations:  # pylint: disable=too-many-public-methods
         :rtype: ~azure.core.async_paging.AsyncItemPaged[~azure.mgmt.compute.models.VirtualMachineSize]
         :raises ~azure.core.exceptions.HttpResponseError:
         """
+        if request_parameters:
+            for _rp_key, _rp_value in request_parameters.items():
+                kwargs.setdefault(_rp_key, _rp_value)
+
         _headers = kwargs.pop("headers", {}) or {}
         _params = case_insensitive_dict(kwargs.pop("params", {}) or {})
 

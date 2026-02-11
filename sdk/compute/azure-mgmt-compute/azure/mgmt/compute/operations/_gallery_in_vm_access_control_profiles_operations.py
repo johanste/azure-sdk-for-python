@@ -33,6 +33,7 @@ from azure.mgmt.core.polling.arm_polling import ARMPolling
 from .. import models as _models
 from .._configuration import ComputeManagementClientConfiguration
 from .._utils.serialization import Deserializer, Serializer
+from ..types import LRORequestParameters, RequestParameters
 
 T = TypeVar("T")
 ClsType = Optional[Callable[[PipelineResponse[HttpRequest, HttpResponse], T, dict[str, Any]], Any]]
@@ -262,7 +263,7 @@ class GalleryInVMAccessControlProfilesOperations:  # pylint: disable=name-too-lo
 
     @distributed_trace
     def list_by_gallery(
-        self, resource_group_name: str, gallery_name: str, **kwargs: Any
+        self, resource_group_name: str, gallery_name: str, request_parameters: Optional[RequestParameters] = None, **kwargs: Any
     ) -> ItemPaged["_models.GalleryInVMAccessControlProfile"]:
         """List gallery inVMAccessControlProfiles in a gallery.
 
@@ -277,6 +278,10 @@ class GalleryInVMAccessControlProfilesOperations:  # pylint: disable=name-too-lo
          ~azure.core.paging.ItemPaged[~azure.mgmt.compute.models.GalleryInVMAccessControlProfile]
         :raises ~azure.core.exceptions.HttpResponseError:
         """
+        if request_parameters:
+            for _rp_key, _rp_value in request_parameters.items():
+                kwargs.setdefault(_rp_key, _rp_value)
+
         _headers = kwargs.pop("headers", {}) or {}
         _params = case_insensitive_dict(kwargs.pop("params", {}) or {})
 
@@ -336,7 +341,7 @@ class GalleryInVMAccessControlProfilesOperations:  # pylint: disable=name-too-lo
 
     @distributed_trace
     def get(
-        self, resource_group_name: str, gallery_name: str, in_vm_access_control_profile_name: str, **kwargs: Any
+        self, resource_group_name: str, gallery_name: str, in_vm_access_control_profile_name: str, request_parameters: Optional[RequestParameters] = None, **kwargs: Any
     ) -> _models.GalleryInVMAccessControlProfile:
         """Retrieves information about a gallery inVMAccessControlProfile.
 
@@ -352,6 +357,10 @@ class GalleryInVMAccessControlProfilesOperations:  # pylint: disable=name-too-lo
         :rtype: ~azure.mgmt.compute.models.GalleryInVMAccessControlProfile
         :raises ~azure.core.exceptions.HttpResponseError:
         """
+        if request_parameters:
+            for _rp_key, _rp_value in request_parameters.items():
+                kwargs.setdefault(_rp_key, _rp_value)
+
         error_map: MutableMapping = {
             401: ClientAuthenticationError,
             404: ResourceNotFoundError,
@@ -477,7 +486,7 @@ class GalleryInVMAccessControlProfilesOperations:  # pylint: disable=name-too-lo
         gallery_in_vm_access_control_profile: _models.GalleryInVMAccessControlProfile,
         *,
         content_type: str = "application/json",
-        **kwargs: Any
+        request_parameters: Optional[LRORequestParameters] = None, **kwargs: Any
     ) -> LROPoller[_models.GalleryInVMAccessControlProfile]:
         """Create or update a gallery inVMAccessControlProfile.
 
@@ -512,7 +521,7 @@ class GalleryInVMAccessControlProfilesOperations:  # pylint: disable=name-too-lo
         gallery_in_vm_access_control_profile: IO[bytes],
         *,
         content_type: str = "application/json",
-        **kwargs: Any
+        request_parameters: Optional[LRORequestParameters] = None, **kwargs: Any
     ) -> LROPoller[_models.GalleryInVMAccessControlProfile]:
         """Create or update a gallery inVMAccessControlProfile.
 
@@ -544,7 +553,7 @@ class GalleryInVMAccessControlProfilesOperations:  # pylint: disable=name-too-lo
         gallery_name: str,
         in_vm_access_control_profile_name: str,
         gallery_in_vm_access_control_profile: Union[_models.GalleryInVMAccessControlProfile, IO[bytes]],
-        **kwargs: Any
+        request_parameters: Optional[LRORequestParameters] = None, **kwargs: Any
     ) -> LROPoller[_models.GalleryInVMAccessControlProfile]:
         """Create or update a gallery inVMAccessControlProfile.
 
@@ -567,6 +576,10 @@ class GalleryInVMAccessControlProfilesOperations:  # pylint: disable=name-too-lo
          ~azure.core.polling.LROPoller[~azure.mgmt.compute.models.GalleryInVMAccessControlProfile]
         :raises ~azure.core.exceptions.HttpResponseError:
         """
+        if request_parameters:
+            for _rp_key, _rp_value in request_parameters.items():
+                kwargs.setdefault(_rp_key, _rp_value)
+
         _headers = case_insensitive_dict(kwargs.pop("headers", {}) or {})
         _params = case_insensitive_dict(kwargs.pop("params", {}) or {})
 
@@ -698,7 +711,7 @@ class GalleryInVMAccessControlProfilesOperations:  # pylint: disable=name-too-lo
         gallery_in_vm_access_control_profile: _models.GalleryInVMAccessControlProfileUpdate,
         *,
         content_type: str = "application/json",
-        **kwargs: Any
+        request_parameters: Optional[LRORequestParameters] = None, **kwargs: Any
     ) -> LROPoller[_models.GalleryInVMAccessControlProfile]:
         """Update a gallery inVMAccessControlProfile.
 
@@ -733,7 +746,7 @@ class GalleryInVMAccessControlProfilesOperations:  # pylint: disable=name-too-lo
         gallery_in_vm_access_control_profile: IO[bytes],
         *,
         content_type: str = "application/json",
-        **kwargs: Any
+        request_parameters: Optional[LRORequestParameters] = None, **kwargs: Any
     ) -> LROPoller[_models.GalleryInVMAccessControlProfile]:
         """Update a gallery inVMAccessControlProfile.
 
@@ -765,7 +778,7 @@ class GalleryInVMAccessControlProfilesOperations:  # pylint: disable=name-too-lo
         gallery_name: str,
         in_vm_access_control_profile_name: str,
         gallery_in_vm_access_control_profile: Union[_models.GalleryInVMAccessControlProfileUpdate, IO[bytes]],
-        **kwargs: Any
+        request_parameters: Optional[LRORequestParameters] = None, **kwargs: Any
     ) -> LROPoller[_models.GalleryInVMAccessControlProfile]:
         """Update a gallery inVMAccessControlProfile.
 
@@ -788,6 +801,10 @@ class GalleryInVMAccessControlProfilesOperations:  # pylint: disable=name-too-lo
          ~azure.core.polling.LROPoller[~azure.mgmt.compute.models.GalleryInVMAccessControlProfile]
         :raises ~azure.core.exceptions.HttpResponseError:
         """
+        if request_parameters:
+            for _rp_key, _rp_value in request_parameters.items():
+                kwargs.setdefault(_rp_key, _rp_value)
+
         _headers = case_insensitive_dict(kwargs.pop("headers", {}) or {})
         _params = case_insensitive_dict(kwargs.pop("params", {}) or {})
 
@@ -903,7 +920,7 @@ class GalleryInVMAccessControlProfilesOperations:  # pylint: disable=name-too-lo
 
     @distributed_trace
     def begin_delete(
-        self, resource_group_name: str, gallery_name: str, in_vm_access_control_profile_name: str, **kwargs: Any
+        self, resource_group_name: str, gallery_name: str, in_vm_access_control_profile_name: str, request_parameters: Optional[LRORequestParameters] = None, **kwargs: Any
     ) -> LROPoller[None]:
         """Delete a gallery inVMAccessControlProfile.
 
@@ -919,6 +936,10 @@ class GalleryInVMAccessControlProfilesOperations:  # pylint: disable=name-too-lo
         :rtype: ~azure.core.polling.LROPoller[None]
         :raises ~azure.core.exceptions.HttpResponseError:
         """
+        if request_parameters:
+            for _rp_key, _rp_value in request_parameters.items():
+                kwargs.setdefault(_rp_key, _rp_value)
+
         _headers = kwargs.pop("headers", {}) or {}
         _params = case_insensitive_dict(kwargs.pop("params", {}) or {})
 

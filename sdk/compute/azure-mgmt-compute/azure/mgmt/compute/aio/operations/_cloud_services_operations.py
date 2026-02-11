@@ -33,6 +33,7 @@ from azure.mgmt.core.polling.async_arm_polling import AsyncARMPolling
 
 from ... import models as _models
 from ..._utils.serialization import Deserializer, Serializer
+from ...types import LRORequestParameters, RequestParameters
 from ...operations._cloud_services_operations import (
     build_create_or_update_request,
     build_delete_instances_request,
@@ -680,7 +681,7 @@ class CloudServicesOperations:  # pylint: disable=too-many-public-methods
         return deserialized  # type: ignore
 
     @distributed_trace
-    def list_all(self, **kwargs: Any) -> AsyncItemPaged["_models.CloudService"]:
+    def list_all(self, request_parameters: Optional[RequestParameters] = None, **kwargs: Any) -> AsyncItemPaged["_models.CloudService"]:
         """Gets a list of all cloud services in the subscription, regardless of the associated resource
         group. Use nextLink property in the response to get the next page of Cloud Services. Do this
         till nextLink is null to fetch all the Cloud Services.
@@ -689,6 +690,10 @@ class CloudServicesOperations:  # pylint: disable=too-many-public-methods
         :rtype: ~azure.core.async_paging.AsyncItemPaged[~azure.mgmt.compute.models.CloudService]
         :raises ~azure.core.exceptions.HttpResponseError:
         """
+        if request_parameters:
+            for _rp_key, _rp_value in request_parameters.items():
+                kwargs.setdefault(_rp_key, _rp_value)
+
         _headers = kwargs.pop("headers", {}) or {}
         _params = case_insensitive_dict(kwargs.pop("params", {}) or {})
 
@@ -745,7 +750,7 @@ class CloudServicesOperations:  # pylint: disable=too-many-public-methods
         return AsyncItemPaged(get_next, extract_data)
 
     @distributed_trace
-    def list(self, resource_group_name: str, **kwargs: Any) -> AsyncItemPaged["_models.CloudService"]:
+    def list(self, resource_group_name: str, request_parameters: Optional[RequestParameters] = None, **kwargs: Any) -> AsyncItemPaged["_models.CloudService"]:
         """Gets a list of all cloud services under a resource group. Use nextLink property in the response
         to get the next page of Cloud Services. Do this till nextLink is null to fetch all the Cloud
         Services.
@@ -756,6 +761,10 @@ class CloudServicesOperations:  # pylint: disable=too-many-public-methods
         :rtype: ~azure.core.async_paging.AsyncItemPaged[~azure.mgmt.compute.models.CloudService]
         :raises ~azure.core.exceptions.HttpResponseError:
         """
+        if request_parameters:
+            for _rp_key, _rp_value in request_parameters.items():
+                kwargs.setdefault(_rp_key, _rp_value)
+
         _headers = kwargs.pop("headers", {}) or {}
         _params = case_insensitive_dict(kwargs.pop("params", {}) or {})
 

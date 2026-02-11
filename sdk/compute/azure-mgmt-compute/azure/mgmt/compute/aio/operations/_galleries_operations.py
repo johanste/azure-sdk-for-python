@@ -32,6 +32,7 @@ from azure.mgmt.core.polling.async_arm_polling import AsyncARMPolling
 
 from ... import models as _models
 from ..._utils.serialization import Deserializer, Serializer
+from ...types import LRORequestParameters, RequestParameters
 from ...operations._galleries_operations import (
     build_create_or_update_request,
     build_delete_request,
@@ -67,13 +68,17 @@ class GalleriesOperations:
         self._deserialize: Deserializer = input_args.pop(0) if input_args else kwargs.pop("deserializer")
 
     @distributed_trace
-    def list(self, **kwargs: Any) -> AsyncItemPaged["_models.Gallery"]:
+    def list(self, request_parameters: Optional[RequestParameters] = None, **kwargs: Any) -> AsyncItemPaged["_models.Gallery"]:
         """List galleries under a subscription.
 
         :return: An iterator like instance of either Gallery or the result of cls(response)
         :rtype: ~azure.core.async_paging.AsyncItemPaged[~azure.mgmt.compute.models.Gallery]
         :raises ~azure.core.exceptions.HttpResponseError:
         """
+        if request_parameters:
+            for _rp_key, _rp_value in request_parameters.items():
+                kwargs.setdefault(_rp_key, _rp_value)
+
         _headers = kwargs.pop("headers", {}) or {}
         _params = case_insensitive_dict(kwargs.pop("params", {}) or {})
 
@@ -130,7 +135,7 @@ class GalleriesOperations:
         return AsyncItemPaged(get_next, extract_data)
 
     @distributed_trace
-    def list_by_resource_group(self, resource_group_name: str, **kwargs: Any) -> AsyncItemPaged["_models.Gallery"]:
+    def list_by_resource_group(self, resource_group_name: str, request_parameters: Optional[RequestParameters] = None, **kwargs: Any) -> AsyncItemPaged["_models.Gallery"]:
         """List galleries under a resource group.
 
         :param resource_group_name: The name of the resource group. The name is case insensitive.
@@ -140,6 +145,10 @@ class GalleriesOperations:
         :rtype: ~azure.core.async_paging.AsyncItemPaged[~azure.mgmt.compute.models.Gallery]
         :raises ~azure.core.exceptions.HttpResponseError:
         """
+        if request_parameters:
+            for _rp_key, _rp_value in request_parameters.items():
+                kwargs.setdefault(_rp_key, _rp_value)
+
         _headers = kwargs.pop("headers", {}) or {}
         _params = case_insensitive_dict(kwargs.pop("params", {}) or {})
 

@@ -33,6 +33,7 @@ from azure.mgmt.core.polling.arm_polling import ARMPolling
 from .. import models as _models
 from .._configuration import ComputeManagementClientConfiguration
 from .._utils.serialization import Deserializer, Serializer
+from ..types import LRORequestParameters, RequestParameters
 
 T = TypeVar("T")
 ClsType = Optional[Callable[[PipelineResponse[HttpRequest, HttpResponse], T, dict[str, Any]], Any]]
@@ -246,7 +247,7 @@ class GalleryScriptsOperations:
 
     @distributed_trace
     def list_by_gallery(
-        self, resource_group_name: str, gallery_name: str, **kwargs: Any
+        self, resource_group_name: str, gallery_name: str, request_parameters: Optional[RequestParameters] = None, **kwargs: Any
     ) -> ItemPaged["_models.GalleryScript"]:
         """List gallery Script Definitions in a gallery.
 
@@ -259,6 +260,10 @@ class GalleryScriptsOperations:
         :rtype: ~azure.core.paging.ItemPaged[~azure.mgmt.compute.models.GalleryScript]
         :raises ~azure.core.exceptions.HttpResponseError:
         """
+        if request_parameters:
+            for _rp_key, _rp_value in request_parameters.items():
+                kwargs.setdefault(_rp_key, _rp_value)
+
         _headers = kwargs.pop("headers", {}) or {}
         _params = case_insensitive_dict(kwargs.pop("params", {}) or {})
 
@@ -318,7 +323,7 @@ class GalleryScriptsOperations:
 
     @distributed_trace
     def get(
-        self, resource_group_name: str, gallery_name: str, gallery_script_name: str, **kwargs: Any
+        self, resource_group_name: str, gallery_name: str, gallery_script_name: str, request_parameters: Optional[RequestParameters] = None, **kwargs: Any
     ) -> _models.GalleryScript:
         """Retrieves information about a gallery script definition.
 
@@ -334,6 +339,10 @@ class GalleryScriptsOperations:
         :rtype: ~azure.mgmt.compute.models.GalleryScript
         :raises ~azure.core.exceptions.HttpResponseError:
         """
+        if request_parameters:
+            for _rp_key, _rp_value in request_parameters.items():
+                kwargs.setdefault(_rp_key, _rp_value)
+
         error_map: MutableMapping = {
             401: ClientAuthenticationError,
             404: ResourceNotFoundError,
@@ -459,7 +468,7 @@ class GalleryScriptsOperations:
         gallery_script: _models.GalleryScript,
         *,
         content_type: str = "application/json",
-        **kwargs: Any
+        request_parameters: Optional[LRORequestParameters] = None, **kwargs: Any
     ) -> LROPoller[_models.GalleryScript]:
         """Create or update a Gallery Script Definition. Gallery scripts allow the storage, sharing and
         reuse of common scripts.
@@ -493,7 +502,7 @@ class GalleryScriptsOperations:
         gallery_script: IO[bytes],
         *,
         content_type: str = "application/json",
-        **kwargs: Any
+        request_parameters: Optional[LRORequestParameters] = None, **kwargs: Any
     ) -> LROPoller[_models.GalleryScript]:
         """Create or update a Gallery Script Definition. Gallery scripts allow the storage, sharing and
         reuse of common scripts.
@@ -525,7 +534,7 @@ class GalleryScriptsOperations:
         gallery_name: str,
         gallery_script_name: str,
         gallery_script: Union[_models.GalleryScript, IO[bytes]],
-        **kwargs: Any
+        request_parameters: Optional[LRORequestParameters] = None, **kwargs: Any
     ) -> LROPoller[_models.GalleryScript]:
         """Create or update a Gallery Script Definition. Gallery scripts allow the storage, sharing and
         reuse of common scripts.
@@ -546,6 +555,10 @@ class GalleryScriptsOperations:
         :rtype: ~azure.core.polling.LROPoller[~azure.mgmt.compute.models.GalleryScript]
         :raises ~azure.core.exceptions.HttpResponseError:
         """
+        if request_parameters:
+            for _rp_key, _rp_value in request_parameters.items():
+                kwargs.setdefault(_rp_key, _rp_value)
+
         _headers = case_insensitive_dict(kwargs.pop("headers", {}) or {})
         _params = case_insensitive_dict(kwargs.pop("params", {}) or {})
 
@@ -678,7 +691,7 @@ class GalleryScriptsOperations:
         gallery_script: _models.GalleryScriptUpdate,
         *,
         content_type: str = "application/json",
-        **kwargs: Any
+        request_parameters: Optional[LRORequestParameters] = None, **kwargs: Any
     ) -> LROPoller[_models.GalleryScript]:
         """Update a gallery Script Definition.
 
@@ -710,7 +723,7 @@ class GalleryScriptsOperations:
         gallery_script: IO[bytes],
         *,
         content_type: str = "application/json",
-        **kwargs: Any
+        request_parameters: Optional[LRORequestParameters] = None, **kwargs: Any
     ) -> LROPoller[_models.GalleryScript]:
         """Update a gallery Script Definition.
 
@@ -740,7 +753,7 @@ class GalleryScriptsOperations:
         gallery_name: str,
         gallery_script_name: str,
         gallery_script: Union[_models.GalleryScriptUpdate, IO[bytes]],
-        **kwargs: Any
+        request_parameters: Optional[LRORequestParameters] = None, **kwargs: Any
     ) -> LROPoller[_models.GalleryScript]:
         """Update a gallery Script Definition.
 
@@ -760,6 +773,10 @@ class GalleryScriptsOperations:
         :rtype: ~azure.core.polling.LROPoller[~azure.mgmt.compute.models.GalleryScript]
         :raises ~azure.core.exceptions.HttpResponseError:
         """
+        if request_parameters:
+            for _rp_key, _rp_value in request_parameters.items():
+                kwargs.setdefault(_rp_key, _rp_value)
+
         _headers = case_insensitive_dict(kwargs.pop("headers", {}) or {})
         _params = case_insensitive_dict(kwargs.pop("params", {}) or {})
 
@@ -868,7 +885,7 @@ class GalleryScriptsOperations:
 
     @distributed_trace
     def begin_delete(
-        self, resource_group_name: str, gallery_name: str, gallery_script_name: str, **kwargs: Any
+        self, resource_group_name: str, gallery_name: str, gallery_script_name: str, request_parameters: Optional[LRORequestParameters] = None, **kwargs: Any
     ) -> LROPoller[None]:
         """Delete a gallery Script Definition.
 
@@ -884,6 +901,10 @@ class GalleryScriptsOperations:
         :rtype: ~azure.core.polling.LROPoller[None]
         :raises ~azure.core.exceptions.HttpResponseError:
         """
+        if request_parameters:
+            for _rp_key, _rp_value in request_parameters.items():
+                kwargs.setdefault(_rp_key, _rp_value)
+
         _headers = kwargs.pop("headers", {}) or {}
         _params = case_insensitive_dict(kwargs.pop("params", {}) or {})
 

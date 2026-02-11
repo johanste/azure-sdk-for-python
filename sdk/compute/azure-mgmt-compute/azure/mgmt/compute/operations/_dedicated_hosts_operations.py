@@ -33,6 +33,7 @@ from azure.mgmt.core.polling.arm_polling import ARMPolling
 from .. import models as _models
 from .._configuration import ComputeManagementClientConfiguration
 from .._utils.serialization import Deserializer, Serializer
+from ..types import LRORequestParameters, RequestParameters
 
 T = TypeVar("T")
 ClsType = Optional[Callable[[PipelineResponse[HttpRequest, HttpResponse], T, dict[str, Any]], Any]]
@@ -348,7 +349,7 @@ class DedicatedHostsOperations:
 
     @distributed_trace
     def list_by_host_group(
-        self, resource_group_name: str, host_group_name: str, **kwargs: Any
+        self, resource_group_name: str, host_group_name: str, request_parameters: Optional[RequestParameters] = None, **kwargs: Any
     ) -> ItemPaged["_models.DedicatedHost"]:
         """Lists all of the dedicated hosts in the specified dedicated host group. Use the nextLink
         property in the response to get the next page of dedicated hosts.
@@ -362,6 +363,10 @@ class DedicatedHostsOperations:
         :rtype: ~azure.core.paging.ItemPaged[~azure.mgmt.compute.models.DedicatedHost]
         :raises ~azure.core.exceptions.HttpResponseError:
         """
+        if request_parameters:
+            for _rp_key, _rp_value in request_parameters.items():
+                kwargs.setdefault(_rp_key, _rp_value)
+
         _headers = kwargs.pop("headers", {}) or {}
         _params = case_insensitive_dict(kwargs.pop("params", {}) or {})
 
@@ -426,7 +431,7 @@ class DedicatedHostsOperations:
         host_group_name: str,
         host_name: str,
         expand: Optional[Union[str, _models.InstanceViewTypes]] = None,
-        **kwargs: Any
+        request_parameters: Optional[RequestParameters] = None, **kwargs: Any
     ) -> _models.DedicatedHost:
         """Retrieves information about a dedicated host.
 
@@ -446,6 +451,10 @@ class DedicatedHostsOperations:
         :rtype: ~azure.mgmt.compute.models.DedicatedHost
         :raises ~azure.core.exceptions.HttpResponseError:
         """
+        if request_parameters:
+            for _rp_key, _rp_value in request_parameters.items():
+                kwargs.setdefault(_rp_key, _rp_value)
+
         error_map: MutableMapping = {
             401: ClientAuthenticationError,
             404: ResourceNotFoundError,
@@ -572,7 +581,7 @@ class DedicatedHostsOperations:
         parameters: _models.DedicatedHost,
         *,
         content_type: str = "application/json",
-        **kwargs: Any
+        request_parameters: Optional[LRORequestParameters] = None, **kwargs: Any
     ) -> LROPoller[_models.DedicatedHost]:
         """Create or update a dedicated host .
 
@@ -603,7 +612,7 @@ class DedicatedHostsOperations:
         parameters: IO[bytes],
         *,
         content_type: str = "application/json",
-        **kwargs: Any
+        request_parameters: Optional[LRORequestParameters] = None, **kwargs: Any
     ) -> LROPoller[_models.DedicatedHost]:
         """Create or update a dedicated host .
 
@@ -632,7 +641,7 @@ class DedicatedHostsOperations:
         host_group_name: str,
         host_name: str,
         parameters: Union[_models.DedicatedHost, IO[bytes]],
-        **kwargs: Any
+        request_parameters: Optional[LRORequestParameters] = None, **kwargs: Any
     ) -> LROPoller[_models.DedicatedHost]:
         """Create or update a dedicated host .
 
@@ -651,6 +660,10 @@ class DedicatedHostsOperations:
         :rtype: ~azure.core.polling.LROPoller[~azure.mgmt.compute.models.DedicatedHost]
         :raises ~azure.core.exceptions.HttpResponseError:
         """
+        if request_parameters:
+            for _rp_key, _rp_value in request_parameters.items():
+                kwargs.setdefault(_rp_key, _rp_value)
+
         _headers = case_insensitive_dict(kwargs.pop("headers", {}) or {})
         _params = case_insensitive_dict(kwargs.pop("params", {}) or {})
 
@@ -782,7 +795,7 @@ class DedicatedHostsOperations:
         parameters: _models.DedicatedHostUpdate,
         *,
         content_type: str = "application/json",
-        **kwargs: Any
+        request_parameters: Optional[LRORequestParameters] = None, **kwargs: Any
     ) -> LROPoller[_models.DedicatedHost]:
         """Update a dedicated host .
 
@@ -813,7 +826,7 @@ class DedicatedHostsOperations:
         parameters: IO[bytes],
         *,
         content_type: str = "application/json",
-        **kwargs: Any
+        request_parameters: Optional[LRORequestParameters] = None, **kwargs: Any
     ) -> LROPoller[_models.DedicatedHost]:
         """Update a dedicated host .
 
@@ -842,7 +855,7 @@ class DedicatedHostsOperations:
         host_group_name: str,
         host_name: str,
         parameters: Union[_models.DedicatedHostUpdate, IO[bytes]],
-        **kwargs: Any
+        request_parameters: Optional[LRORequestParameters] = None, **kwargs: Any
     ) -> LROPoller[_models.DedicatedHost]:
         """Update a dedicated host .
 
@@ -861,6 +874,10 @@ class DedicatedHostsOperations:
         :rtype: ~azure.core.polling.LROPoller[~azure.mgmt.compute.models.DedicatedHost]
         :raises ~azure.core.exceptions.HttpResponseError:
         """
+        if request_parameters:
+            for _rp_key, _rp_value in request_parameters.items():
+                kwargs.setdefault(_rp_key, _rp_value)
+
         _headers = case_insensitive_dict(kwargs.pop("headers", {}) or {})
         _params = case_insensitive_dict(kwargs.pop("params", {}) or {})
 
@@ -974,7 +991,7 @@ class DedicatedHostsOperations:
 
     @distributed_trace
     def begin_delete(
-        self, resource_group_name: str, host_group_name: str, host_name: str, **kwargs: Any
+        self, resource_group_name: str, host_group_name: str, host_name: str, request_parameters: Optional[LRORequestParameters] = None, **kwargs: Any
     ) -> LROPoller[None]:
         """Delete a dedicated host.
 
@@ -989,6 +1006,10 @@ class DedicatedHostsOperations:
         :rtype: ~azure.core.polling.LROPoller[None]
         :raises ~azure.core.exceptions.HttpResponseError:
         """
+        if request_parameters:
+            for _rp_key, _rp_value in request_parameters.items():
+                kwargs.setdefault(_rp_key, _rp_value)
+
         _headers = kwargs.pop("headers", {}) or {}
         _params = case_insensitive_dict(kwargs.pop("params", {}) or {})
 
@@ -1034,7 +1055,7 @@ class DedicatedHostsOperations:
 
     @distributed_trace
     def list_available_sizes(
-        self, resource_group_name: str, host_group_name: str, host_name: str, **kwargs: Any
+        self, resource_group_name: str, host_group_name: str, host_name: str, request_parameters: Optional[RequestParameters] = None, **kwargs: Any
     ) -> ItemPaged[str]:
         """Lists all available dedicated host sizes to which the specified dedicated host can be resized.
         NOTE: The dedicated host sizes provided can be used to only scale up the existing dedicated
@@ -1051,6 +1072,10 @@ class DedicatedHostsOperations:
         :rtype: ~azure.core.paging.ItemPaged[str]
         :raises ~azure.core.exceptions.HttpResponseError:
         """
+        if request_parameters:
+            for _rp_key, _rp_value in request_parameters.items():
+                kwargs.setdefault(_rp_key, _rp_value)
+
         _headers = kwargs.pop("headers", {}) or {}
         _params = case_insensitive_dict(kwargs.pop("params", {}) or {})
 
@@ -1166,7 +1191,7 @@ class DedicatedHostsOperations:
 
     @distributed_trace
     def begin_redeploy(
-        self, resource_group_name: str, host_group_name: str, host_name: str, **kwargs: Any
+        self, resource_group_name: str, host_group_name: str, host_name: str, request_parameters: Optional[LRORequestParameters] = None, **kwargs: Any
     ) -> LROPoller[None]:
         """Redeploy the dedicated host. The operation will complete successfully once the dedicated host
         has migrated to a new node and is running. To determine the health of VMs deployed on the
@@ -1185,6 +1210,10 @@ class DedicatedHostsOperations:
         :rtype: ~azure.core.polling.LROPoller[None]
         :raises ~azure.core.exceptions.HttpResponseError:
         """
+        if request_parameters:
+            for _rp_key, _rp_value in request_parameters.items():
+                kwargs.setdefault(_rp_key, _rp_value)
+
         _headers = kwargs.pop("headers", {}) or {}
         _params = case_insensitive_dict(kwargs.pop("params", {}) or {})
 
@@ -1285,7 +1314,7 @@ class DedicatedHostsOperations:
 
     @distributed_trace
     def begin_restart(
-        self, resource_group_name: str, host_group_name: str, host_name: str, **kwargs: Any
+        self, resource_group_name: str, host_group_name: str, host_name: str, request_parameters: Optional[LRORequestParameters] = None, **kwargs: Any
     ) -> LROPoller[None]:
         """Restart the dedicated host. The operation will complete successfully once the dedicated host
         has restarted and is running. To determine the health of VMs deployed on the dedicated host
@@ -1303,6 +1332,10 @@ class DedicatedHostsOperations:
         :rtype: ~azure.core.polling.LROPoller[None]
         :raises ~azure.core.exceptions.HttpResponseError:
         """
+        if request_parameters:
+            for _rp_key, _rp_value in request_parameters.items():
+                kwargs.setdefault(_rp_key, _rp_value)
+
         _headers = kwargs.pop("headers", {}) or {}
         _params = case_insensitive_dict(kwargs.pop("params", {}) or {})
 

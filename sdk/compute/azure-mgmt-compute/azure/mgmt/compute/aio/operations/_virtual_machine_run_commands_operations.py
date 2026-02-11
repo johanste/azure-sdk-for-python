@@ -32,6 +32,7 @@ from azure.mgmt.core.polling.async_arm_polling import AsyncARMPolling
 
 from ... import models as _models
 from ..._utils.serialization import Deserializer, Serializer
+from ...types import LRORequestParameters, RequestParameters
 from ...operations._virtual_machine_run_commands_operations import (
     build_create_or_update_request,
     build_delete_request,
@@ -68,7 +69,7 @@ class VirtualMachineRunCommandsOperations:
         self._deserialize: Deserializer = input_args.pop(0) if input_args else kwargs.pop("deserializer")
 
     @distributed_trace
-    def list(self, location: str, **kwargs: Any) -> AsyncItemPaged["_models.RunCommandDocumentBase"]:
+    def list(self, location: str, request_parameters: Optional[RequestParameters] = None, **kwargs: Any) -> AsyncItemPaged["_models.RunCommandDocumentBase"]:
         """Lists all available run commands for a subscription in a location.
 
         :param location: The name of Azure region. Required.
@@ -79,6 +80,10 @@ class VirtualMachineRunCommandsOperations:
          ~azure.core.async_paging.AsyncItemPaged[~azure.mgmt.compute.models.RunCommandDocumentBase]
         :raises ~azure.core.exceptions.HttpResponseError:
         """
+        if request_parameters:
+            for _rp_key, _rp_value in request_parameters.items():
+                kwargs.setdefault(_rp_key, _rp_value)
+
         _headers = kwargs.pop("headers", {}) or {}
         _params = case_insensitive_dict(kwargs.pop("params", {}) or {})
 
@@ -193,7 +198,7 @@ class VirtualMachineRunCommandsOperations:
 
     @distributed_trace
     def list_by_virtual_machine(
-        self, resource_group_name: str, vm_name: str, expand: Optional[str] = None, **kwargs: Any
+        self, resource_group_name: str, vm_name: str, expand: Optional[str] = None, request_parameters: Optional[RequestParameters] = None, **kwargs: Any
     ) -> AsyncItemPaged["_models.VirtualMachineRunCommand"]:
         """The operation to get all run commands of a Virtual Machine.
 
@@ -210,6 +215,10 @@ class VirtualMachineRunCommandsOperations:
          ~azure.core.async_paging.AsyncItemPaged[~azure.mgmt.compute.models.VirtualMachineRunCommand]
         :raises ~azure.core.exceptions.HttpResponseError:
         """
+        if request_parameters:
+            for _rp_key, _rp_value in request_parameters.items():
+                kwargs.setdefault(_rp_key, _rp_value)
+
         _headers = kwargs.pop("headers", {}) or {}
         _params = case_insensitive_dict(kwargs.pop("params", {}) or {})
 

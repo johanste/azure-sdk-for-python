@@ -33,6 +33,7 @@ from azure.mgmt.core.polling.async_arm_polling import AsyncARMPolling
 
 from ... import models as _models
 from ..._utils.serialization import Deserializer, Serializer
+from ...types import LRORequestParameters, RequestParameters
 from ...operations._dedicated_hosts_operations import (
     build_create_or_update_request,
     build_delete_request,
@@ -71,7 +72,7 @@ class DedicatedHostsOperations:
 
     @distributed_trace
     def list_by_host_group(
-        self, resource_group_name: str, host_group_name: str, **kwargs: Any
+        self, resource_group_name: str, host_group_name: str, request_parameters: Optional[RequestParameters] = None, **kwargs: Any
     ) -> AsyncItemPaged["_models.DedicatedHost"]:
         """Lists all of the dedicated hosts in the specified dedicated host group. Use the nextLink
         property in the response to get the next page of dedicated hosts.
@@ -85,6 +86,10 @@ class DedicatedHostsOperations:
         :rtype: ~azure.core.async_paging.AsyncItemPaged[~azure.mgmt.compute.models.DedicatedHost]
         :raises ~azure.core.exceptions.HttpResponseError:
         """
+        if request_parameters:
+            for _rp_key, _rp_value in request_parameters.items():
+                kwargs.setdefault(_rp_key, _rp_value)
+
         _headers = kwargs.pop("headers", {}) or {}
         _params = case_insensitive_dict(kwargs.pop("params", {}) or {})
 
@@ -757,7 +762,7 @@ class DedicatedHostsOperations:
 
     @distributed_trace
     def list_available_sizes(
-        self, resource_group_name: str, host_group_name: str, host_name: str, **kwargs: Any
+        self, resource_group_name: str, host_group_name: str, host_name: str, request_parameters: Optional[RequestParameters] = None, **kwargs: Any
     ) -> AsyncItemPaged[str]:
         """Lists all available dedicated host sizes to which the specified dedicated host can be resized.
         NOTE: The dedicated host sizes provided can be used to only scale up the existing dedicated
@@ -774,6 +779,10 @@ class DedicatedHostsOperations:
         :rtype: ~azure.core.async_paging.AsyncItemPaged[str]
         :raises ~azure.core.exceptions.HttpResponseError:
         """
+        if request_parameters:
+            for _rp_key, _rp_value in request_parameters.items():
+                kwargs.setdefault(_rp_key, _rp_value)
+
         _headers = kwargs.pop("headers", {}) or {}
         _params = case_insensitive_dict(kwargs.pop("params", {}) or {})
 

@@ -33,6 +33,7 @@ from azure.mgmt.core.polling.arm_polling import ARMPolling
 from .. import models as _models
 from .._configuration import ComputeManagementClientConfiguration
 from .._utils.serialization import Deserializer, Serializer
+from ..types import LRORequestParameters, RequestParameters
 
 T = TypeVar("T")
 ClsType = Optional[Callable[[PipelineResponse[HttpRequest, HttpResponse], T, dict[str, Any]], Any]]
@@ -275,7 +276,7 @@ class GalleryApplicationVersionsOperations:
 
     @distributed_trace
     def list_by_gallery_application(
-        self, resource_group_name: str, gallery_name: str, gallery_application_name: str, **kwargs: Any
+        self, resource_group_name: str, gallery_name: str, gallery_application_name: str, request_parameters: Optional[RequestParameters] = None, **kwargs: Any
     ) -> ItemPaged["_models.GalleryApplicationVersion"]:
         """List gallery Application Versions in a gallery Application Definition.
 
@@ -292,6 +293,10 @@ class GalleryApplicationVersionsOperations:
         :rtype: ~azure.core.paging.ItemPaged[~azure.mgmt.compute.models.GalleryApplicationVersion]
         :raises ~azure.core.exceptions.HttpResponseError:
         """
+        if request_parameters:
+            for _rp_key, _rp_value in request_parameters.items():
+                kwargs.setdefault(_rp_key, _rp_value)
+
         _headers = kwargs.pop("headers", {}) or {}
         _params = case_insensitive_dict(kwargs.pop("params", {}) or {})
 
@@ -358,7 +363,7 @@ class GalleryApplicationVersionsOperations:
         gallery_application_name: str,
         gallery_application_version_name: str,
         expand: Optional[Union[str, _models.ReplicationStatusTypes]] = None,
-        **kwargs: Any
+        request_parameters: Optional[RequestParameters] = None, **kwargs: Any
     ) -> _models.GalleryApplicationVersion:
         """Retrieves information about a gallery Application Version.
 
@@ -380,6 +385,10 @@ class GalleryApplicationVersionsOperations:
         :rtype: ~azure.mgmt.compute.models.GalleryApplicationVersion
         :raises ~azure.core.exceptions.HttpResponseError:
         """
+        if request_parameters:
+            for _rp_key, _rp_value in request_parameters.items():
+                kwargs.setdefault(_rp_key, _rp_value)
+
         error_map: MutableMapping = {
             401: ClientAuthenticationError,
             404: ResourceNotFoundError,
@@ -514,7 +523,7 @@ class GalleryApplicationVersionsOperations:
         gallery_application_version: _models.GalleryApplicationVersion,
         *,
         content_type: str = "application/json",
-        **kwargs: Any
+        request_parameters: Optional[LRORequestParameters] = None, **kwargs: Any
     ) -> LROPoller[_models.GalleryApplicationVersion]:
         """Create or update a gallery Application Version.
 
@@ -551,7 +560,7 @@ class GalleryApplicationVersionsOperations:
         gallery_application_version: IO[bytes],
         *,
         content_type: str = "application/json",
-        **kwargs: Any
+        request_parameters: Optional[LRORequestParameters] = None, **kwargs: Any
     ) -> LROPoller[_models.GalleryApplicationVersion]:
         """Create or update a gallery Application Version.
 
@@ -586,7 +595,7 @@ class GalleryApplicationVersionsOperations:
         gallery_application_name: str,
         gallery_application_version_name: str,
         gallery_application_version: Union[_models.GalleryApplicationVersion, IO[bytes]],
-        **kwargs: Any
+        request_parameters: Optional[LRORequestParameters] = None, **kwargs: Any
     ) -> LROPoller[_models.GalleryApplicationVersion]:
         """Create or update a gallery Application Version.
 
@@ -611,6 +620,10 @@ class GalleryApplicationVersionsOperations:
         :rtype: ~azure.core.polling.LROPoller[~azure.mgmt.compute.models.GalleryApplicationVersion]
         :raises ~azure.core.exceptions.HttpResponseError:
         """
+        if request_parameters:
+            for _rp_key, _rp_value in request_parameters.items():
+                kwargs.setdefault(_rp_key, _rp_value)
+
         _headers = case_insensitive_dict(kwargs.pop("headers", {}) or {})
         _params = case_insensitive_dict(kwargs.pop("params", {}) or {})
 
@@ -746,7 +759,7 @@ class GalleryApplicationVersionsOperations:
         gallery_application_version: _models.GalleryApplicationVersionUpdate,
         *,
         content_type: str = "application/json",
-        **kwargs: Any
+        request_parameters: Optional[LRORequestParameters] = None, **kwargs: Any
     ) -> LROPoller[_models.GalleryApplicationVersion]:
         """Update a gallery Application Version.
 
@@ -783,7 +796,7 @@ class GalleryApplicationVersionsOperations:
         gallery_application_version: IO[bytes],
         *,
         content_type: str = "application/json",
-        **kwargs: Any
+        request_parameters: Optional[LRORequestParameters] = None, **kwargs: Any
     ) -> LROPoller[_models.GalleryApplicationVersion]:
         """Update a gallery Application Version.
 
@@ -818,7 +831,7 @@ class GalleryApplicationVersionsOperations:
         gallery_application_name: str,
         gallery_application_version_name: str,
         gallery_application_version: Union[_models.GalleryApplicationVersionUpdate, IO[bytes]],
-        **kwargs: Any
+        request_parameters: Optional[LRORequestParameters] = None, **kwargs: Any
     ) -> LROPoller[_models.GalleryApplicationVersion]:
         """Update a gallery Application Version.
 
@@ -843,6 +856,10 @@ class GalleryApplicationVersionsOperations:
         :rtype: ~azure.core.polling.LROPoller[~azure.mgmt.compute.models.GalleryApplicationVersion]
         :raises ~azure.core.exceptions.HttpResponseError:
         """
+        if request_parameters:
+            for _rp_key, _rp_value in request_parameters.items():
+                kwargs.setdefault(_rp_key, _rp_value)
+
         _headers = case_insensitive_dict(kwargs.pop("headers", {}) or {})
         _params = case_insensitive_dict(kwargs.pop("params", {}) or {})
 
@@ -968,7 +985,7 @@ class GalleryApplicationVersionsOperations:
         gallery_name: str,
         gallery_application_name: str,
         gallery_application_version_name: str,
-        **kwargs: Any
+        request_parameters: Optional[LRORequestParameters] = None, **kwargs: Any
     ) -> LROPoller[None]:
         """Delete a gallery Application Version.
 
@@ -987,6 +1004,10 @@ class GalleryApplicationVersionsOperations:
         :rtype: ~azure.core.polling.LROPoller[None]
         :raises ~azure.core.exceptions.HttpResponseError:
         """
+        if request_parameters:
+            for _rp_key, _rp_value in request_parameters.items():
+                kwargs.setdefault(_rp_key, _rp_value)
+
         _headers = kwargs.pop("headers", {}) or {}
         _params = case_insensitive_dict(kwargs.pop("params", {}) or {})
 

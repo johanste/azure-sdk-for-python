@@ -33,6 +33,7 @@ from azure.mgmt.core.polling.async_arm_polling import AsyncARMPolling
 
 from ... import models as _models
 from ..._utils.serialization import Deserializer, Serializer
+from ...types import LRORequestParameters, RequestParameters
 from ...operations._virtual_machine_scale_set_vms_operations import (
     build_approve_rolling_upgrade_request,
     build_attach_detach_data_disks_request,
@@ -87,7 +88,7 @@ class VirtualMachineScaleSetVMsOperations:  # pylint: disable=too-many-public-me
         filter: Optional[str] = None,
         select: Optional[str] = None,
         expand: Optional[str] = None,
-        **kwargs: Any
+        request_parameters: Optional[RequestParameters] = None, **kwargs: Any
     ) -> AsyncItemPaged["_models.VirtualMachineScaleSetVM"]:
         """Gets a list of all virtual machines in a VM scale sets.
 
@@ -112,6 +113,10 @@ class VirtualMachineScaleSetVMsOperations:  # pylint: disable=too-many-public-me
          ~azure.core.async_paging.AsyncItemPaged[~azure.mgmt.compute.models.VirtualMachineScaleSetVM]
         :raises ~azure.core.exceptions.HttpResponseError:
         """
+        if request_parameters:
+            for _rp_key, _rp_value in request_parameters.items():
+                kwargs.setdefault(_rp_key, _rp_value)
+
         _headers = kwargs.pop("headers", {}) or {}
         _params = case_insensitive_dict(kwargs.pop("params", {}) or {})
 

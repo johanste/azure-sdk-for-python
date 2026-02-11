@@ -32,6 +32,7 @@ from azure.mgmt.core.polling.async_arm_polling import AsyncARMPolling
 
 from ... import models as _models
 from ..._utils.serialization import Deserializer, Serializer
+from ...types import LRORequestParameters, RequestParameters
 from ...operations._disk_restore_point_operations import (
     build_get_request,
     build_grant_access_request,
@@ -66,7 +67,7 @@ class DiskRestorePointOperations:
 
     @distributed_trace
     def list_by_restore_point(
-        self, resource_group_name: str, restore_point_collection_name: str, vm_restore_point_name: str, **kwargs: Any
+        self, resource_group_name: str, restore_point_collection_name: str, vm_restore_point_name: str, request_parameters: Optional[RequestParameters] = None, **kwargs: Any
     ) -> AsyncItemPaged["_models.DiskRestorePoint"]:
         """Lists diskRestorePoints under a vmRestorePoint.
 
@@ -83,6 +84,10 @@ class DiskRestorePointOperations:
         :rtype: ~azure.core.async_paging.AsyncItemPaged[~azure.mgmt.compute.models.DiskRestorePoint]
         :raises ~azure.core.exceptions.HttpResponseError:
         """
+        if request_parameters:
+            for _rp_key, _rp_value in request_parameters.items():
+                kwargs.setdefault(_rp_key, _rp_value)
+
         _headers = kwargs.pop("headers", {}) or {}
         _params = case_insensitive_dict(kwargs.pop("params", {}) or {})
 

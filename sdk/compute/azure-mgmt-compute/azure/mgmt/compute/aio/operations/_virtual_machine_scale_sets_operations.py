@@ -33,6 +33,7 @@ from azure.mgmt.core.polling.async_arm_polling import AsyncARMPolling
 
 from ... import models as _models
 from ..._utils.serialization import Deserializer, Serializer
+from ...types import LRORequestParameters, RequestParameters
 from ...operations._virtual_machine_scale_sets_operations import (
     build_approve_rolling_upgrade_request,
     build_convert_to_single_placement_group_request,
@@ -88,7 +89,7 @@ class VirtualMachineScaleSetsOperations:  # pylint: disable=too-many-public-meth
         self._deserialize: Deserializer = input_args.pop(0) if input_args else kwargs.pop("deserializer")
 
     @distributed_trace
-    def list_by_location(self, location: str, **kwargs: Any) -> AsyncItemPaged["_models.VirtualMachineScaleSet"]:
+    def list_by_location(self, location: str, request_parameters: Optional[RequestParameters] = None, **kwargs: Any) -> AsyncItemPaged["_models.VirtualMachineScaleSet"]:
         """Gets all the VM scale sets under the specified subscription for the specified location.
 
         :param location: The name of Azure region. Required.
@@ -99,6 +100,10 @@ class VirtualMachineScaleSetsOperations:  # pylint: disable=too-many-public-meth
          ~azure.core.async_paging.AsyncItemPaged[~azure.mgmt.compute.models.VirtualMachineScaleSet]
         :raises ~azure.core.exceptions.HttpResponseError:
         """
+        if request_parameters:
+            for _rp_key, _rp_value in request_parameters.items():
+                kwargs.setdefault(_rp_key, _rp_value)
+
         _headers = kwargs.pop("headers", {}) or {}
         _params = case_insensitive_dict(kwargs.pop("params", {}) or {})
 
@@ -156,7 +161,7 @@ class VirtualMachineScaleSetsOperations:  # pylint: disable=too-many-public-meth
         return AsyncItemPaged(get_next, extract_data)
 
     @distributed_trace
-    def list_all(self, **kwargs: Any) -> AsyncItemPaged["_models.VirtualMachineScaleSet"]:
+    def list_all(self, request_parameters: Optional[RequestParameters] = None, **kwargs: Any) -> AsyncItemPaged["_models.VirtualMachineScaleSet"]:
         """Gets a list of all VM Scale Sets in the subscription, regardless of the associated resource
         group. Use nextLink property in the response to get the next page of VM Scale Sets. Do this
         till nextLink is null to fetch all the VM Scale Sets.
@@ -167,6 +172,10 @@ class VirtualMachineScaleSetsOperations:  # pylint: disable=too-many-public-meth
          ~azure.core.async_paging.AsyncItemPaged[~azure.mgmt.compute.models.VirtualMachineScaleSet]
         :raises ~azure.core.exceptions.HttpResponseError:
         """
+        if request_parameters:
+            for _rp_key, _rp_value in request_parameters.items():
+                kwargs.setdefault(_rp_key, _rp_value)
+
         _headers = kwargs.pop("headers", {}) or {}
         _params = case_insensitive_dict(kwargs.pop("params", {}) or {})
 
@@ -223,7 +232,7 @@ class VirtualMachineScaleSetsOperations:  # pylint: disable=too-many-public-meth
         return AsyncItemPaged(get_next, extract_data)
 
     @distributed_trace
-    def list(self, resource_group_name: str, **kwargs: Any) -> AsyncItemPaged["_models.VirtualMachineScaleSet"]:
+    def list(self, resource_group_name: str, request_parameters: Optional[RequestParameters] = None, **kwargs: Any) -> AsyncItemPaged["_models.VirtualMachineScaleSet"]:
         """Gets a list of all VM scale sets under a resource group.
 
         :param resource_group_name: The name of the resource group. The name is case insensitive.
@@ -235,6 +244,10 @@ class VirtualMachineScaleSetsOperations:  # pylint: disable=too-many-public-meth
          ~azure.core.async_paging.AsyncItemPaged[~azure.mgmt.compute.models.VirtualMachineScaleSet]
         :raises ~azure.core.exceptions.HttpResponseError:
         """
+        if request_parameters:
+            for _rp_key, _rp_value in request_parameters.items():
+                kwargs.setdefault(_rp_key, _rp_value)
+
         _headers = kwargs.pop("headers", {}) or {}
         _params = case_insensitive_dict(kwargs.pop("params", {}) or {})
 
@@ -2041,7 +2054,7 @@ class VirtualMachineScaleSetsOperations:  # pylint: disable=too-many-public-meth
 
     @distributed_trace
     def get_os_upgrade_history(
-        self, resource_group_name: str, vm_scale_set_name: str, **kwargs: Any
+        self, resource_group_name: str, vm_scale_set_name: str, request_parameters: Optional[RequestParameters] = None, **kwargs: Any
     ) -> AsyncItemPaged["_models.UpgradeOperationHistoricalStatusInfo"]:
         """Gets list of OS upgrades on a VM scale set instance.
 
@@ -2056,6 +2069,10 @@ class VirtualMachineScaleSetsOperations:  # pylint: disable=too-many-public-meth
          ~azure.core.async_paging.AsyncItemPaged[~azure.mgmt.compute.models.UpgradeOperationHistoricalStatusInfo]
         :raises ~azure.core.exceptions.HttpResponseError:
         """
+        if request_parameters:
+            for _rp_key, _rp_value in request_parameters.items():
+                kwargs.setdefault(_rp_key, _rp_value)
+
         _headers = kwargs.pop("headers", {}) or {}
         _params = case_insensitive_dict(kwargs.pop("params", {}) or {})
 
@@ -3856,7 +3873,7 @@ class VirtualMachineScaleSetsOperations:  # pylint: disable=too-many-public-meth
 
     @distributed_trace
     def list_skus(
-        self, resource_group_name: str, vm_scale_set_name: str, **kwargs: Any
+        self, resource_group_name: str, vm_scale_set_name: str, request_parameters: Optional[RequestParameters] = None, **kwargs: Any
     ) -> AsyncItemPaged["_models.VirtualMachineScaleSetSku"]:
         """Gets a list of SKUs available for your VM scale set, including the minimum and maximum VM
         instances allowed for each SKU.
@@ -3872,6 +3889,10 @@ class VirtualMachineScaleSetsOperations:  # pylint: disable=too-many-public-meth
          ~azure.core.async_paging.AsyncItemPaged[~azure.mgmt.compute.models.VirtualMachineScaleSetSku]
         :raises ~azure.core.exceptions.HttpResponseError:
         """
+        if request_parameters:
+            for _rp_key, _rp_value in request_parameters.items():
+                kwargs.setdefault(_rp_key, _rp_value)
+
         _headers = kwargs.pop("headers", {}) or {}
         _params = case_insensitive_dict(kwargs.pop("params", {}) or {})
 

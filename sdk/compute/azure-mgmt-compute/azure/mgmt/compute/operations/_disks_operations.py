@@ -33,6 +33,7 @@ from azure.mgmt.core.polling.arm_polling import ARMPolling
 from .. import models as _models
 from .._configuration import ComputeManagementClientConfiguration
 from .._utils.serialization import Deserializer, Serializer
+from ..types import LRORequestParameters, RequestParameters
 
 T = TypeVar("T")
 ClsType = Optional[Callable[[PipelineResponse[HttpRequest, HttpResponse], T, dict[str, Any]], Any]]
@@ -317,13 +318,17 @@ class DisksOperations:
         self._deserialize: Deserializer = input_args.pop(0) if input_args else kwargs.pop("deserializer")
 
     @distributed_trace
-    def list(self, **kwargs: Any) -> ItemPaged["_models.Disk"]:
+    def list(self, request_parameters: Optional[RequestParameters] = None, **kwargs: Any) -> ItemPaged["_models.Disk"]:
         """Lists all the disks under a subscription.
 
         :return: An iterator like instance of either Disk or the result of cls(response)
         :rtype: ~azure.core.paging.ItemPaged[~azure.mgmt.compute.models.Disk]
         :raises ~azure.core.exceptions.HttpResponseError:
         """
+        if request_parameters:
+            for _rp_key, _rp_value in request_parameters.items():
+                kwargs.setdefault(_rp_key, _rp_value)
+
         _headers = kwargs.pop("headers", {}) or {}
         _params = case_insensitive_dict(kwargs.pop("params", {}) or {})
 
@@ -380,7 +385,7 @@ class DisksOperations:
         return ItemPaged(get_next, extract_data)
 
     @distributed_trace
-    def list_by_resource_group(self, resource_group_name: str, **kwargs: Any) -> ItemPaged["_models.Disk"]:
+    def list_by_resource_group(self, resource_group_name: str, request_parameters: Optional[RequestParameters] = None, **kwargs: Any) -> ItemPaged["_models.Disk"]:
         """Lists all the disks under a resource group.
 
         :param resource_group_name: The name of the resource group. The name is case insensitive.
@@ -390,6 +395,10 @@ class DisksOperations:
         :rtype: ~azure.core.paging.ItemPaged[~azure.mgmt.compute.models.Disk]
         :raises ~azure.core.exceptions.HttpResponseError:
         """
+        if request_parameters:
+            for _rp_key, _rp_value in request_parameters.items():
+                kwargs.setdefault(_rp_key, _rp_value)
+
         _headers = kwargs.pop("headers", {}) or {}
         _params = case_insensitive_dict(kwargs.pop("params", {}) or {})
 
@@ -447,7 +456,7 @@ class DisksOperations:
         return ItemPaged(get_next, extract_data)
 
     @distributed_trace
-    def get(self, resource_group_name: str, disk_name: str, **kwargs: Any) -> _models.Disk:
+    def get(self, resource_group_name: str, disk_name: str, request_parameters: Optional[RequestParameters] = None, **kwargs: Any) -> _models.Disk:
         """Gets information about a disk.
 
         :param resource_group_name: The name of the resource group. The name is case insensitive.
@@ -461,6 +470,10 @@ class DisksOperations:
         :rtype: ~azure.mgmt.compute.models.Disk
         :raises ~azure.core.exceptions.HttpResponseError:
         """
+        if request_parameters:
+            for _rp_key, _rp_value in request_parameters.items():
+                kwargs.setdefault(_rp_key, _rp_value)
+
         error_map: MutableMapping = {
             401: ClientAuthenticationError,
             404: ResourceNotFoundError,
@@ -578,7 +591,7 @@ class DisksOperations:
         disk: _models.Disk,
         *,
         content_type: str = "application/json",
-        **kwargs: Any
+        request_parameters: Optional[LRORequestParameters] = None, **kwargs: Any
     ) -> LROPoller[_models.Disk]:
         """Creates or updates a disk.
 
@@ -607,7 +620,7 @@ class DisksOperations:
         disk: IO[bytes],
         *,
         content_type: str = "application/json",
-        **kwargs: Any
+        request_parameters: Optional[LRORequestParameters] = None, **kwargs: Any
     ) -> LROPoller[_models.Disk]:
         """Creates or updates a disk.
 
@@ -630,7 +643,7 @@ class DisksOperations:
 
     @distributed_trace
     def begin_create_or_update(
-        self, resource_group_name: str, disk_name: str, disk: Union[_models.Disk, IO[bytes]], **kwargs: Any
+        self, resource_group_name: str, disk_name: str, disk: Union[_models.Disk, IO[bytes]], request_parameters: Optional[LRORequestParameters] = None, **kwargs: Any
     ) -> LROPoller[_models.Disk]:
         """Creates or updates a disk.
 
@@ -648,6 +661,10 @@ class DisksOperations:
         :rtype: ~azure.core.polling.LROPoller[~azure.mgmt.compute.models.Disk]
         :raises ~azure.core.exceptions.HttpResponseError:
         """
+        if request_parameters:
+            for _rp_key, _rp_value in request_parameters.items():
+                kwargs.setdefault(_rp_key, _rp_value)
+
         _headers = case_insensitive_dict(kwargs.pop("headers", {}) or {})
         _params = case_insensitive_dict(kwargs.pop("params", {}) or {})
 
@@ -772,7 +789,7 @@ class DisksOperations:
         disk: _models.DiskUpdate,
         *,
         content_type: str = "application/json",
-        **kwargs: Any
+        request_parameters: Optional[LRORequestParameters] = None, **kwargs: Any
     ) -> LROPoller[_models.Disk]:
         """Updates (patches) a disk.
 
@@ -801,7 +818,7 @@ class DisksOperations:
         disk: IO[bytes],
         *,
         content_type: str = "application/json",
-        **kwargs: Any
+        request_parameters: Optional[LRORequestParameters] = None, **kwargs: Any
     ) -> LROPoller[_models.Disk]:
         """Updates (patches) a disk.
 
@@ -824,7 +841,7 @@ class DisksOperations:
 
     @distributed_trace
     def begin_update(
-        self, resource_group_name: str, disk_name: str, disk: Union[_models.DiskUpdate, IO[bytes]], **kwargs: Any
+        self, resource_group_name: str, disk_name: str, disk: Union[_models.DiskUpdate, IO[bytes]], request_parameters: Optional[LRORequestParameters] = None, **kwargs: Any
     ) -> LROPoller[_models.Disk]:
         """Updates (patches) a disk.
 
@@ -842,6 +859,10 @@ class DisksOperations:
         :rtype: ~azure.core.polling.LROPoller[~azure.mgmt.compute.models.Disk]
         :raises ~azure.core.exceptions.HttpResponseError:
         """
+        if request_parameters:
+            for _rp_key, _rp_value in request_parameters.items():
+                kwargs.setdefault(_rp_key, _rp_value)
+
         _headers = case_insensitive_dict(kwargs.pop("headers", {}) or {})
         _params = case_insensitive_dict(kwargs.pop("params", {}) or {})
 
@@ -945,7 +966,7 @@ class DisksOperations:
         return deserialized  # type: ignore
 
     @distributed_trace
-    def begin_delete(self, resource_group_name: str, disk_name: str, **kwargs: Any) -> LROPoller[None]:
+    def begin_delete(self, resource_group_name: str, disk_name: str, request_parameters: Optional[LRORequestParameters] = None, **kwargs: Any) -> LROPoller[None]:
         """Deletes a disk.
 
         :param resource_group_name: The name of the resource group. The name is case insensitive.
@@ -959,6 +980,10 @@ class DisksOperations:
         :rtype: ~azure.core.polling.LROPoller[None]
         :raises ~azure.core.exceptions.HttpResponseError:
         """
+        if request_parameters:
+            for _rp_key, _rp_value in request_parameters.items():
+                kwargs.setdefault(_rp_key, _rp_value)
+
         _headers = kwargs.pop("headers", {}) or {}
         _params = case_insensitive_dict(kwargs.pop("params", {}) or {})
 
@@ -1080,7 +1105,7 @@ class DisksOperations:
         grant_access_data: _models.GrantAccessData,
         *,
         content_type: str = "application/json",
-        **kwargs: Any
+        request_parameters: Optional[LRORequestParameters] = None, **kwargs: Any
     ) -> LROPoller[_models.AccessUri]:
         """Grants access to a disk.
 
@@ -1110,7 +1135,7 @@ class DisksOperations:
         grant_access_data: IO[bytes],
         *,
         content_type: str = "application/json",
-        **kwargs: Any
+        request_parameters: Optional[LRORequestParameters] = None, **kwargs: Any
     ) -> LROPoller[_models.AccessUri]:
         """Grants access to a disk.
 
@@ -1138,7 +1163,7 @@ class DisksOperations:
         resource_group_name: str,
         disk_name: str,
         grant_access_data: Union[_models.GrantAccessData, IO[bytes]],
-        **kwargs: Any
+        request_parameters: Optional[LRORequestParameters] = None, **kwargs: Any
     ) -> LROPoller[_models.AccessUri]:
         """Grants access to a disk.
 
@@ -1156,6 +1181,10 @@ class DisksOperations:
         :rtype: ~azure.core.polling.LROPoller[~azure.mgmt.compute.models.AccessUri]
         :raises ~azure.core.exceptions.HttpResponseError:
         """
+        if request_parameters:
+            for _rp_key, _rp_value in request_parameters.items():
+                kwargs.setdefault(_rp_key, _rp_value)
+
         _headers = case_insensitive_dict(kwargs.pop("headers", {}) or {})
         _params = case_insensitive_dict(kwargs.pop("params", {}) or {})
 
@@ -1259,7 +1288,7 @@ class DisksOperations:
         return deserialized  # type: ignore
 
     @distributed_trace
-    def begin_revoke_access(self, resource_group_name: str, disk_name: str, **kwargs: Any) -> LROPoller[None]:
+    def begin_revoke_access(self, resource_group_name: str, disk_name: str, request_parameters: Optional[LRORequestParameters] = None, **kwargs: Any) -> LROPoller[None]:
         """Revokes access to a disk.
 
         :param resource_group_name: The name of the resource group. The name is case insensitive.
@@ -1273,6 +1302,10 @@ class DisksOperations:
         :rtype: ~azure.core.polling.LROPoller[None]
         :raises ~azure.core.exceptions.HttpResponseError:
         """
+        if request_parameters:
+            for _rp_key, _rp_value in request_parameters.items():
+                kwargs.setdefault(_rp_key, _rp_value)
+
         _headers = kwargs.pop("headers", {}) or {}
         _params = case_insensitive_dict(kwargs.pop("params", {}) or {})
 

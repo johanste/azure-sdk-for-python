@@ -27,6 +27,7 @@ from azure.mgmt.core.exceptions import ARMErrorFormat
 from .. import models as _models
 from .._configuration import ComputeManagementClientConfiguration
 from .._utils.serialization import Deserializer, Serializer
+from ..types import LRORequestParameters, RequestParameters
 
 T = TypeVar("T")
 ClsType = Optional[Callable[[PipelineResponse[HttpRequest, HttpResponse], T, dict[str, Any]], Any]]
@@ -93,7 +94,7 @@ class ResourceSkusOperations:
 
     @distributed_trace
     def list(
-        self, filter: Optional[str] = None, include_extended_locations: Optional[str] = None, **kwargs: Any
+        self, filter: Optional[str] = None, include_extended_locations: Optional[str] = None, request_parameters: Optional[RequestParameters] = None, **kwargs: Any
     ) -> ItemPaged["_models.ResourceSku"]:
         """Gets the list of Microsoft.Compute SKUs available for your Subscription.
 
@@ -107,6 +108,10 @@ class ResourceSkusOperations:
         :rtype: ~azure.core.paging.ItemPaged[~azure.mgmt.compute.models.ResourceSku]
         :raises ~azure.core.exceptions.HttpResponseError:
         """
+        if request_parameters:
+            for _rp_key, _rp_value in request_parameters.items():
+                kwargs.setdefault(_rp_key, _rp_value)
+
         _headers = kwargs.pop("headers", {}) or {}
         _params = case_insensitive_dict(kwargs.pop("params", {}) or {})
 

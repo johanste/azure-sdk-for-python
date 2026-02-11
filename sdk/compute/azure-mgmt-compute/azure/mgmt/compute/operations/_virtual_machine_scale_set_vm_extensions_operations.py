@@ -32,6 +32,7 @@ from azure.mgmt.core.polling.arm_polling import ARMPolling
 from .. import models as _models
 from .._configuration import ComputeManagementClientConfiguration
 from .._utils.serialization import Deserializer, Serializer
+from ..types import LRORequestParameters, RequestParameters
 
 T = TypeVar("T")
 ClsType = Optional[Callable[[PipelineResponse[HttpRequest, HttpResponse], T, dict[str, Any]], Any]]
@@ -279,7 +280,7 @@ class VirtualMachineScaleSetVMExtensionsOperations:  # pylint: disable=name-too-
         vm_scale_set_name: str,
         instance_id: str,
         expand: Optional[str] = None,
-        **kwargs: Any
+        request_parameters: Optional[RequestParameters] = None, **kwargs: Any
     ) -> _models.VirtualMachineScaleSetVMExtensionsListResult:
         """The operation to get all extensions of an instance in Virtual Machine Scaleset.
 
@@ -296,6 +297,10 @@ class VirtualMachineScaleSetVMExtensionsOperations:  # pylint: disable=name-too-
         :rtype: ~azure.mgmt.compute.models.VirtualMachineScaleSetVMExtensionsListResult
         :raises ~azure.core.exceptions.HttpResponseError:
         """
+        if request_parameters:
+            for _rp_key, _rp_value in request_parameters.items():
+                kwargs.setdefault(_rp_key, _rp_value)
+
         error_map: MutableMapping = {
             401: ClientAuthenticationError,
             404: ResourceNotFoundError,
@@ -350,7 +355,7 @@ class VirtualMachineScaleSetVMExtensionsOperations:  # pylint: disable=name-too-
         instance_id: str,
         vm_extension_name: str,
         expand: Optional[str] = None,
-        **kwargs: Any
+        request_parameters: Optional[RequestParameters] = None, **kwargs: Any
     ) -> _models.VirtualMachineScaleSetVMExtension:
         """The operation to get the VMSS VM extension.
 
@@ -369,6 +374,10 @@ class VirtualMachineScaleSetVMExtensionsOperations:  # pylint: disable=name-too-
         :rtype: ~azure.mgmt.compute.models.VirtualMachineScaleSetVMExtension
         :raises ~azure.core.exceptions.HttpResponseError:
         """
+        if request_parameters:
+            for _rp_key, _rp_value in request_parameters.items():
+                kwargs.setdefault(_rp_key, _rp_value)
+
         error_map: MutableMapping = {
             401: ClientAuthenticationError,
             404: ResourceNotFoundError,
@@ -499,7 +508,7 @@ class VirtualMachineScaleSetVMExtensionsOperations:  # pylint: disable=name-too-
         extension_parameters: _models.VirtualMachineScaleSetVMExtension,
         *,
         content_type: str = "application/json",
-        **kwargs: Any
+        request_parameters: Optional[LRORequestParameters] = None, **kwargs: Any
     ) -> LROPoller[_models.VirtualMachineScaleSetVMExtension]:
         """The operation to create or update the VMSS VM extension.
 
@@ -535,7 +544,7 @@ class VirtualMachineScaleSetVMExtensionsOperations:  # pylint: disable=name-too-
         extension_parameters: IO[bytes],
         *,
         content_type: str = "application/json",
-        **kwargs: Any
+        request_parameters: Optional[LRORequestParameters] = None, **kwargs: Any
     ) -> LROPoller[_models.VirtualMachineScaleSetVMExtension]:
         """The operation to create or update the VMSS VM extension.
 
@@ -569,7 +578,7 @@ class VirtualMachineScaleSetVMExtensionsOperations:  # pylint: disable=name-too-
         instance_id: str,
         vm_extension_name: str,
         extension_parameters: Union[_models.VirtualMachineScaleSetVMExtension, IO[bytes]],
-        **kwargs: Any
+        request_parameters: Optional[LRORequestParameters] = None, **kwargs: Any
     ) -> LROPoller[_models.VirtualMachineScaleSetVMExtension]:
         """The operation to create or update the VMSS VM extension.
 
@@ -592,6 +601,10 @@ class VirtualMachineScaleSetVMExtensionsOperations:  # pylint: disable=name-too-
          ~azure.core.polling.LROPoller[~azure.mgmt.compute.models.VirtualMachineScaleSetVMExtension]
         :raises ~azure.core.exceptions.HttpResponseError:
         """
+        if request_parameters:
+            for _rp_key, _rp_value in request_parameters.items():
+                kwargs.setdefault(_rp_key, _rp_value)
+
         _headers = case_insensitive_dict(kwargs.pop("headers", {}) or {})
         _params = case_insensitive_dict(kwargs.pop("params", {}) or {})
 
@@ -727,7 +740,7 @@ class VirtualMachineScaleSetVMExtensionsOperations:  # pylint: disable=name-too-
         extension_parameters: _models.VirtualMachineScaleSetVMExtensionUpdate,
         *,
         content_type: str = "application/json",
-        **kwargs: Any
+        request_parameters: Optional[LRORequestParameters] = None, **kwargs: Any
     ) -> LROPoller[_models.VirtualMachineScaleSetVMExtension]:
         """The operation to update the VMSS VM extension.
 
@@ -763,7 +776,7 @@ class VirtualMachineScaleSetVMExtensionsOperations:  # pylint: disable=name-too-
         extension_parameters: IO[bytes],
         *,
         content_type: str = "application/json",
-        **kwargs: Any
+        request_parameters: Optional[LRORequestParameters] = None, **kwargs: Any
     ) -> LROPoller[_models.VirtualMachineScaleSetVMExtension]:
         """The operation to update the VMSS VM extension.
 
@@ -797,7 +810,7 @@ class VirtualMachineScaleSetVMExtensionsOperations:  # pylint: disable=name-too-
         instance_id: str,
         vm_extension_name: str,
         extension_parameters: Union[_models.VirtualMachineScaleSetVMExtensionUpdate, IO[bytes]],
-        **kwargs: Any
+        request_parameters: Optional[LRORequestParameters] = None, **kwargs: Any
     ) -> LROPoller[_models.VirtualMachineScaleSetVMExtension]:
         """The operation to update the VMSS VM extension.
 
@@ -821,6 +834,10 @@ class VirtualMachineScaleSetVMExtensionsOperations:  # pylint: disable=name-too-
          ~azure.core.polling.LROPoller[~azure.mgmt.compute.models.VirtualMachineScaleSetVMExtension]
         :raises ~azure.core.exceptions.HttpResponseError:
         """
+        if request_parameters:
+            for _rp_key, _rp_value in request_parameters.items():
+                kwargs.setdefault(_rp_key, _rp_value)
+
         _headers = case_insensitive_dict(kwargs.pop("headers", {}) or {})
         _params = case_insensitive_dict(kwargs.pop("params", {}) or {})
 
@@ -936,7 +953,7 @@ class VirtualMachineScaleSetVMExtensionsOperations:  # pylint: disable=name-too-
 
     @distributed_trace
     def begin_delete(
-        self, resource_group_name: str, vm_scale_set_name: str, instance_id: str, vm_extension_name: str, **kwargs: Any
+        self, resource_group_name: str, vm_scale_set_name: str, instance_id: str, vm_extension_name: str, request_parameters: Optional[LRORequestParameters] = None, **kwargs: Any
     ) -> LROPoller[None]:
         """The operation to delete the VMSS VM extension.
 
@@ -953,6 +970,10 @@ class VirtualMachineScaleSetVMExtensionsOperations:  # pylint: disable=name-too-
         :rtype: ~azure.core.polling.LROPoller[None]
         :raises ~azure.core.exceptions.HttpResponseError:
         """
+        if request_parameters:
+            for _rp_key, _rp_value in request_parameters.items():
+                kwargs.setdefault(_rp_key, _rp_value)
+
         _headers = kwargs.pop("headers", {}) or {}
         _params = case_insensitive_dict(kwargs.pop("params", {}) or {})
 

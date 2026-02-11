@@ -28,6 +28,7 @@ from azure.mgmt.core.exceptions import ARMErrorFormat
 from .. import models as _models
 from .._configuration import ComputeManagementClientConfiguration
 from .._utils.serialization import Deserializer, Serializer
+from ..types import LRORequestParameters, RequestParameters
 
 T = TypeVar("T")
 ClsType = Optional[Callable[[PipelineResponse[HttpRequest, HttpResponse], T, dict[str, Any]], Any]]
@@ -132,7 +133,7 @@ class SharedGalleryImagesOperations:
         location: str,
         gallery_unique_name: str,
         shared_to: Optional[Union[str, _models.SharedToValues]] = None,
-        **kwargs: Any
+        request_parameters: Optional[RequestParameters] = None, **kwargs: Any
     ) -> ItemPaged["_models.SharedGalleryImage"]:
         """List shared gallery images by subscription id or tenant id.
 
@@ -147,6 +148,10 @@ class SharedGalleryImagesOperations:
         :rtype: ~azure.core.paging.ItemPaged[~azure.mgmt.compute.models.SharedGalleryImage]
         :raises ~azure.core.exceptions.HttpResponseError:
         """
+        if request_parameters:
+            for _rp_key, _rp_value in request_parameters.items():
+                kwargs.setdefault(_rp_key, _rp_value)
+
         _headers = kwargs.pop("headers", {}) or {}
         _params = case_insensitive_dict(kwargs.pop("params", {}) or {})
 
@@ -207,7 +212,7 @@ class SharedGalleryImagesOperations:
 
     @distributed_trace
     def get(
-        self, location: str, gallery_unique_name: str, gallery_image_name: str, **kwargs: Any
+        self, location: str, gallery_unique_name: str, gallery_image_name: str, request_parameters: Optional[RequestParameters] = None, **kwargs: Any
     ) -> _models.SharedGalleryImage:
         """Get a shared gallery image by subscription id or tenant id.
 
@@ -222,6 +227,10 @@ class SharedGalleryImagesOperations:
         :rtype: ~azure.mgmt.compute.models.SharedGalleryImage
         :raises ~azure.core.exceptions.HttpResponseError:
         """
+        if request_parameters:
+            for _rp_key, _rp_value in request_parameters.items():
+                kwargs.setdefault(_rp_key, _rp_value)
+
         error_map: MutableMapping = {
             401: ClientAuthenticationError,
             404: ResourceNotFoundError,

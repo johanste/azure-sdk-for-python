@@ -27,6 +27,7 @@ from azure.mgmt.core.exceptions import ARMErrorFormat
 
 from ... import models as _models
 from ..._utils.serialization import Deserializer, Serializer
+from ...types import LRORequestParameters, RequestParameters
 from ...operations._cloud_service_operating_systems_operations import (
     build_get_os_family_request,
     build_get_os_version_request,
@@ -115,7 +116,7 @@ class CloudServiceOperatingSystemsOperations:
         return deserialized  # type: ignore
 
     @distributed_trace
-    def list_os_versions(self, location: str, **kwargs: Any) -> AsyncItemPaged["_models.OSVersion"]:
+    def list_os_versions(self, location: str, request_parameters: Optional[RequestParameters] = None, **kwargs: Any) -> AsyncItemPaged["_models.OSVersion"]:
         """Gets a list of all guest operating system versions available to be specified in the XML service
         configuration (.cscfg) for a cloud service. Use nextLink property in the response to get the
         next page of OS versions. Do this till nextLink is null to fetch all the OS versions.
@@ -126,6 +127,10 @@ class CloudServiceOperatingSystemsOperations:
         :rtype: ~azure.core.async_paging.AsyncItemPaged[~azure.mgmt.compute.models.OSVersion]
         :raises ~azure.core.exceptions.HttpResponseError:
         """
+        if request_parameters:
+            for _rp_key, _rp_value in request_parameters.items():
+                kwargs.setdefault(_rp_key, _rp_value)
+
         _headers = kwargs.pop("headers", {}) or {}
         _params = case_insensitive_dict(kwargs.pop("params", {}) or {})
 
@@ -238,7 +243,7 @@ class CloudServiceOperatingSystemsOperations:
         return deserialized  # type: ignore
 
     @distributed_trace
-    def list_os_families(self, location: str, **kwargs: Any) -> AsyncItemPaged["_models.OSFamily"]:
+    def list_os_families(self, location: str, request_parameters: Optional[RequestParameters] = None, **kwargs: Any) -> AsyncItemPaged["_models.OSFamily"]:
         """Gets a list of all guest operating system families available to be specified in the XML service
         configuration (.cscfg) for a cloud service. Use nextLink property in the response to get the
         next page of OS Families. Do this till nextLink is null to fetch all the OS Families.
@@ -249,6 +254,10 @@ class CloudServiceOperatingSystemsOperations:
         :rtype: ~azure.core.async_paging.AsyncItemPaged[~azure.mgmt.compute.models.OSFamily]
         :raises ~azure.core.exceptions.HttpResponseError:
         """
+        if request_parameters:
+            for _rp_key, _rp_value in request_parameters.items():
+                kwargs.setdefault(_rp_key, _rp_value)
+
         _headers = kwargs.pop("headers", {}) or {}
         _params = case_insensitive_dict(kwargs.pop("params", {}) or {})
 

@@ -29,6 +29,7 @@ from azure.mgmt.core.polling.async_arm_polling import AsyncARMPolling
 
 from ... import models as _models
 from ..._utils.serialization import Deserializer, Serializer
+from ...types import LRORequestParameters, RequestParameters
 from ...operations._virtual_machine_scale_set_rolling_upgrades_operations import (
     build_cancel_request,
     build_get_latest_request,

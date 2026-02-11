@@ -32,6 +32,7 @@ from azure.mgmt.core.polling.async_arm_polling import AsyncARMPolling
 
 from ... import models as _models
 from ..._utils.serialization import Deserializer, Serializer
+from ...types import LRORequestParameters, RequestParameters
 from ...operations._restore_point_collections_operations import (
     build_create_or_update_request,
     build_delete_request,
@@ -67,7 +68,7 @@ class RestorePointCollectionsOperations:
         self._deserialize: Deserializer = input_args.pop(0) if input_args else kwargs.pop("deserializer")
 
     @distributed_trace
-    def list_all(self, **kwargs: Any) -> AsyncItemPaged["_models.RestorePointCollection"]:
+    def list_all(self, request_parameters: Optional[RequestParameters] = None, **kwargs: Any) -> AsyncItemPaged["_models.RestorePointCollection"]:
         """Gets the list of restore point collections in the subscription. Use nextLink property in the
         response to get the next page of restore point collections. Do this till nextLink is not null
         to fetch all the restore point collections.
@@ -78,6 +79,10 @@ class RestorePointCollectionsOperations:
          ~azure.core.async_paging.AsyncItemPaged[~azure.mgmt.compute.models.RestorePointCollection]
         :raises ~azure.core.exceptions.HttpResponseError:
         """
+        if request_parameters:
+            for _rp_key, _rp_value in request_parameters.items():
+                kwargs.setdefault(_rp_key, _rp_value)
+
         _headers = kwargs.pop("headers", {}) or {}
         _params = case_insensitive_dict(kwargs.pop("params", {}) or {})
 
@@ -134,7 +139,7 @@ class RestorePointCollectionsOperations:
         return AsyncItemPaged(get_next, extract_data)
 
     @distributed_trace
-    def list(self, resource_group_name: str, **kwargs: Any) -> AsyncItemPaged["_models.RestorePointCollection"]:
+    def list(self, resource_group_name: str, request_parameters: Optional[RequestParameters] = None, **kwargs: Any) -> AsyncItemPaged["_models.RestorePointCollection"]:
         """Gets the list of restore point collections in a resource group.
 
         :param resource_group_name: The name of the resource group. The name is case insensitive.
@@ -146,6 +151,10 @@ class RestorePointCollectionsOperations:
          ~azure.core.async_paging.AsyncItemPaged[~azure.mgmt.compute.models.RestorePointCollection]
         :raises ~azure.core.exceptions.HttpResponseError:
         """
+        if request_parameters:
+            for _rp_key, _rp_value in request_parameters.items():
+                kwargs.setdefault(_rp_key, _rp_value)
+
         _headers = kwargs.pop("headers", {}) or {}
         _params = case_insensitive_dict(kwargs.pop("params", {}) or {})
 

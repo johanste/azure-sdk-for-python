@@ -33,6 +33,7 @@ from azure.mgmt.core.polling.arm_polling import ARMPolling
 from .. import models as _models
 from .._configuration import ComputeManagementClientConfiguration
 from .._utils.serialization import Deserializer, Serializer
+from ..types import LRORequestParameters, RequestParameters
 
 T = TypeVar("T")
 ClsType = Optional[Callable[[PipelineResponse[HttpRequest, HttpResponse], T, dict[str, Any]], Any]]
@@ -550,7 +551,7 @@ class CloudServicesOperations:  # pylint: disable=too-many-public-methods
         parameters: Optional[_models.CloudService] = None,
         *,
         content_type: str = "application/json",
-        **kwargs: Any
+        request_parameters: Optional[LRORequestParameters] = None, **kwargs: Any
     ) -> LROPoller[_models.CloudService]:
         """Create or update a cloud service. Please note some properties can be set only during cloud
         service creation.
@@ -578,7 +579,7 @@ class CloudServicesOperations:  # pylint: disable=too-many-public-methods
         parameters: Optional[IO[bytes]] = None,
         *,
         content_type: str = "application/json",
-        **kwargs: Any
+        request_parameters: Optional[LRORequestParameters] = None, **kwargs: Any
     ) -> LROPoller[_models.CloudService]:
         """Create or update a cloud service. Please note some properties can be set only during cloud
         service creation.
@@ -604,7 +605,7 @@ class CloudServicesOperations:  # pylint: disable=too-many-public-methods
         resource_group_name: str,
         cloud_service_name: str,
         parameters: Optional[Union[_models.CloudService, IO[bytes]]] = None,
-        **kwargs: Any
+        request_parameters: Optional[LRORequestParameters] = None, **kwargs: Any
     ) -> LROPoller[_models.CloudService]:
         """Create or update a cloud service. Please note some properties can be set only during cloud
         service creation.
@@ -621,6 +622,10 @@ class CloudServicesOperations:  # pylint: disable=too-many-public-methods
         :rtype: ~azure.core.polling.LROPoller[~azure.mgmt.compute.models.CloudService]
         :raises ~azure.core.exceptions.HttpResponseError:
         """
+        if request_parameters:
+            for _rp_key, _rp_value in request_parameters.items():
+                kwargs.setdefault(_rp_key, _rp_value)
+
         _headers = case_insensitive_dict(kwargs.pop("headers", {}) or {})
         _params = case_insensitive_dict(kwargs.pop("params", {}) or {})
 
@@ -747,7 +752,7 @@ class CloudServicesOperations:  # pylint: disable=too-many-public-methods
         parameters: Optional[_models.CloudServiceUpdate] = None,
         *,
         content_type: str = "application/json",
-        **kwargs: Any
+        request_parameters: Optional[LRORequestParameters] = None, **kwargs: Any
     ) -> LROPoller[_models.CloudService]:
         """Update a cloud service.
 
@@ -774,7 +779,7 @@ class CloudServicesOperations:  # pylint: disable=too-many-public-methods
         parameters: Optional[IO[bytes]] = None,
         *,
         content_type: str = "application/json",
-        **kwargs: Any
+        request_parameters: Optional[LRORequestParameters] = None, **kwargs: Any
     ) -> LROPoller[_models.CloudService]:
         """Update a cloud service.
 
@@ -799,7 +804,7 @@ class CloudServicesOperations:  # pylint: disable=too-many-public-methods
         resource_group_name: str,
         cloud_service_name: str,
         parameters: Optional[Union[_models.CloudServiceUpdate, IO[bytes]]] = None,
-        **kwargs: Any
+        request_parameters: Optional[LRORequestParameters] = None, **kwargs: Any
     ) -> LROPoller[_models.CloudService]:
         """Update a cloud service.
 
@@ -815,6 +820,10 @@ class CloudServicesOperations:  # pylint: disable=too-many-public-methods
         :rtype: ~azure.core.polling.LROPoller[~azure.mgmt.compute.models.CloudService]
         :raises ~azure.core.exceptions.HttpResponseError:
         """
+        if request_parameters:
+            for _rp_key, _rp_value in request_parameters.items():
+                kwargs.setdefault(_rp_key, _rp_value)
+
         _headers = case_insensitive_dict(kwargs.pop("headers", {}) or {})
         _params = case_insensitive_dict(kwargs.pop("params", {}) or {})
 
@@ -912,7 +921,7 @@ class CloudServicesOperations:  # pylint: disable=too-many-public-methods
         return deserialized  # type: ignore
 
     @distributed_trace
-    def begin_delete(self, resource_group_name: str, cloud_service_name: str, **kwargs: Any) -> LROPoller[None]:
+    def begin_delete(self, resource_group_name: str, cloud_service_name: str, request_parameters: Optional[LRORequestParameters] = None, **kwargs: Any) -> LROPoller[None]:
         """Deletes a cloud service.
 
         :param resource_group_name: Name of the resource group. Required.
@@ -923,6 +932,10 @@ class CloudServicesOperations:  # pylint: disable=too-many-public-methods
         :rtype: ~azure.core.polling.LROPoller[None]
         :raises ~azure.core.exceptions.HttpResponseError:
         """
+        if request_parameters:
+            for _rp_key, _rp_value in request_parameters.items():
+                kwargs.setdefault(_rp_key, _rp_value)
+
         _headers = kwargs.pop("headers", {}) or {}
         _params = case_insensitive_dict(kwargs.pop("params", {}) or {})
 
@@ -964,7 +977,7 @@ class CloudServicesOperations:  # pylint: disable=too-many-public-methods
         return LROPoller[None](self._client, raw_result, get_long_running_output, polling_method)  # type: ignore
 
     @distributed_trace
-    def get(self, resource_group_name: str, cloud_service_name: str, **kwargs: Any) -> _models.CloudService:
+    def get(self, resource_group_name: str, cloud_service_name: str, request_parameters: Optional[RequestParameters] = None, **kwargs: Any) -> _models.CloudService:
         """Display information about a cloud service.
 
         :param resource_group_name: Name of the resource group. Required.
@@ -975,6 +988,10 @@ class CloudServicesOperations:  # pylint: disable=too-many-public-methods
         :rtype: ~azure.mgmt.compute.models.CloudService
         :raises ~azure.core.exceptions.HttpResponseError:
         """
+        if request_parameters:
+            for _rp_key, _rp_value in request_parameters.items():
+                kwargs.setdefault(_rp_key, _rp_value)
+
         error_map: MutableMapping = {
             401: ClientAuthenticationError,
             404: ResourceNotFoundError,
@@ -1019,7 +1036,7 @@ class CloudServicesOperations:  # pylint: disable=too-many-public-methods
 
     @distributed_trace
     def get_instance_view(
-        self, resource_group_name: str, cloud_service_name: str, **kwargs: Any
+        self, resource_group_name: str, cloud_service_name: str, request_parameters: Optional[RequestParameters] = None, **kwargs: Any
     ) -> _models.CloudServiceInstanceView:
         """Gets the status of a cloud service.
 
@@ -1031,6 +1048,10 @@ class CloudServicesOperations:  # pylint: disable=too-many-public-methods
         :rtype: ~azure.mgmt.compute.models.CloudServiceInstanceView
         :raises ~azure.core.exceptions.HttpResponseError:
         """
+        if request_parameters:
+            for _rp_key, _rp_value in request_parameters.items():
+                kwargs.setdefault(_rp_key, _rp_value)
+
         error_map: MutableMapping = {
             401: ClientAuthenticationError,
             404: ResourceNotFoundError,
@@ -1074,7 +1095,7 @@ class CloudServicesOperations:  # pylint: disable=too-many-public-methods
         return deserialized  # type: ignore
 
     @distributed_trace
-    def list_all(self, **kwargs: Any) -> ItemPaged["_models.CloudService"]:
+    def list_all(self, request_parameters: Optional[RequestParameters] = None, **kwargs: Any) -> ItemPaged["_models.CloudService"]:
         """Gets a list of all cloud services in the subscription, regardless of the associated resource
         group. Use nextLink property in the response to get the next page of Cloud Services. Do this
         till nextLink is null to fetch all the Cloud Services.
@@ -1083,6 +1104,10 @@ class CloudServicesOperations:  # pylint: disable=too-many-public-methods
         :rtype: ~azure.core.paging.ItemPaged[~azure.mgmt.compute.models.CloudService]
         :raises ~azure.core.exceptions.HttpResponseError:
         """
+        if request_parameters:
+            for _rp_key, _rp_value in request_parameters.items():
+                kwargs.setdefault(_rp_key, _rp_value)
+
         _headers = kwargs.pop("headers", {}) or {}
         _params = case_insensitive_dict(kwargs.pop("params", {}) or {})
 
@@ -1139,7 +1164,7 @@ class CloudServicesOperations:  # pylint: disable=too-many-public-methods
         return ItemPaged(get_next, extract_data)
 
     @distributed_trace
-    def list(self, resource_group_name: str, **kwargs: Any) -> ItemPaged["_models.CloudService"]:
+    def list(self, resource_group_name: str, request_parameters: Optional[RequestParameters] = None, **kwargs: Any) -> ItemPaged["_models.CloudService"]:
         """Gets a list of all cloud services under a resource group. Use nextLink property in the response
         to get the next page of Cloud Services. Do this till nextLink is null to fetch all the Cloud
         Services.
@@ -1150,6 +1175,10 @@ class CloudServicesOperations:  # pylint: disable=too-many-public-methods
         :rtype: ~azure.core.paging.ItemPaged[~azure.mgmt.compute.models.CloudService]
         :raises ~azure.core.exceptions.HttpResponseError:
         """
+        if request_parameters:
+            for _rp_key, _rp_value in request_parameters.items():
+                kwargs.setdefault(_rp_key, _rp_value)
+
         _headers = kwargs.pop("headers", {}) or {}
         _params = case_insensitive_dict(kwargs.pop("params", {}) or {})
 
@@ -1255,7 +1284,7 @@ class CloudServicesOperations:  # pylint: disable=too-many-public-methods
         return deserialized  # type: ignore
 
     @distributed_trace
-    def begin_start(self, resource_group_name: str, cloud_service_name: str, **kwargs: Any) -> LROPoller[None]:
+    def begin_start(self, resource_group_name: str, cloud_service_name: str, request_parameters: Optional[LRORequestParameters] = None, **kwargs: Any) -> LROPoller[None]:
         """Starts the cloud service.
 
         :param resource_group_name: Name of the resource group. Required.
@@ -1266,6 +1295,10 @@ class CloudServicesOperations:  # pylint: disable=too-many-public-methods
         :rtype: ~azure.core.polling.LROPoller[None]
         :raises ~azure.core.exceptions.HttpResponseError:
         """
+        if request_parameters:
+            for _rp_key, _rp_value in request_parameters.items():
+                kwargs.setdefault(_rp_key, _rp_value)
+
         _headers = kwargs.pop("headers", {}) or {}
         _params = case_insensitive_dict(kwargs.pop("params", {}) or {})
 
@@ -1355,7 +1388,7 @@ class CloudServicesOperations:  # pylint: disable=too-many-public-methods
         return deserialized  # type: ignore
 
     @distributed_trace
-    def begin_power_off(self, resource_group_name: str, cloud_service_name: str, **kwargs: Any) -> LROPoller[None]:
+    def begin_power_off(self, resource_group_name: str, cloud_service_name: str, request_parameters: Optional[LRORequestParameters] = None, **kwargs: Any) -> LROPoller[None]:
         """Power off the cloud service. Note that resources are still attached and you are getting charged
         for the resources.
 
@@ -1367,6 +1400,10 @@ class CloudServicesOperations:  # pylint: disable=too-many-public-methods
         :rtype: ~azure.core.polling.LROPoller[None]
         :raises ~azure.core.exceptions.HttpResponseError:
         """
+        if request_parameters:
+            for _rp_key, _rp_value in request_parameters.items():
+                kwargs.setdefault(_rp_key, _rp_value)
+
         _headers = kwargs.pop("headers", {}) or {}
         _params = case_insensitive_dict(kwargs.pop("params", {}) or {})
 
@@ -1485,7 +1522,7 @@ class CloudServicesOperations:  # pylint: disable=too-many-public-methods
         parameters: Optional[_models.RoleInstances] = None,
         *,
         content_type: str = "application/json",
-        **kwargs: Any
+        request_parameters: Optional[LRORequestParameters] = None, **kwargs: Any
     ) -> LROPoller[None]:
         """Restarts one or more role instances in a cloud service.
 
@@ -1511,7 +1548,7 @@ class CloudServicesOperations:  # pylint: disable=too-many-public-methods
         parameters: Optional[IO[bytes]] = None,
         *,
         content_type: str = "application/json",
-        **kwargs: Any
+        request_parameters: Optional[LRORequestParameters] = None, **kwargs: Any
     ) -> LROPoller[None]:
         """Restarts one or more role instances in a cloud service.
 
@@ -1535,7 +1572,7 @@ class CloudServicesOperations:  # pylint: disable=too-many-public-methods
         resource_group_name: str,
         cloud_service_name: str,
         parameters: Optional[Union[_models.RoleInstances, IO[bytes]]] = None,
-        **kwargs: Any
+        request_parameters: Optional[LRORequestParameters] = None, **kwargs: Any
     ) -> LROPoller[None]:
         """Restarts one or more role instances in a cloud service.
 
@@ -1550,6 +1587,10 @@ class CloudServicesOperations:  # pylint: disable=too-many-public-methods
         :rtype: ~azure.core.polling.LROPoller[None]
         :raises ~azure.core.exceptions.HttpResponseError:
         """
+        if request_parameters:
+            for _rp_key, _rp_value in request_parameters.items():
+                kwargs.setdefault(_rp_key, _rp_value)
+
         _headers = case_insensitive_dict(kwargs.pop("headers", {}) or {})
         _params = case_insensitive_dict(kwargs.pop("params", {}) or {})
 
@@ -1672,7 +1713,7 @@ class CloudServicesOperations:  # pylint: disable=too-many-public-methods
         parameters: Optional[_models.RoleInstances] = None,
         *,
         content_type: str = "application/json",
-        **kwargs: Any
+        request_parameters: Optional[LRORequestParameters] = None, **kwargs: Any
     ) -> LROPoller[None]:
         """Reimage asynchronous operation reinstalls the operating system on instances of web roles or
         worker roles.
@@ -1699,7 +1740,7 @@ class CloudServicesOperations:  # pylint: disable=too-many-public-methods
         parameters: Optional[IO[bytes]] = None,
         *,
         content_type: str = "application/json",
-        **kwargs: Any
+        request_parameters: Optional[LRORequestParameters] = None, **kwargs: Any
     ) -> LROPoller[None]:
         """Reimage asynchronous operation reinstalls the operating system on instances of web roles or
         worker roles.
@@ -1724,7 +1765,7 @@ class CloudServicesOperations:  # pylint: disable=too-many-public-methods
         resource_group_name: str,
         cloud_service_name: str,
         parameters: Optional[Union[_models.RoleInstances, IO[bytes]]] = None,
-        **kwargs: Any
+        request_parameters: Optional[LRORequestParameters] = None, **kwargs: Any
     ) -> LROPoller[None]:
         """Reimage asynchronous operation reinstalls the operating system on instances of web roles or
         worker roles.
@@ -1740,6 +1781,10 @@ class CloudServicesOperations:  # pylint: disable=too-many-public-methods
         :rtype: ~azure.core.polling.LROPoller[None]
         :raises ~azure.core.exceptions.HttpResponseError:
         """
+        if request_parameters:
+            for _rp_key, _rp_value in request_parameters.items():
+                kwargs.setdefault(_rp_key, _rp_value)
+
         _headers = case_insensitive_dict(kwargs.pop("headers", {}) or {})
         _params = case_insensitive_dict(kwargs.pop("params", {}) or {})
 
@@ -1862,7 +1907,7 @@ class CloudServicesOperations:  # pylint: disable=too-many-public-methods
         parameters: Optional[_models.RoleInstances] = None,
         *,
         content_type: str = "application/json",
-        **kwargs: Any
+        request_parameters: Optional[LRORequestParameters] = None, **kwargs: Any
     ) -> LROPoller[None]:
         """Rebuild Role Instances reinstalls the operating system on instances of web roles or worker
         roles and initializes the storage resources that are used by them. If you do not want to
@@ -1890,7 +1935,7 @@ class CloudServicesOperations:  # pylint: disable=too-many-public-methods
         parameters: Optional[IO[bytes]] = None,
         *,
         content_type: str = "application/json",
-        **kwargs: Any
+        request_parameters: Optional[LRORequestParameters] = None, **kwargs: Any
     ) -> LROPoller[None]:
         """Rebuild Role Instances reinstalls the operating system on instances of web roles or worker
         roles and initializes the storage resources that are used by them. If you do not want to
@@ -1916,7 +1961,7 @@ class CloudServicesOperations:  # pylint: disable=too-many-public-methods
         resource_group_name: str,
         cloud_service_name: str,
         parameters: Optional[Union[_models.RoleInstances, IO[bytes]]] = None,
-        **kwargs: Any
+        request_parameters: Optional[LRORequestParameters] = None, **kwargs: Any
     ) -> LROPoller[None]:
         """Rebuild Role Instances reinstalls the operating system on instances of web roles or worker
         roles and initializes the storage resources that are used by them. If you do not want to
@@ -1933,6 +1978,10 @@ class CloudServicesOperations:  # pylint: disable=too-many-public-methods
         :rtype: ~azure.core.polling.LROPoller[None]
         :raises ~azure.core.exceptions.HttpResponseError:
         """
+        if request_parameters:
+            for _rp_key, _rp_value in request_parameters.items():
+                kwargs.setdefault(_rp_key, _rp_value)
+
         _headers = case_insensitive_dict(kwargs.pop("headers", {}) or {})
         _params = case_insensitive_dict(kwargs.pop("params", {}) or {})
 
@@ -2055,7 +2104,7 @@ class CloudServicesOperations:  # pylint: disable=too-many-public-methods
         parameters: Optional[_models.RoleInstances] = None,
         *,
         content_type: str = "application/json",
-        **kwargs: Any
+        request_parameters: Optional[LRORequestParameters] = None, **kwargs: Any
     ) -> LROPoller[None]:
         """Deletes role instances in a cloud service.
 
@@ -2081,7 +2130,7 @@ class CloudServicesOperations:  # pylint: disable=too-many-public-methods
         parameters: Optional[IO[bytes]] = None,
         *,
         content_type: str = "application/json",
-        **kwargs: Any
+        request_parameters: Optional[LRORequestParameters] = None, **kwargs: Any
     ) -> LROPoller[None]:
         """Deletes role instances in a cloud service.
 
@@ -2105,7 +2154,7 @@ class CloudServicesOperations:  # pylint: disable=too-many-public-methods
         resource_group_name: str,
         cloud_service_name: str,
         parameters: Optional[Union[_models.RoleInstances, IO[bytes]]] = None,
-        **kwargs: Any
+        request_parameters: Optional[LRORequestParameters] = None, **kwargs: Any
     ) -> LROPoller[None]:
         """Deletes role instances in a cloud service.
 
@@ -2120,6 +2169,10 @@ class CloudServicesOperations:  # pylint: disable=too-many-public-methods
         :rtype: ~azure.core.polling.LROPoller[None]
         :raises ~azure.core.exceptions.HttpResponseError:
         """
+        if request_parameters:
+            for _rp_key, _rp_value in request_parameters.items():
+                kwargs.setdefault(_rp_key, _rp_value)
+
         _headers = case_insensitive_dict(kwargs.pop("headers", {}) or {})
         _params = case_insensitive_dict(kwargs.pop("params", {}) or {})
 

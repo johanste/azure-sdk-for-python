@@ -14,6 +14,7 @@ if TYPE_CHECKING:
 
 from ._compute_management_client import ComputeManagementClient  # type: ignore
 from ._version import VERSION
+from .types import LRORequestParameters, RequestParameters
 
 __version__ = VERSION
 
@@ -26,6 +27,8 @@ from ._patch import patch_sdk as _patch_sdk
 
 __all__ = [
     "ComputeManagementClient",
+    "RequestParameters",
+    "LRORequestParameters",
 ]
 __all__.extend([p for p in _patch_all if p not in __all__])  # pyright: ignore
 

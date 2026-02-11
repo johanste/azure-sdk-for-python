@@ -32,6 +32,7 @@ from azure.mgmt.core.polling.async_arm_polling import AsyncARMPolling
 
 from ... import models as _models
 from ..._utils.serialization import Deserializer, Serializer
+from ...types import LRORequestParameters, RequestParameters
 from ...operations._gallery_applications_operations import (
     build_create_or_update_request,
     build_delete_request,
@@ -67,7 +68,7 @@ class GalleryApplicationsOperations:
 
     @distributed_trace
     def list_by_gallery(
-        self, resource_group_name: str, gallery_name: str, **kwargs: Any
+        self, resource_group_name: str, gallery_name: str, request_parameters: Optional[RequestParameters] = None, **kwargs: Any
     ) -> AsyncItemPaged["_models.GalleryApplication"]:
         """List gallery Application Definitions in a gallery.
 
@@ -80,6 +81,10 @@ class GalleryApplicationsOperations:
         :rtype: ~azure.core.async_paging.AsyncItemPaged[~azure.mgmt.compute.models.GalleryApplication]
         :raises ~azure.core.exceptions.HttpResponseError:
         """
+        if request_parameters:
+            for _rp_key, _rp_value in request_parameters.items():
+                kwargs.setdefault(_rp_key, _rp_value)
+
         _headers = kwargs.pop("headers", {}) or {}
         _params = case_insensitive_dict(kwargs.pop("params", {}) or {})
 

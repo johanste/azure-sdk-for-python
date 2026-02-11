@@ -33,6 +33,7 @@ from azure.mgmt.core.polling.arm_polling import ARMPolling
 from .. import models as _models
 from .._configuration import ComputeManagementClientConfiguration
 from .._utils.serialization import Deserializer, Serializer
+from ..types import LRORequestParameters, RequestParameters
 
 T = TypeVar("T")
 ClsType = Optional[Callable[[PipelineResponse[HttpRequest, HttpResponse], T, dict[str, Any]], Any]]
@@ -232,7 +233,7 @@ class DiskRestorePointOperations:
 
     @distributed_trace
     def list_by_restore_point(
-        self, resource_group_name: str, restore_point_collection_name: str, vm_restore_point_name: str, **kwargs: Any
+        self, resource_group_name: str, restore_point_collection_name: str, vm_restore_point_name: str, request_parameters: Optional[RequestParameters] = None, **kwargs: Any
     ) -> ItemPaged["_models.DiskRestorePoint"]:
         """Lists diskRestorePoints under a vmRestorePoint.
 
@@ -249,6 +250,10 @@ class DiskRestorePointOperations:
         :rtype: ~azure.core.paging.ItemPaged[~azure.mgmt.compute.models.DiskRestorePoint]
         :raises ~azure.core.exceptions.HttpResponseError:
         """
+        if request_parameters:
+            for _rp_key, _rp_value in request_parameters.items():
+                kwargs.setdefault(_rp_key, _rp_value)
+
         _headers = kwargs.pop("headers", {}) or {}
         _params = case_insensitive_dict(kwargs.pop("params", {}) or {})
 
@@ -314,7 +319,7 @@ class DiskRestorePointOperations:
         restore_point_collection_name: str,
         vm_restore_point_name: str,
         disk_restore_point_name: str,
-        **kwargs: Any
+        request_parameters: Optional[RequestParameters] = None, **kwargs: Any
     ) -> _models.DiskRestorePoint:
         """Get disk restorePoint resource.
 
@@ -333,6 +338,10 @@ class DiskRestorePointOperations:
         :rtype: ~azure.mgmt.compute.models.DiskRestorePoint
         :raises ~azure.core.exceptions.HttpResponseError:
         """
+        if request_parameters:
+            for _rp_key, _rp_value in request_parameters.items():
+                kwargs.setdefault(_rp_key, _rp_value)
+
         error_map: MutableMapping = {
             401: ClientAuthenticationError,
             404: ResourceNotFoundError,
@@ -462,7 +471,7 @@ class DiskRestorePointOperations:
         grant_access_data: _models.GrantAccessData,
         *,
         content_type: str = "application/json",
-        **kwargs: Any
+        request_parameters: Optional[LRORequestParameters] = None, **kwargs: Any
     ) -> LROPoller[_models.AccessUri]:
         """Grants access to a diskRestorePoint.
 
@@ -498,7 +507,7 @@ class DiskRestorePointOperations:
         grant_access_data: IO[bytes],
         *,
         content_type: str = "application/json",
-        **kwargs: Any
+        request_parameters: Optional[LRORequestParameters] = None, **kwargs: Any
     ) -> LROPoller[_models.AccessUri]:
         """Grants access to a diskRestorePoint.
 
@@ -532,7 +541,7 @@ class DiskRestorePointOperations:
         vm_restore_point_name: str,
         disk_restore_point_name: str,
         grant_access_data: Union[_models.GrantAccessData, IO[bytes]],
-        **kwargs: Any
+        request_parameters: Optional[LRORequestParameters] = None, **kwargs: Any
     ) -> LROPoller[_models.AccessUri]:
         """Grants access to a diskRestorePoint.
 
@@ -554,6 +563,10 @@ class DiskRestorePointOperations:
         :rtype: ~azure.core.polling.LROPoller[~azure.mgmt.compute.models.AccessUri]
         :raises ~azure.core.exceptions.HttpResponseError:
         """
+        if request_parameters:
+            for _rp_key, _rp_value in request_parameters.items():
+                kwargs.setdefault(_rp_key, _rp_value)
+
         _headers = case_insensitive_dict(kwargs.pop("headers", {}) or {})
         _params = case_insensitive_dict(kwargs.pop("params", {}) or {})
 
@@ -674,7 +687,7 @@ class DiskRestorePointOperations:
         restore_point_collection_name: str,
         vm_restore_point_name: str,
         disk_restore_point_name: str,
-        **kwargs: Any
+        request_parameters: Optional[LRORequestParameters] = None, **kwargs: Any
     ) -> LROPoller[None]:
         """Revokes access to a diskRestorePoint.
 
@@ -693,6 +706,10 @@ class DiskRestorePointOperations:
         :rtype: ~azure.core.polling.LROPoller[None]
         :raises ~azure.core.exceptions.HttpResponseError:
         """
+        if request_parameters:
+            for _rp_key, _rp_value in request_parameters.items():
+                kwargs.setdefault(_rp_key, _rp_value)
+
         _headers = kwargs.pop("headers", {}) or {}
         _params = case_insensitive_dict(kwargs.pop("params", {}) or {})
 

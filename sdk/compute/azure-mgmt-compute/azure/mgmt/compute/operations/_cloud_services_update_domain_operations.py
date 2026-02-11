@@ -33,6 +33,7 @@ from azure.mgmt.core.polling.arm_polling import ARMPolling
 from .. import models as _models
 from .._configuration import ComputeManagementClientConfiguration
 from .._utils.serialization import Deserializer, Serializer
+from ..types import LRORequestParameters, RequestParameters
 
 T = TypeVar("T")
 ClsType = Optional[Callable[[PipelineResponse[HttpRequest, HttpResponse], T, dict[str, Any]], Any]]
@@ -240,7 +241,7 @@ class CloudServicesUpdateDomainOperations:
         parameters: Optional[_models.UpdateDomain] = None,
         *,
         content_type: str = "application/json",
-        **kwargs: Any
+        request_parameters: Optional[LRORequestParameters] = None, **kwargs: Any
     ) -> LROPoller[None]:
         """Updates the role instances in the specified update domain.
 
@@ -271,7 +272,7 @@ class CloudServicesUpdateDomainOperations:
         parameters: Optional[IO[bytes]] = None,
         *,
         content_type: str = "application/json",
-        **kwargs: Any
+        request_parameters: Optional[LRORequestParameters] = None, **kwargs: Any
     ) -> LROPoller[None]:
         """Updates the role instances in the specified update domain.
 
@@ -300,7 +301,7 @@ class CloudServicesUpdateDomainOperations:
         cloud_service_name: str,
         update_domain: int,
         parameters: Optional[Union[_models.UpdateDomain, IO[bytes]]] = None,
-        **kwargs: Any
+        request_parameters: Optional[LRORequestParameters] = None, **kwargs: Any
     ) -> LROPoller[None]:
         """Updates the role instances in the specified update domain.
 
@@ -319,6 +320,10 @@ class CloudServicesUpdateDomainOperations:
         :rtype: ~azure.core.polling.LROPoller[None]
         :raises ~azure.core.exceptions.HttpResponseError:
         """
+        if request_parameters:
+            for _rp_key, _rp_value in request_parameters.items():
+                kwargs.setdefault(_rp_key, _rp_value)
+
         _headers = case_insensitive_dict(kwargs.pop("headers", {}) or {})
         _params = case_insensitive_dict(kwargs.pop("params", {}) or {})
 
@@ -366,7 +371,7 @@ class CloudServicesUpdateDomainOperations:
 
     @distributed_trace
     def get_update_domain(
-        self, resource_group_name: str, cloud_service_name: str, update_domain: int, **kwargs: Any
+        self, resource_group_name: str, cloud_service_name: str, update_domain: int, request_parameters: Optional[RequestParameters] = None, **kwargs: Any
     ) -> _models.UpdateDomain:
         """Gets the specified update domain of a cloud service. Use nextLink property in the response to
         get the next page of update domains. Do this till nextLink is null to fetch all the update
@@ -384,6 +389,10 @@ class CloudServicesUpdateDomainOperations:
         :rtype: ~azure.mgmt.compute.models.UpdateDomain
         :raises ~azure.core.exceptions.HttpResponseError:
         """
+        if request_parameters:
+            for _rp_key, _rp_value in request_parameters.items():
+                kwargs.setdefault(_rp_key, _rp_value)
+
         error_map: MutableMapping = {
             401: ClientAuthenticationError,
             404: ResourceNotFoundError,
@@ -429,7 +438,7 @@ class CloudServicesUpdateDomainOperations:
 
     @distributed_trace
     def list_update_domains(
-        self, resource_group_name: str, cloud_service_name: str, **kwargs: Any
+        self, resource_group_name: str, cloud_service_name: str, request_parameters: Optional[RequestParameters] = None, **kwargs: Any
     ) -> ItemPaged["_models.UpdateDomain"]:
         """Gets a list of all update domains in a cloud service.
 
@@ -441,6 +450,10 @@ class CloudServicesUpdateDomainOperations:
         :rtype: ~azure.core.paging.ItemPaged[~azure.mgmt.compute.models.UpdateDomain]
         :raises ~azure.core.exceptions.HttpResponseError:
         """
+        if request_parameters:
+            for _rp_key, _rp_value in request_parameters.items():
+                kwargs.setdefault(_rp_key, _rp_value)
+
         _headers = kwargs.pop("headers", {}) or {}
         _params = case_insensitive_dict(kwargs.pop("params", {}) or {})
 

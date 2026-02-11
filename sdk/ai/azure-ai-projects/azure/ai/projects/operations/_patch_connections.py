@@ -12,6 +12,7 @@ from azure.core.tracing.decorator import distributed_trace
 from ._operations import ConnectionsOperations as ConnectionsOperationsGenerated
 from ..models._models import Connection
 from ..models._enums import ConnectionType
+from ..types import RequestParameters
 
 
 class ConnectionsOperations(ConnectionsOperationsGenerated):
@@ -25,7 +26,7 @@ class ConnectionsOperations(ConnectionsOperationsGenerated):
     """
 
     @distributed_trace
-    def get(self, name: str, *, include_credentials: Optional[bool] = False, **kwargs: Any) -> Connection:
+    def get(self, name: str, *, include_credentials: Optional[bool] = False, request_parameters: Optional[RequestParameters] = None, **kwargs: Any) -> Connection:
         """Get a connection by name.
 
         :param name: The name of the connection. Required.
@@ -36,6 +37,10 @@ class ConnectionsOperations(ConnectionsOperationsGenerated):
         :rtype: ~azure.ai.projects.models.Connection
         :raises ~azure.core.exceptions.HttpResponseError:
         """
+        if request_parameters:
+            for _rp_key, _rp_value in request_parameters.items():
+                kwargs.setdefault(_rp_key, _rp_value)
+
         if include_credentials:
             connection = super()._get_with_credentials(name, **kwargs)
             if connection.type == ConnectionType.CUSTOM:
@@ -74,7 +79,7 @@ class ConnectionsOperations(ConnectionsOperationsGenerated):
 
     @distributed_trace
     def get_default(
-        self, connection_type: Union[str, ConnectionType], *, include_credentials: Optional[bool] = False, **kwargs: Any
+        self, connection_type: Union[str, ConnectionType], *, include_credentials: Optional[bool] = False, request_parameters: Optional[RequestParameters] = None, **kwargs: Any
     ) -> Connection:
         """Get the default connection for a given connection type.
 
@@ -87,6 +92,10 @@ class ConnectionsOperations(ConnectionsOperationsGenerated):
         :raises ValueError: If no default connection is found for the given type.
         :raises ~azure.core.exceptions.HttpResponseError:
         """
+        if request_parameters:
+            for _rp_key, _rp_value in request_parameters.items():
+                kwargs.setdefault(_rp_key, _rp_value)
+
         connections = super().list(connection_type=connection_type, default_connection=True, **kwargs)
         for connection in connections:
             return self.get(connection.name, include_credentials=include_credentials, **kwargs)

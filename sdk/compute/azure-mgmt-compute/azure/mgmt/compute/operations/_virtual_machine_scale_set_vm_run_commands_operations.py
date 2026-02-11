@@ -33,6 +33,7 @@ from azure.mgmt.core.polling.arm_polling import ARMPolling
 from .. import models as _models
 from .._configuration import ComputeManagementClientConfiguration
 from .._utils.serialization import Deserializer, Serializer
+from ..types import LRORequestParameters, RequestParameters
 
 T = TypeVar("T")
 ClsType = Optional[Callable[[PipelineResponse[HttpRequest, HttpResponse], T, dict[str, Any]], Any]]
@@ -280,7 +281,7 @@ class VirtualMachineScaleSetVMRunCommandsOperations:  # pylint: disable=name-too
         vm_scale_set_name: str,
         instance_id: str,
         expand: Optional[str] = None,
-        **kwargs: Any
+        request_parameters: Optional[RequestParameters] = None, **kwargs: Any
     ) -> ItemPaged["_models.VirtualMachineRunCommand"]:
         """The operation to get all run commands of an instance in Virtual Machine Scaleset.
 
@@ -298,6 +299,10 @@ class VirtualMachineScaleSetVMRunCommandsOperations:  # pylint: disable=name-too
         :rtype: ~azure.core.paging.ItemPaged[~azure.mgmt.compute.models.VirtualMachineRunCommand]
         :raises ~azure.core.exceptions.HttpResponseError:
         """
+        if request_parameters:
+            for _rp_key, _rp_value in request_parameters.items():
+                kwargs.setdefault(_rp_key, _rp_value)
+
         _headers = kwargs.pop("headers", {}) or {}
         _params = case_insensitive_dict(kwargs.pop("params", {}) or {})
 
@@ -365,7 +370,7 @@ class VirtualMachineScaleSetVMRunCommandsOperations:  # pylint: disable=name-too
         instance_id: str,
         run_command_name: str,
         expand: Optional[str] = None,
-        **kwargs: Any
+        request_parameters: Optional[RequestParameters] = None, **kwargs: Any
     ) -> _models.VirtualMachineRunCommand:
         """The operation to get the VMSS VM run command.
 
@@ -384,6 +389,10 @@ class VirtualMachineScaleSetVMRunCommandsOperations:  # pylint: disable=name-too
         :rtype: ~azure.mgmt.compute.models.VirtualMachineRunCommand
         :raises ~azure.core.exceptions.HttpResponseError:
         """
+        if request_parameters:
+            for _rp_key, _rp_value in request_parameters.items():
+                kwargs.setdefault(_rp_key, _rp_value)
+
         error_map: MutableMapping = {
             401: ClientAuthenticationError,
             404: ResourceNotFoundError,
@@ -514,7 +523,7 @@ class VirtualMachineScaleSetVMRunCommandsOperations:  # pylint: disable=name-too
         run_command: _models.VirtualMachineRunCommand,
         *,
         content_type: str = "application/json",
-        **kwargs: Any
+        request_parameters: Optional[LRORequestParameters] = None, **kwargs: Any
     ) -> LROPoller[_models.VirtualMachineRunCommand]:
         """The operation to create or update the VMSS VM run command.
 
@@ -549,7 +558,7 @@ class VirtualMachineScaleSetVMRunCommandsOperations:  # pylint: disable=name-too
         run_command: IO[bytes],
         *,
         content_type: str = "application/json",
-        **kwargs: Any
+        request_parameters: Optional[LRORequestParameters] = None, **kwargs: Any
     ) -> LROPoller[_models.VirtualMachineRunCommand]:
         """The operation to create or update the VMSS VM run command.
 
@@ -582,7 +591,7 @@ class VirtualMachineScaleSetVMRunCommandsOperations:  # pylint: disable=name-too
         instance_id: str,
         run_command_name: str,
         run_command: Union[_models.VirtualMachineRunCommand, IO[bytes]],
-        **kwargs: Any
+        request_parameters: Optional[LRORequestParameters] = None, **kwargs: Any
     ) -> LROPoller[_models.VirtualMachineRunCommand]:
         """The operation to create or update the VMSS VM run command.
 
@@ -603,6 +612,10 @@ class VirtualMachineScaleSetVMRunCommandsOperations:  # pylint: disable=name-too
         :rtype: ~azure.core.polling.LROPoller[~azure.mgmt.compute.models.VirtualMachineRunCommand]
         :raises ~azure.core.exceptions.HttpResponseError:
         """
+        if request_parameters:
+            for _rp_key, _rp_value in request_parameters.items():
+                kwargs.setdefault(_rp_key, _rp_value)
+
         _headers = case_insensitive_dict(kwargs.pop("headers", {}) or {})
         _params = case_insensitive_dict(kwargs.pop("params", {}) or {})
 
@@ -738,7 +751,7 @@ class VirtualMachineScaleSetVMRunCommandsOperations:  # pylint: disable=name-too
         run_command: _models.VirtualMachineRunCommandUpdate,
         *,
         content_type: str = "application/json",
-        **kwargs: Any
+        request_parameters: Optional[LRORequestParameters] = None, **kwargs: Any
     ) -> LROPoller[_models.VirtualMachineRunCommand]:
         """The operation to update the VMSS VM run command.
 
@@ -772,7 +785,7 @@ class VirtualMachineScaleSetVMRunCommandsOperations:  # pylint: disable=name-too
         run_command: IO[bytes],
         *,
         content_type: str = "application/json",
-        **kwargs: Any
+        request_parameters: Optional[LRORequestParameters] = None, **kwargs: Any
     ) -> LROPoller[_models.VirtualMachineRunCommand]:
         """The operation to update the VMSS VM run command.
 
@@ -804,7 +817,7 @@ class VirtualMachineScaleSetVMRunCommandsOperations:  # pylint: disable=name-too
         instance_id: str,
         run_command_name: str,
         run_command: Union[_models.VirtualMachineRunCommandUpdate, IO[bytes]],
-        **kwargs: Any
+        request_parameters: Optional[LRORequestParameters] = None, **kwargs: Any
     ) -> LROPoller[_models.VirtualMachineRunCommand]:
         """The operation to update the VMSS VM run command.
 
@@ -825,6 +838,10 @@ class VirtualMachineScaleSetVMRunCommandsOperations:  # pylint: disable=name-too
         :rtype: ~azure.core.polling.LROPoller[~azure.mgmt.compute.models.VirtualMachineRunCommand]
         :raises ~azure.core.exceptions.HttpResponseError:
         """
+        if request_parameters:
+            for _rp_key, _rp_value in request_parameters.items():
+                kwargs.setdefault(_rp_key, _rp_value)
+
         _headers = case_insensitive_dict(kwargs.pop("headers", {}) or {})
         _params = case_insensitive_dict(kwargs.pop("params", {}) or {})
 
@@ -940,7 +957,7 @@ class VirtualMachineScaleSetVMRunCommandsOperations:  # pylint: disable=name-too
 
     @distributed_trace
     def begin_delete(
-        self, resource_group_name: str, vm_scale_set_name: str, instance_id: str, run_command_name: str, **kwargs: Any
+        self, resource_group_name: str, vm_scale_set_name: str, instance_id: str, run_command_name: str, request_parameters: Optional[LRORequestParameters] = None, **kwargs: Any
     ) -> LROPoller[None]:
         """The operation to delete the VMSS VM run command.
 
@@ -957,6 +974,10 @@ class VirtualMachineScaleSetVMRunCommandsOperations:  # pylint: disable=name-too
         :rtype: ~azure.core.polling.LROPoller[None]
         :raises ~azure.core.exceptions.HttpResponseError:
         """
+        if request_parameters:
+            for _rp_key, _rp_value in request_parameters.items():
+                kwargs.setdefault(_rp_key, _rp_value)
+
         _headers = kwargs.pop("headers", {}) or {}
         _params = case_insensitive_dict(kwargs.pop("params", {}) or {})
 

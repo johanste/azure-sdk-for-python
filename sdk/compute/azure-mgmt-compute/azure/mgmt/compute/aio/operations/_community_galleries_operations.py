@@ -25,6 +25,7 @@ from azure.mgmt.core.exceptions import ARMErrorFormat
 
 from ... import models as _models
 from ..._utils.serialization import Deserializer, Serializer
+from ...types import LRORequestParameters, RequestParameters
 from ...operations._community_galleries_operations import build_get_request
 from .._configuration import ComputeManagementClientConfiguration
 

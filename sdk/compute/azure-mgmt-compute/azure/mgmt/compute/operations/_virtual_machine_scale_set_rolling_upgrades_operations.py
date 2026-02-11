@@ -31,6 +31,7 @@ from azure.mgmt.core.polling.arm_polling import ARMPolling
 from .. import models as _models
 from .._configuration import ComputeManagementClientConfiguration
 from .._utils.serialization import Deserializer, Serializer
+from ..types import LRORequestParameters, RequestParameters
 
 T = TypeVar("T")
 ClsType = Optional[Callable[[PipelineResponse[HttpRequest, HttpResponse], T, dict[str, Any]], Any]]
@@ -248,7 +249,7 @@ class VirtualMachineScaleSetRollingUpgradesOperations:  # pylint: disable=name-t
 
     @distributed_trace
     def begin_start_extension_upgrade(
-        self, resource_group_name: str, vm_scale_set_name: str, **kwargs: Any
+        self, resource_group_name: str, vm_scale_set_name: str, request_parameters: Optional[LRORequestParameters] = None, **kwargs: Any
     ) -> LROPoller[None]:
         """Starts a rolling upgrade to move all extensions for all virtual machine scale set instances to
         the latest available extension version. Instances which are already running the latest
@@ -263,6 +264,10 @@ class VirtualMachineScaleSetRollingUpgradesOperations:  # pylint: disable=name-t
         :rtype: ~azure.core.polling.LROPoller[None]
         :raises ~azure.core.exceptions.HttpResponseError:
         """
+        if request_parameters:
+            for _rp_key, _rp_value in request_parameters.items():
+                kwargs.setdefault(_rp_key, _rp_value)
+
         _headers = kwargs.pop("headers", {}) or {}
         _params = case_insensitive_dict(kwargs.pop("params", {}) or {})
 
@@ -362,7 +367,7 @@ class VirtualMachineScaleSetRollingUpgradesOperations:  # pylint: disable=name-t
 
     @distributed_trace
     def begin_start_os_upgrade(
-        self, resource_group_name: str, vm_scale_set_name: str, **kwargs: Any
+        self, resource_group_name: str, vm_scale_set_name: str, request_parameters: Optional[LRORequestParameters] = None, **kwargs: Any
     ) -> LROPoller[None]:
         """Starts a rolling upgrade to move all virtual machine scale set instances to the latest
         available Platform Image OS version. Instances which are already running the latest available
@@ -377,6 +382,10 @@ class VirtualMachineScaleSetRollingUpgradesOperations:  # pylint: disable=name-t
         :rtype: ~azure.core.polling.LROPoller[None]
         :raises ~azure.core.exceptions.HttpResponseError:
         """
+        if request_parameters:
+            for _rp_key, _rp_value in request_parameters.items():
+                kwargs.setdefault(_rp_key, _rp_value)
+
         _headers = kwargs.pop("headers", {}) or {}
         _params = case_insensitive_dict(kwargs.pop("params", {}) or {})
 
@@ -473,7 +482,7 @@ class VirtualMachineScaleSetRollingUpgradesOperations:  # pylint: disable=name-t
         return deserialized  # type: ignore
 
     @distributed_trace
-    def begin_cancel(self, resource_group_name: str, vm_scale_set_name: str, **kwargs: Any) -> LROPoller[None]:
+    def begin_cancel(self, resource_group_name: str, vm_scale_set_name: str, request_parameters: Optional[LRORequestParameters] = None, **kwargs: Any) -> LROPoller[None]:
         """Cancels the current virtual machine scale set rolling upgrade.
 
         :param resource_group_name: The name of the resource group. The name is case insensitive.
@@ -485,6 +494,10 @@ class VirtualMachineScaleSetRollingUpgradesOperations:  # pylint: disable=name-t
         :rtype: ~azure.core.polling.LROPoller[None]
         :raises ~azure.core.exceptions.HttpResponseError:
         """
+        if request_parameters:
+            for _rp_key, _rp_value in request_parameters.items():
+                kwargs.setdefault(_rp_key, _rp_value)
+
         _headers = kwargs.pop("headers", {}) or {}
         _params = case_insensitive_dict(kwargs.pop("params", {}) or {})
 
@@ -529,7 +542,7 @@ class VirtualMachineScaleSetRollingUpgradesOperations:  # pylint: disable=name-t
 
     @distributed_trace
     def get_latest(
-        self, resource_group_name: str, vm_scale_set_name: str, **kwargs: Any
+        self, resource_group_name: str, vm_scale_set_name: str, request_parameters: Optional[RequestParameters] = None, **kwargs: Any
     ) -> _models.RollingUpgradeStatusInfo:
         """Gets the status of the latest virtual machine scale set rolling upgrade.
 
@@ -542,6 +555,10 @@ class VirtualMachineScaleSetRollingUpgradesOperations:  # pylint: disable=name-t
         :rtype: ~azure.mgmt.compute.models.RollingUpgradeStatusInfo
         :raises ~azure.core.exceptions.HttpResponseError:
         """
+        if request_parameters:
+            for _rp_key, _rp_value in request_parameters.items():
+                kwargs.setdefault(_rp_key, _rp_value)
+
         error_map: MutableMapping = {
             401: ClientAuthenticationError,
             404: ResourceNotFoundError,

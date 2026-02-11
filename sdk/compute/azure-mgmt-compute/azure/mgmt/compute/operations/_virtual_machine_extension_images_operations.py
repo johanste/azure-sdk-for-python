@@ -27,6 +27,7 @@ from azure.mgmt.core.exceptions import ARMErrorFormat
 from .. import models as _models
 from .._configuration import ComputeManagementClientConfiguration
 from .._utils.serialization import Deserializer, Serializer
+from ..types import LRORequestParameters, RequestParameters
 
 T = TypeVar("T")
 ClsType = Optional[Callable[[PipelineResponse[HttpRequest, HttpResponse], T, dict[str, Any]], Any]]
@@ -165,7 +166,7 @@ class VirtualMachineExtensionImagesOperations:
 
     @distributed_trace
     def list_types(
-        self, location: str, publisher_name: str, **kwargs: Any
+        self, location: str, publisher_name: str, request_parameters: Optional[RequestParameters] = None, **kwargs: Any
     ) -> List[_models.VirtualMachineExtensionImage]:
         """Gets a list of virtual machine extension image types.
 
@@ -177,6 +178,10 @@ class VirtualMachineExtensionImagesOperations:
         :rtype: list[~azure.mgmt.compute.models.VirtualMachineExtensionImage]
         :raises ~azure.core.exceptions.HttpResponseError:
         """
+        if request_parameters:
+            for _rp_key, _rp_value in request_parameters.items():
+                kwargs.setdefault(_rp_key, _rp_value)
+
         error_map: MutableMapping = {
             401: ClientAuthenticationError,
             404: ResourceNotFoundError,
@@ -228,7 +233,7 @@ class VirtualMachineExtensionImagesOperations:
         filter: Optional[str] = None,
         top: Optional[int] = None,
         orderby: Optional[str] = None,
-        **kwargs: Any
+        request_parameters: Optional[RequestParameters] = None, **kwargs: Any
     ) -> List[_models.VirtualMachineExtensionImage]:
         """Gets a list of virtual machine extension image versions.
 
@@ -248,6 +253,10 @@ class VirtualMachineExtensionImagesOperations:
         :rtype: list[~azure.mgmt.compute.models.VirtualMachineExtensionImage]
         :raises ~azure.core.exceptions.HttpResponseError:
         """
+        if request_parameters:
+            for _rp_key, _rp_value in request_parameters.items():
+                kwargs.setdefault(_rp_key, _rp_value)
+
         error_map: MutableMapping = {
             401: ClientAuthenticationError,
             404: ResourceNotFoundError,
@@ -296,7 +305,7 @@ class VirtualMachineExtensionImagesOperations:
 
     @distributed_trace
     def get(
-        self, location: str, publisher_name: str, type: str, version: str, **kwargs: Any
+        self, location: str, publisher_name: str, type: str, version: str, request_parameters: Optional[RequestParameters] = None, **kwargs: Any
     ) -> _models.VirtualMachineExtensionImage:
         """Gets a virtual machine extension image.
 
@@ -312,6 +321,10 @@ class VirtualMachineExtensionImagesOperations:
         :rtype: ~azure.mgmt.compute.models.VirtualMachineExtensionImage
         :raises ~azure.core.exceptions.HttpResponseError:
         """
+        if request_parameters:
+            for _rp_key, _rp_value in request_parameters.items():
+                kwargs.setdefault(_rp_key, _rp_value)
+
         error_map: MutableMapping = {
             401: ClientAuthenticationError,
             404: ResourceNotFoundError,

@@ -33,6 +33,7 @@ from azure.mgmt.core.polling.async_arm_polling import AsyncARMPolling
 
 from ... import models as _models
 from ..._utils.serialization import Deserializer, Serializer
+from ...types import LRORequestParameters, RequestParameters
 from ...operations._availability_sets_operations import (
     build_cancel_migration_to_virtual_machine_scale_set_request,
     build_convert_to_virtual_machine_scale_set_request,
@@ -74,7 +75,7 @@ class AvailabilitySetsOperations:
 
     @distributed_trace
     def list_by_subscription(
-        self, expand: Optional[str] = None, **kwargs: Any
+        self, expand: Optional[str] = None, request_parameters: Optional[RequestParameters] = None, **kwargs: Any
     ) -> AsyncItemPaged["_models.AvailabilitySet"]:
         """Lists all availability sets in a subscription.
 
@@ -85,6 +86,10 @@ class AvailabilitySetsOperations:
         :rtype: ~azure.core.async_paging.AsyncItemPaged[~azure.mgmt.compute.models.AvailabilitySet]
         :raises ~azure.core.exceptions.HttpResponseError:
         """
+        if request_parameters:
+            for _rp_key, _rp_value in request_parameters.items():
+                kwargs.setdefault(_rp_key, _rp_value)
+
         _headers = kwargs.pop("headers", {}) or {}
         _params = case_insensitive_dict(kwargs.pop("params", {}) or {})
 
@@ -142,7 +147,7 @@ class AvailabilitySetsOperations:
         return AsyncItemPaged(get_next, extract_data)
 
     @distributed_trace
-    def list(self, resource_group_name: str, **kwargs: Any) -> AsyncItemPaged["_models.AvailabilitySet"]:
+    def list(self, resource_group_name: str, request_parameters: Optional[RequestParameters] = None, **kwargs: Any) -> AsyncItemPaged["_models.AvailabilitySet"]:
         """Lists all availability sets in a resource group.
 
         :param resource_group_name: The name of the resource group. The name is case insensitive.
@@ -152,6 +157,10 @@ class AvailabilitySetsOperations:
         :rtype: ~azure.core.async_paging.AsyncItemPaged[~azure.mgmt.compute.models.AvailabilitySet]
         :raises ~azure.core.exceptions.HttpResponseError:
         """
+        if request_parameters:
+            for _rp_key, _rp_value in request_parameters.items():
+                kwargs.setdefault(_rp_key, _rp_value)
+
         _headers = kwargs.pop("headers", {}) or {}
         _params = case_insensitive_dict(kwargs.pop("params", {}) or {})
 
@@ -1095,7 +1104,7 @@ class AvailabilitySetsOperations:
 
     @distributed_trace
     def list_available_sizes(
-        self, resource_group_name: str, availability_set_name: str, **kwargs: Any
+        self, resource_group_name: str, availability_set_name: str, request_parameters: Optional[RequestParameters] = None, **kwargs: Any
     ) -> AsyncItemPaged["_models.VirtualMachineSize"]:
         """Lists all available virtual machine sizes that can be used to create a new virtual machine in
         an existing availability set.

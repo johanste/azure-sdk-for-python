@@ -29,6 +29,7 @@ from azure.mgmt.core.exceptions import ARMErrorFormat
 from .. import models as _models
 from .._configuration import ComputeManagementClientConfiguration
 from .._utils.serialization import Deserializer, Serializer
+from ..types import LRORequestParameters, RequestParameters
 
 T = TypeVar("T")
 ClsType = Optional[Callable[[PipelineResponse[HttpRequest, HttpResponse], T, dict[str, Any]], Any]]
@@ -269,7 +270,7 @@ class ProximityPlacementGroupsOperations:
         self._deserialize: Deserializer = input_args.pop(0) if input_args else kwargs.pop("deserializer")
 
     @distributed_trace
-    def list_by_subscription(self, **kwargs: Any) -> ItemPaged["_models.ProximityPlacementGroup"]:
+    def list_by_subscription(self, request_parameters: Optional[RequestParameters] = None, **kwargs: Any) -> ItemPaged["_models.ProximityPlacementGroup"]:
         """Lists all proximity placement groups in a subscription.
 
         :return: An iterator like instance of either ProximityPlacementGroup or the result of
@@ -277,6 +278,10 @@ class ProximityPlacementGroupsOperations:
         :rtype: ~azure.core.paging.ItemPaged[~azure.mgmt.compute.models.ProximityPlacementGroup]
         :raises ~azure.core.exceptions.HttpResponseError:
         """
+        if request_parameters:
+            for _rp_key, _rp_value in request_parameters.items():
+                kwargs.setdefault(_rp_key, _rp_value)
+
         _headers = kwargs.pop("headers", {}) or {}
         _params = case_insensitive_dict(kwargs.pop("params", {}) or {})
 
@@ -334,7 +339,7 @@ class ProximityPlacementGroupsOperations:
 
     @distributed_trace
     def list_by_resource_group(
-        self, resource_group_name: str, **kwargs: Any
+        self, resource_group_name: str, request_parameters: Optional[RequestParameters] = None, **kwargs: Any
     ) -> ItemPaged["_models.ProximityPlacementGroup"]:
         """Lists all proximity placement groups in a resource group.
 
@@ -346,6 +351,10 @@ class ProximityPlacementGroupsOperations:
         :rtype: ~azure.core.paging.ItemPaged[~azure.mgmt.compute.models.ProximityPlacementGroup]
         :raises ~azure.core.exceptions.HttpResponseError:
         """
+        if request_parameters:
+            for _rp_key, _rp_value in request_parameters.items():
+                kwargs.setdefault(_rp_key, _rp_value)
+
         _headers = kwargs.pop("headers", {}) or {}
         _params = case_insensitive_dict(kwargs.pop("params", {}) or {})
 
@@ -408,7 +417,7 @@ class ProximityPlacementGroupsOperations:
         resource_group_name: str,
         proximity_placement_group_name: str,
         include_colocation_status: Optional[str] = None,
-        **kwargs: Any
+        request_parameters: Optional[RequestParameters] = None, **kwargs: Any
     ) -> _models.ProximityPlacementGroup:
         """Retrieves information about a proximity placement group .
 
@@ -424,6 +433,10 @@ class ProximityPlacementGroupsOperations:
         :rtype: ~azure.mgmt.compute.models.ProximityPlacementGroup
         :raises ~azure.core.exceptions.HttpResponseError:
         """
+        if request_parameters:
+            for _rp_key, _rp_value in request_parameters.items():
+                kwargs.setdefault(_rp_key, _rp_value)
+
         error_map: MutableMapping = {
             401: ClientAuthenticationError,
             404: ResourceNotFoundError,
@@ -475,7 +488,7 @@ class ProximityPlacementGroupsOperations:
         parameters: _models.ProximityPlacementGroup,
         *,
         content_type: str = "application/json",
-        **kwargs: Any
+        request_parameters: Optional[RequestParameters] = None, **kwargs: Any
     ) -> _models.ProximityPlacementGroup:
         """Create or update a proximity placement group.
 
@@ -503,7 +516,7 @@ class ProximityPlacementGroupsOperations:
         parameters: IO[bytes],
         *,
         content_type: str = "application/json",
-        **kwargs: Any
+        request_parameters: Optional[RequestParameters] = None, **kwargs: Any
     ) -> _models.ProximityPlacementGroup:
         """Create or update a proximity placement group.
 
@@ -529,7 +542,7 @@ class ProximityPlacementGroupsOperations:
         resource_group_name: str,
         proximity_placement_group_name: str,
         parameters: Union[_models.ProximityPlacementGroup, IO[bytes]],
-        **kwargs: Any
+        request_parameters: Optional[RequestParameters] = None, **kwargs: Any
     ) -> _models.ProximityPlacementGroup:
         """Create or update a proximity placement group.
 
@@ -545,6 +558,10 @@ class ProximityPlacementGroupsOperations:
         :rtype: ~azure.mgmt.compute.models.ProximityPlacementGroup
         :raises ~azure.core.exceptions.HttpResponseError:
         """
+        if request_parameters:
+            for _rp_key, _rp_value in request_parameters.items():
+                kwargs.setdefault(_rp_key, _rp_value)
+
         error_map: MutableMapping = {
             401: ClientAuthenticationError,
             404: ResourceNotFoundError,
@@ -607,7 +624,7 @@ class ProximityPlacementGroupsOperations:
         parameters: _models.ProximityPlacementGroupUpdate,
         *,
         content_type: str = "application/json",
-        **kwargs: Any
+        request_parameters: Optional[RequestParameters] = None, **kwargs: Any
     ) -> _models.ProximityPlacementGroup:
         """Update a proximity placement group.
 
@@ -635,7 +652,7 @@ class ProximityPlacementGroupsOperations:
         parameters: IO[bytes],
         *,
         content_type: str = "application/json",
-        **kwargs: Any
+        request_parameters: Optional[RequestParameters] = None, **kwargs: Any
     ) -> _models.ProximityPlacementGroup:
         """Update a proximity placement group.
 
@@ -661,7 +678,7 @@ class ProximityPlacementGroupsOperations:
         resource_group_name: str,
         proximity_placement_group_name: str,
         parameters: Union[_models.ProximityPlacementGroupUpdate, IO[bytes]],
-        **kwargs: Any
+        request_parameters: Optional[RequestParameters] = None, **kwargs: Any
     ) -> _models.ProximityPlacementGroup:
         """Update a proximity placement group.
 
@@ -677,6 +694,10 @@ class ProximityPlacementGroupsOperations:
         :rtype: ~azure.mgmt.compute.models.ProximityPlacementGroup
         :raises ~azure.core.exceptions.HttpResponseError:
         """
+        if request_parameters:
+            for _rp_key, _rp_value in request_parameters.items():
+                kwargs.setdefault(_rp_key, _rp_value)
+
         error_map: MutableMapping = {
             401: ClientAuthenticationError,
             404: ResourceNotFoundError,
@@ -733,7 +754,7 @@ class ProximityPlacementGroupsOperations:
 
     @distributed_trace
     def delete(  # pylint: disable=inconsistent-return-statements
-        self, resource_group_name: str, proximity_placement_group_name: str, **kwargs: Any
+        self, resource_group_name: str, proximity_placement_group_name: str, request_parameters: Optional[RequestParameters] = None, **kwargs: Any
     ) -> None:
         """Delete a proximity placement group.
 
@@ -746,6 +767,10 @@ class ProximityPlacementGroupsOperations:
         :rtype: None
         :raises ~azure.core.exceptions.HttpResponseError:
         """
+        if request_parameters:
+            for _rp_key, _rp_value in request_parameters.items():
+                kwargs.setdefault(_rp_key, _rp_value)
+
         error_map: MutableMapping = {
             401: ClientAuthenticationError,
             404: ResourceNotFoundError,

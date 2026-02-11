@@ -28,6 +28,7 @@ from azure.mgmt.core.exceptions import ARMErrorFormat
 
 from ... import models as _models
 from ..._utils.serialization import Deserializer, Serializer
+from ...types import LRORequestParameters, RequestParameters
 from ...operations._proximity_placement_groups_operations import (
     build_create_or_update_request,
     build_delete_request,
@@ -63,7 +64,7 @@ class ProximityPlacementGroupsOperations:
         self._deserialize: Deserializer = input_args.pop(0) if input_args else kwargs.pop("deserializer")
 
     @distributed_trace
-    def list_by_subscription(self, **kwargs: Any) -> AsyncItemPaged["_models.ProximityPlacementGroup"]:
+    def list_by_subscription(self, request_parameters: Optional[RequestParameters] = None, **kwargs: Any) -> AsyncItemPaged["_models.ProximityPlacementGroup"]:
         """Lists all proximity placement groups in a subscription.
 
         :return: An iterator like instance of either ProximityPlacementGroup or the result of
@@ -72,6 +73,10 @@ class ProximityPlacementGroupsOperations:
          ~azure.core.async_paging.AsyncItemPaged[~azure.mgmt.compute.models.ProximityPlacementGroup]
         :raises ~azure.core.exceptions.HttpResponseError:
         """
+        if request_parameters:
+            for _rp_key, _rp_value in request_parameters.items():
+                kwargs.setdefault(_rp_key, _rp_value)
+
         _headers = kwargs.pop("headers", {}) or {}
         _params = case_insensitive_dict(kwargs.pop("params", {}) or {})
 
@@ -129,7 +134,7 @@ class ProximityPlacementGroupsOperations:
 
     @distributed_trace
     def list_by_resource_group(
-        self, resource_group_name: str, **kwargs: Any
+        self, resource_group_name: str, request_parameters: Optional[RequestParameters] = None, **kwargs: Any
     ) -> AsyncItemPaged["_models.ProximityPlacementGroup"]:
         """Lists all proximity placement groups in a resource group.
 
@@ -142,6 +147,10 @@ class ProximityPlacementGroupsOperations:
          ~azure.core.async_paging.AsyncItemPaged[~azure.mgmt.compute.models.ProximityPlacementGroup]
         :raises ~azure.core.exceptions.HttpResponseError:
         """
+        if request_parameters:
+            for _rp_key, _rp_value in request_parameters.items():
+                kwargs.setdefault(_rp_key, _rp_value)
+
         _headers = kwargs.pop("headers", {}) or {}
         _params = case_insensitive_dict(kwargs.pop("params", {}) or {})
 

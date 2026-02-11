@@ -33,6 +33,7 @@ from azure.mgmt.core.polling.arm_polling import ARMPolling
 from .. import models as _models
 from .._configuration import ComputeManagementClientConfiguration
 from .._utils.serialization import Deserializer, Serializer
+from ..types import LRORequestParameters, RequestParameters
 
 T = TypeVar("T")
 ClsType = Optional[Callable[[PipelineResponse[HttpRequest, HttpResponse], T, dict[str, Any]], Any]]
@@ -238,7 +239,7 @@ class GalleryApplicationsOperations:
 
     @distributed_trace
     def list_by_gallery(
-        self, resource_group_name: str, gallery_name: str, **kwargs: Any
+        self, resource_group_name: str, gallery_name: str, request_parameters: Optional[RequestParameters] = None, **kwargs: Any
     ) -> ItemPaged["_models.GalleryApplication"]:
         """List gallery Application Definitions in a gallery.
 
@@ -251,6 +252,10 @@ class GalleryApplicationsOperations:
         :rtype: ~azure.core.paging.ItemPaged[~azure.mgmt.compute.models.GalleryApplication]
         :raises ~azure.core.exceptions.HttpResponseError:
         """
+        if request_parameters:
+            for _rp_key, _rp_value in request_parameters.items():
+                kwargs.setdefault(_rp_key, _rp_value)
+
         _headers = kwargs.pop("headers", {}) or {}
         _params = case_insensitive_dict(kwargs.pop("params", {}) or {})
 
@@ -310,7 +315,7 @@ class GalleryApplicationsOperations:
 
     @distributed_trace
     def get(
-        self, resource_group_name: str, gallery_name: str, gallery_application_name: str, **kwargs: Any
+        self, resource_group_name: str, gallery_name: str, gallery_application_name: str, request_parameters: Optional[RequestParameters] = None, **kwargs: Any
     ) -> _models.GalleryApplication:
         """Retrieves information about a gallery Application Definition.
 
@@ -326,6 +331,10 @@ class GalleryApplicationsOperations:
         :rtype: ~azure.mgmt.compute.models.GalleryApplication
         :raises ~azure.core.exceptions.HttpResponseError:
         """
+        if request_parameters:
+            for _rp_key, _rp_value in request_parameters.items():
+                kwargs.setdefault(_rp_key, _rp_value)
+
         error_map: MutableMapping = {
             401: ClientAuthenticationError,
             404: ResourceNotFoundError,
@@ -455,7 +464,7 @@ class GalleryApplicationsOperations:
         gallery_application: _models.GalleryApplication,
         *,
         content_type: str = "application/json",
-        **kwargs: Any
+        request_parameters: Optional[LRORequestParameters] = None, **kwargs: Any
     ) -> LROPoller[_models.GalleryApplication]:
         """Create or update a gallery Application Definition.
 
@@ -488,7 +497,7 @@ class GalleryApplicationsOperations:
         gallery_application: IO[bytes],
         *,
         content_type: str = "application/json",
-        **kwargs: Any
+        request_parameters: Optional[LRORequestParameters] = None, **kwargs: Any
     ) -> LROPoller[_models.GalleryApplication]:
         """Create or update a gallery Application Definition.
 
@@ -519,7 +528,7 @@ class GalleryApplicationsOperations:
         gallery_name: str,
         gallery_application_name: str,
         gallery_application: Union[_models.GalleryApplication, IO[bytes]],
-        **kwargs: Any
+        request_parameters: Optional[LRORequestParameters] = None, **kwargs: Any
     ) -> LROPoller[_models.GalleryApplication]:
         """Create or update a gallery Application Definition.
 
@@ -539,6 +548,10 @@ class GalleryApplicationsOperations:
         :rtype: ~azure.core.polling.LROPoller[~azure.mgmt.compute.models.GalleryApplication]
         :raises ~azure.core.exceptions.HttpResponseError:
         """
+        if request_parameters:
+            for _rp_key, _rp_value in request_parameters.items():
+                kwargs.setdefault(_rp_key, _rp_value)
+
         _headers = case_insensitive_dict(kwargs.pop("headers", {}) or {})
         _params = case_insensitive_dict(kwargs.pop("params", {}) or {})
 
@@ -670,7 +683,7 @@ class GalleryApplicationsOperations:
         gallery_application: _models.GalleryApplicationUpdate,
         *,
         content_type: str = "application/json",
-        **kwargs: Any
+        request_parameters: Optional[LRORequestParameters] = None, **kwargs: Any
     ) -> LROPoller[_models.GalleryApplication]:
         """Update a gallery Application Definition.
 
@@ -703,7 +716,7 @@ class GalleryApplicationsOperations:
         gallery_application: IO[bytes],
         *,
         content_type: str = "application/json",
-        **kwargs: Any
+        request_parameters: Optional[LRORequestParameters] = None, **kwargs: Any
     ) -> LROPoller[_models.GalleryApplication]:
         """Update a gallery Application Definition.
 
@@ -734,7 +747,7 @@ class GalleryApplicationsOperations:
         gallery_name: str,
         gallery_application_name: str,
         gallery_application: Union[_models.GalleryApplicationUpdate, IO[bytes]],
-        **kwargs: Any
+        request_parameters: Optional[LRORequestParameters] = None, **kwargs: Any
     ) -> LROPoller[_models.GalleryApplication]:
         """Update a gallery Application Definition.
 
@@ -754,6 +767,10 @@ class GalleryApplicationsOperations:
         :rtype: ~azure.core.polling.LROPoller[~azure.mgmt.compute.models.GalleryApplication]
         :raises ~azure.core.exceptions.HttpResponseError:
         """
+        if request_parameters:
+            for _rp_key, _rp_value in request_parameters.items():
+                kwargs.setdefault(_rp_key, _rp_value)
+
         _headers = case_insensitive_dict(kwargs.pop("headers", {}) or {})
         _params = case_insensitive_dict(kwargs.pop("params", {}) or {})
 
@@ -867,7 +884,7 @@ class GalleryApplicationsOperations:
 
     @distributed_trace
     def begin_delete(
-        self, resource_group_name: str, gallery_name: str, gallery_application_name: str, **kwargs: Any
+        self, resource_group_name: str, gallery_name: str, gallery_application_name: str, request_parameters: Optional[LRORequestParameters] = None, **kwargs: Any
     ) -> LROPoller[None]:
         """Delete a gallery Application.
 
@@ -883,6 +900,10 @@ class GalleryApplicationsOperations:
         :rtype: ~azure.core.polling.LROPoller[None]
         :raises ~azure.core.exceptions.HttpResponseError:
         """
+        if request_parameters:
+            for _rp_key, _rp_value in request_parameters.items():
+                kwargs.setdefault(_rp_key, _rp_value)
+
         _headers = kwargs.pop("headers", {}) or {}
         _params = case_insensitive_dict(kwargs.pop("params", {}) or {})
 

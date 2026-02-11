@@ -27,6 +27,7 @@ from azure.mgmt.core.exceptions import ARMErrorFormat
 
 from ... import models as _models
 from ..._utils.serialization import Deserializer, Serializer
+from ...types import LRORequestParameters, RequestParameters
 from ...operations._shared_gallery_image_versions_operations import build_get_request, build_list_request
 from .._configuration import ComputeManagementClientConfiguration
 
@@ -61,7 +62,7 @@ class SharedGalleryImageVersionsOperations:
         gallery_unique_name: str,
         gallery_image_name: str,
         shared_to: Optional[Union[str, _models.SharedToValues]] = None,
-        **kwargs: Any
+        request_parameters: Optional[RequestParameters] = None, **kwargs: Any
     ) -> AsyncItemPaged["_models.SharedGalleryImageVersion"]:
         """List shared gallery image versions by subscription id or tenant id.
 
@@ -81,6 +82,10 @@ class SharedGalleryImageVersionsOperations:
          ~azure.core.async_paging.AsyncItemPaged[~azure.mgmt.compute.models.SharedGalleryImageVersion]
         :raises ~azure.core.exceptions.HttpResponseError:
         """
+        if request_parameters:
+            for _rp_key, _rp_value in request_parameters.items():
+                kwargs.setdefault(_rp_key, _rp_value)
+
         _headers = kwargs.pop("headers", {}) or {}
         _params = case_insensitive_dict(kwargs.pop("params", {}) or {})
 

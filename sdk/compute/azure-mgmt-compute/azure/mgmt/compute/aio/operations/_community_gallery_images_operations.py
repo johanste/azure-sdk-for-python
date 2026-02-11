@@ -27,6 +27,7 @@ from azure.mgmt.core.exceptions import ARMErrorFormat
 
 from ... import models as _models
 from ..._utils.serialization import Deserializer, Serializer
+from ...types import LRORequestParameters, RequestParameters
 from ...operations._community_gallery_images_operations import build_get_request, build_list_request
 from .._configuration import ComputeManagementClientConfiguration
 
@@ -56,7 +57,7 @@ class CommunityGalleryImagesOperations:
 
     @distributed_trace
     def list(
-        self, location: str, public_gallery_name: str, **kwargs: Any
+        self, location: str, public_gallery_name: str, request_parameters: Optional[RequestParameters] = None, **kwargs: Any
     ) -> AsyncItemPaged["_models.CommunityGalleryImage"]:
         """List community gallery images inside a gallery.
 
@@ -70,6 +71,10 @@ class CommunityGalleryImagesOperations:
          ~azure.core.async_paging.AsyncItemPaged[~azure.mgmt.compute.models.CommunityGalleryImage]
         :raises ~azure.core.exceptions.HttpResponseError:
         """
+        if request_parameters:
+            for _rp_key, _rp_value in request_parameters.items():
+                kwargs.setdefault(_rp_key, _rp_value)
+
         _headers = kwargs.pop("headers", {}) or {}
         _params = case_insensitive_dict(kwargs.pop("params", {}) or {})
 

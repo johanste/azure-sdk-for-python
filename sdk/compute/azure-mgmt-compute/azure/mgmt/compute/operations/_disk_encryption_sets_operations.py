@@ -33,6 +33,7 @@ from azure.mgmt.core.polling.arm_polling import ARMPolling
 from .. import models as _models
 from .._configuration import ComputeManagementClientConfiguration
 from .._utils.serialization import Deserializer, Serializer
+from ..types import LRORequestParameters, RequestParameters
 
 T = TypeVar("T")
 ClsType = Optional[Callable[[PipelineResponse[HttpRequest, HttpResponse], T, dict[str, Any]], Any]]
@@ -287,13 +288,17 @@ class DiskEncryptionSetsOperations:
         self._deserialize: Deserializer = input_args.pop(0) if input_args else kwargs.pop("deserializer")
 
     @distributed_trace
-    def list(self, **kwargs: Any) -> ItemPaged["_models.DiskEncryptionSet"]:
+    def list(self, request_parameters: Optional[RequestParameters] = None, **kwargs: Any) -> ItemPaged["_models.DiskEncryptionSet"]:
         """Lists all the disk encryption sets under a subscription.
 
         :return: An iterator like instance of either DiskEncryptionSet or the result of cls(response)
         :rtype: ~azure.core.paging.ItemPaged[~azure.mgmt.compute.models.DiskEncryptionSet]
         :raises ~azure.core.exceptions.HttpResponseError:
         """
+        if request_parameters:
+            for _rp_key, _rp_value in request_parameters.items():
+                kwargs.setdefault(_rp_key, _rp_value)
+
         _headers = kwargs.pop("headers", {}) or {}
         _params = case_insensitive_dict(kwargs.pop("params", {}) or {})
 
@@ -350,7 +355,7 @@ class DiskEncryptionSetsOperations:
         return ItemPaged(get_next, extract_data)
 
     @distributed_trace
-    def list_by_resource_group(self, resource_group_name: str, **kwargs: Any) -> ItemPaged["_models.DiskEncryptionSet"]:
+    def list_by_resource_group(self, resource_group_name: str, request_parameters: Optional[RequestParameters] = None, **kwargs: Any) -> ItemPaged["_models.DiskEncryptionSet"]:
         """Lists all the disk encryption sets under a resource group.
 
         :param resource_group_name: The name of the resource group. The name is case insensitive.
@@ -360,6 +365,10 @@ class DiskEncryptionSetsOperations:
         :rtype: ~azure.core.paging.ItemPaged[~azure.mgmt.compute.models.DiskEncryptionSet]
         :raises ~azure.core.exceptions.HttpResponseError:
         """
+        if request_parameters:
+            for _rp_key, _rp_value in request_parameters.items():
+                kwargs.setdefault(_rp_key, _rp_value)
+
         _headers = kwargs.pop("headers", {}) or {}
         _params = case_insensitive_dict(kwargs.pop("params", {}) or {})
 
@@ -417,7 +426,7 @@ class DiskEncryptionSetsOperations:
         return ItemPaged(get_next, extract_data)
 
     @distributed_trace
-    def get(self, resource_group_name: str, disk_encryption_set_name: str, **kwargs: Any) -> _models.DiskEncryptionSet:
+    def get(self, resource_group_name: str, disk_encryption_set_name: str, request_parameters: Optional[RequestParameters] = None, **kwargs: Any) -> _models.DiskEncryptionSet:
         """Gets information about a disk encryption set.
 
         :param resource_group_name: The name of the resource group. The name is case insensitive.
@@ -431,6 +440,10 @@ class DiskEncryptionSetsOperations:
         :rtype: ~azure.mgmt.compute.models.DiskEncryptionSet
         :raises ~azure.core.exceptions.HttpResponseError:
         """
+        if request_parameters:
+            for _rp_key, _rp_value in request_parameters.items():
+                kwargs.setdefault(_rp_key, _rp_value)
+
         error_map: MutableMapping = {
             401: ClientAuthenticationError,
             404: ResourceNotFoundError,
@@ -552,7 +565,7 @@ class DiskEncryptionSetsOperations:
         disk_encryption_set: _models.DiskEncryptionSet,
         *,
         content_type: str = "application/json",
-        **kwargs: Any
+        request_parameters: Optional[LRORequestParameters] = None, **kwargs: Any
     ) -> LROPoller[_models.DiskEncryptionSet]:
         """Creates or updates a disk encryption set.
 
@@ -583,7 +596,7 @@ class DiskEncryptionSetsOperations:
         disk_encryption_set: IO[bytes],
         *,
         content_type: str = "application/json",
-        **kwargs: Any
+        request_parameters: Optional[LRORequestParameters] = None, **kwargs: Any
     ) -> LROPoller[_models.DiskEncryptionSet]:
         """Creates or updates a disk encryption set.
 
@@ -612,7 +625,7 @@ class DiskEncryptionSetsOperations:
         resource_group_name: str,
         disk_encryption_set_name: str,
         disk_encryption_set: Union[_models.DiskEncryptionSet, IO[bytes]],
-        **kwargs: Any
+        request_parameters: Optional[LRORequestParameters] = None, **kwargs: Any
     ) -> LROPoller[_models.DiskEncryptionSet]:
         """Creates or updates a disk encryption set.
 
@@ -631,6 +644,10 @@ class DiskEncryptionSetsOperations:
         :rtype: ~azure.core.polling.LROPoller[~azure.mgmt.compute.models.DiskEncryptionSet]
         :raises ~azure.core.exceptions.HttpResponseError:
         """
+        if request_parameters:
+            for _rp_key, _rp_value in request_parameters.items():
+                kwargs.setdefault(_rp_key, _rp_value)
+
         _headers = case_insensitive_dict(kwargs.pop("headers", {}) or {})
         _params = case_insensitive_dict(kwargs.pop("params", {}) or {})
 
@@ -759,7 +776,7 @@ class DiskEncryptionSetsOperations:
         disk_encryption_set: _models.DiskEncryptionSetUpdate,
         *,
         content_type: str = "application/json",
-        **kwargs: Any
+        request_parameters: Optional[LRORequestParameters] = None, **kwargs: Any
     ) -> LROPoller[_models.DiskEncryptionSet]:
         """Updates (patches) a disk encryption set.
 
@@ -790,7 +807,7 @@ class DiskEncryptionSetsOperations:
         disk_encryption_set: IO[bytes],
         *,
         content_type: str = "application/json",
-        **kwargs: Any
+        request_parameters: Optional[LRORequestParameters] = None, **kwargs: Any
     ) -> LROPoller[_models.DiskEncryptionSet]:
         """Updates (patches) a disk encryption set.
 
@@ -819,7 +836,7 @@ class DiskEncryptionSetsOperations:
         resource_group_name: str,
         disk_encryption_set_name: str,
         disk_encryption_set: Union[_models.DiskEncryptionSetUpdate, IO[bytes]],
-        **kwargs: Any
+        request_parameters: Optional[LRORequestParameters] = None, **kwargs: Any
     ) -> LROPoller[_models.DiskEncryptionSet]:
         """Updates (patches) a disk encryption set.
 
@@ -839,6 +856,10 @@ class DiskEncryptionSetsOperations:
         :rtype: ~azure.core.polling.LROPoller[~azure.mgmt.compute.models.DiskEncryptionSet]
         :raises ~azure.core.exceptions.HttpResponseError:
         """
+        if request_parameters:
+            for _rp_key, _rp_value in request_parameters.items():
+                kwargs.setdefault(_rp_key, _rp_value)
+
         _headers = case_insensitive_dict(kwargs.pop("headers", {}) or {})
         _params = case_insensitive_dict(kwargs.pop("params", {}) or {})
 
@@ -944,7 +965,7 @@ class DiskEncryptionSetsOperations:
         return deserialized  # type: ignore
 
     @distributed_trace
-    def begin_delete(self, resource_group_name: str, disk_encryption_set_name: str, **kwargs: Any) -> LROPoller[None]:
+    def begin_delete(self, resource_group_name: str, disk_encryption_set_name: str, request_parameters: Optional[LRORequestParameters] = None, **kwargs: Any) -> LROPoller[None]:
         """Deletes a disk encryption set.
 
         :param resource_group_name: The name of the resource group. The name is case insensitive.
@@ -958,6 +979,10 @@ class DiskEncryptionSetsOperations:
         :rtype: ~azure.core.polling.LROPoller[None]
         :raises ~azure.core.exceptions.HttpResponseError:
         """
+        if request_parameters:
+            for _rp_key, _rp_value in request_parameters.items():
+                kwargs.setdefault(_rp_key, _rp_value)
+
         _headers = kwargs.pop("headers", {}) or {}
         _params = case_insensitive_dict(kwargs.pop("params", {}) or {})
 
@@ -1002,7 +1027,7 @@ class DiskEncryptionSetsOperations:
 
     @distributed_trace
     def list_associated_resources(
-        self, resource_group_name: str, disk_encryption_set_name: str, **kwargs: Any
+        self, resource_group_name: str, disk_encryption_set_name: str, request_parameters: Optional[RequestParameters] = None, **kwargs: Any
     ) -> ItemPaged[str]:
         """Lists all resources that are encrypted with this disk encryption set.
 
@@ -1017,6 +1042,10 @@ class DiskEncryptionSetsOperations:
         :rtype: ~azure.core.paging.ItemPaged[str]
         :raises ~azure.core.exceptions.HttpResponseError:
         """
+        if request_parameters:
+            for _rp_key, _rp_value in request_parameters.items():
+                kwargs.setdefault(_rp_key, _rp_value)
+
         _headers = kwargs.pop("headers", {}) or {}
         _params = case_insensitive_dict(kwargs.pop("params", {}) or {})
 

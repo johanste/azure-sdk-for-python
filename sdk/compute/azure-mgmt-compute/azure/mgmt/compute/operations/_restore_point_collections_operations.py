@@ -33,6 +33,7 @@ from azure.mgmt.core.polling.arm_polling import ARMPolling
 from .. import models as _models
 from .._configuration import ComputeManagementClientConfiguration
 from .._utils.serialization import Deserializer, Serializer
+from ..types import LRORequestParameters, RequestParameters
 
 T = TypeVar("T")
 ClsType = Optional[Callable[[PipelineResponse[HttpRequest, HttpResponse], T, dict[str, Any]], Any]]
@@ -271,7 +272,7 @@ class RestorePointCollectionsOperations:
         self._deserialize: Deserializer = input_args.pop(0) if input_args else kwargs.pop("deserializer")
 
     @distributed_trace
-    def list_all(self, **kwargs: Any) -> ItemPaged["_models.RestorePointCollection"]:
+    def list_all(self, request_parameters: Optional[RequestParameters] = None, **kwargs: Any) -> ItemPaged["_models.RestorePointCollection"]:
         """Gets the list of restore point collections in the subscription. Use nextLink property in the
         response to get the next page of restore point collections. Do this till nextLink is not null
         to fetch all the restore point collections.
@@ -281,6 +282,10 @@ class RestorePointCollectionsOperations:
         :rtype: ~azure.core.paging.ItemPaged[~azure.mgmt.compute.models.RestorePointCollection]
         :raises ~azure.core.exceptions.HttpResponseError:
         """
+        if request_parameters:
+            for _rp_key, _rp_value in request_parameters.items():
+                kwargs.setdefault(_rp_key, _rp_value)
+
         _headers = kwargs.pop("headers", {}) or {}
         _params = case_insensitive_dict(kwargs.pop("params", {}) or {})
 
@@ -337,7 +342,7 @@ class RestorePointCollectionsOperations:
         return ItemPaged(get_next, extract_data)
 
     @distributed_trace
-    def list(self, resource_group_name: str, **kwargs: Any) -> ItemPaged["_models.RestorePointCollection"]:
+    def list(self, resource_group_name: str, request_parameters: Optional[RequestParameters] = None, **kwargs: Any) -> ItemPaged["_models.RestorePointCollection"]:
         """Gets the list of restore point collections in a resource group.
 
         :param resource_group_name: The name of the resource group. The name is case insensitive.
@@ -348,6 +353,10 @@ class RestorePointCollectionsOperations:
         :rtype: ~azure.core.paging.ItemPaged[~azure.mgmt.compute.models.RestorePointCollection]
         :raises ~azure.core.exceptions.HttpResponseError:
         """
+        if request_parameters:
+            for _rp_key, _rp_value in request_parameters.items():
+                kwargs.setdefault(_rp_key, _rp_value)
+
         _headers = kwargs.pop("headers", {}) or {}
         _params = case_insensitive_dict(kwargs.pop("params", {}) or {})
 
@@ -410,7 +419,7 @@ class RestorePointCollectionsOperations:
         resource_group_name: str,
         restore_point_collection_name: str,
         expand: Optional[Union[str, _models.RestorePointCollectionExpandOptions]] = None,
-        **kwargs: Any
+        request_parameters: Optional[RequestParameters] = None, **kwargs: Any
     ) -> _models.RestorePointCollection:
         """The operation to get the restore point collection.
 
@@ -427,6 +436,10 @@ class RestorePointCollectionsOperations:
         :rtype: ~azure.mgmt.compute.models.RestorePointCollection
         :raises ~azure.core.exceptions.HttpResponseError:
         """
+        if request_parameters:
+            for _rp_key, _rp_value in request_parameters.items():
+                kwargs.setdefault(_rp_key, _rp_value)
+
         error_map: MutableMapping = {
             401: ClientAuthenticationError,
             404: ResourceNotFoundError,
@@ -478,7 +491,7 @@ class RestorePointCollectionsOperations:
         parameters: _models.RestorePointCollection,
         *,
         content_type: str = "application/json",
-        **kwargs: Any
+        request_parameters: Optional[RequestParameters] = None, **kwargs: Any
     ) -> _models.RestorePointCollection:
         """The operation to create or update the restore point collection. Please refer to
         https://aka.ms/RestorePoints for more details. When updating a restore point collection, only
@@ -508,7 +521,7 @@ class RestorePointCollectionsOperations:
         parameters: IO[bytes],
         *,
         content_type: str = "application/json",
-        **kwargs: Any
+        request_parameters: Optional[RequestParameters] = None, **kwargs: Any
     ) -> _models.RestorePointCollection:
         """The operation to create or update the restore point collection. Please refer to
         https://aka.ms/RestorePoints for more details. When updating a restore point collection, only
@@ -536,7 +549,7 @@ class RestorePointCollectionsOperations:
         resource_group_name: str,
         restore_point_collection_name: str,
         parameters: Union[_models.RestorePointCollection, IO[bytes]],
-        **kwargs: Any
+        request_parameters: Optional[RequestParameters] = None, **kwargs: Any
     ) -> _models.RestorePointCollection:
         """The operation to create or update the restore point collection. Please refer to
         https://aka.ms/RestorePoints for more details. When updating a restore point collection, only
@@ -554,6 +567,10 @@ class RestorePointCollectionsOperations:
         :rtype: ~azure.mgmt.compute.models.RestorePointCollection
         :raises ~azure.core.exceptions.HttpResponseError:
         """
+        if request_parameters:
+            for _rp_key, _rp_value in request_parameters.items():
+                kwargs.setdefault(_rp_key, _rp_value)
+
         error_map: MutableMapping = {
             401: ClientAuthenticationError,
             404: ResourceNotFoundError,
@@ -616,7 +633,7 @@ class RestorePointCollectionsOperations:
         parameters: _models.RestorePointCollectionUpdate,
         *,
         content_type: str = "application/json",
-        **kwargs: Any
+        request_parameters: Optional[RequestParameters] = None, **kwargs: Any
     ) -> _models.RestorePointCollection:
         """The operation to update the restore point collection.
 
@@ -644,7 +661,7 @@ class RestorePointCollectionsOperations:
         parameters: IO[bytes],
         *,
         content_type: str = "application/json",
-        **kwargs: Any
+        request_parameters: Optional[RequestParameters] = None, **kwargs: Any
     ) -> _models.RestorePointCollection:
         """The operation to update the restore point collection.
 
@@ -670,7 +687,7 @@ class RestorePointCollectionsOperations:
         resource_group_name: str,
         restore_point_collection_name: str,
         parameters: Union[_models.RestorePointCollectionUpdate, IO[bytes]],
-        **kwargs: Any
+        request_parameters: Optional[RequestParameters] = None, **kwargs: Any
     ) -> _models.RestorePointCollection:
         """The operation to update the restore point collection.
 
@@ -686,6 +703,10 @@ class RestorePointCollectionsOperations:
         :rtype: ~azure.mgmt.compute.models.RestorePointCollection
         :raises ~azure.core.exceptions.HttpResponseError:
         """
+        if request_parameters:
+            for _rp_key, _rp_value in request_parameters.items():
+                kwargs.setdefault(_rp_key, _rp_value)
+
         error_map: MutableMapping = {
             401: ClientAuthenticationError,
             404: ResourceNotFoundError,
@@ -797,7 +818,7 @@ class RestorePointCollectionsOperations:
 
     @distributed_trace
     def begin_delete(
-        self, resource_group_name: str, restore_point_collection_name: str, **kwargs: Any
+        self, resource_group_name: str, restore_point_collection_name: str, request_parameters: Optional[LRORequestParameters] = None, **kwargs: Any
     ) -> LROPoller[None]:
         """The operation to delete the restore point collection. This operation will also delete all the
         contained restore points.
@@ -811,6 +832,10 @@ class RestorePointCollectionsOperations:
         :rtype: ~azure.core.polling.LROPoller[None]
         :raises ~azure.core.exceptions.HttpResponseError:
         """
+        if request_parameters:
+            for _rp_key, _rp_value in request_parameters.items():
+                kwargs.setdefault(_rp_key, _rp_value)
+
         _headers = kwargs.pop("headers", {}) or {}
         _params = case_insensitive_dict(kwargs.pop("params", {}) or {})
 

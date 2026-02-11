@@ -33,6 +33,7 @@ from azure.mgmt.core.polling.arm_polling import ARMPolling
 from .. import models as _models
 from .._configuration import ComputeManagementClientConfiguration
 from .._utils.serialization import Deserializer, Serializer
+from ..types import LRORequestParameters, RequestParameters
 
 T = TypeVar("T")
 ClsType = Optional[Callable[[PipelineResponse[HttpRequest, HttpResponse], T, dict[str, Any]], Any]]
@@ -252,7 +253,7 @@ class ImagesOperations:
         self._deserialize: Deserializer = input_args.pop(0) if input_args else kwargs.pop("deserializer")
 
     @distributed_trace
-    def list(self, **kwargs: Any) -> ItemPaged["_models.Image"]:
+    def list(self, request_parameters: Optional[RequestParameters] = None, **kwargs: Any) -> ItemPaged["_models.Image"]:
         """Gets the list of Images in the subscription. Use nextLink property in the response to get the
         next page of Images. Do this till nextLink is null to fetch all the Images.
 
@@ -260,6 +261,10 @@ class ImagesOperations:
         :rtype: ~azure.core.paging.ItemPaged[~azure.mgmt.compute.models.Image]
         :raises ~azure.core.exceptions.HttpResponseError:
         """
+        if request_parameters:
+            for _rp_key, _rp_value in request_parameters.items():
+                kwargs.setdefault(_rp_key, _rp_value)
+
         _headers = kwargs.pop("headers", {}) or {}
         _params = case_insensitive_dict(kwargs.pop("params", {}) or {})
 
@@ -316,7 +321,7 @@ class ImagesOperations:
         return ItemPaged(get_next, extract_data)
 
     @distributed_trace
-    def list_by_resource_group(self, resource_group_name: str, **kwargs: Any) -> ItemPaged["_models.Image"]:
+    def list_by_resource_group(self, resource_group_name: str, request_parameters: Optional[RequestParameters] = None, **kwargs: Any) -> ItemPaged["_models.Image"]:
         """Gets the list of images under a resource group. Use nextLink property in the response to get
         the next page of Images. Do this till nextLink is null to fetch all the Images.
 
@@ -327,6 +332,10 @@ class ImagesOperations:
         :rtype: ~azure.core.paging.ItemPaged[~azure.mgmt.compute.models.Image]
         :raises ~azure.core.exceptions.HttpResponseError:
         """
+        if request_parameters:
+            for _rp_key, _rp_value in request_parameters.items():
+                kwargs.setdefault(_rp_key, _rp_value)
+
         _headers = kwargs.pop("headers", {}) or {}
         _params = case_insensitive_dict(kwargs.pop("params", {}) or {})
 
@@ -385,7 +394,7 @@ class ImagesOperations:
 
     @distributed_trace
     def get(
-        self, resource_group_name: str, image_name: str, expand: Optional[str] = None, **kwargs: Any
+        self, resource_group_name: str, image_name: str, expand: Optional[str] = None, request_parameters: Optional[RequestParameters] = None, **kwargs: Any
     ) -> _models.Image:
         """Gets an image.
 
@@ -400,6 +409,10 @@ class ImagesOperations:
         :rtype: ~azure.mgmt.compute.models.Image
         :raises ~azure.core.exceptions.HttpResponseError:
         """
+        if request_parameters:
+            for _rp_key, _rp_value in request_parameters.items():
+                kwargs.setdefault(_rp_key, _rp_value)
+
         error_map: MutableMapping = {
             401: ClientAuthenticationError,
             404: ResourceNotFoundError,
@@ -518,7 +531,7 @@ class ImagesOperations:
         parameters: _models.Image,
         *,
         content_type: str = "application/json",
-        **kwargs: Any
+        request_parameters: Optional[LRORequestParameters] = None, **kwargs: Any
     ) -> LROPoller[_models.Image]:
         """Create or update an image.
 
@@ -545,7 +558,7 @@ class ImagesOperations:
         parameters: IO[bytes],
         *,
         content_type: str = "application/json",
-        **kwargs: Any
+        request_parameters: Optional[LRORequestParameters] = None, **kwargs: Any
     ) -> LROPoller[_models.Image]:
         """Create or update an image.
 
@@ -566,7 +579,7 @@ class ImagesOperations:
 
     @distributed_trace
     def begin_create_or_update(
-        self, resource_group_name: str, image_name: str, parameters: Union[_models.Image, IO[bytes]], **kwargs: Any
+        self, resource_group_name: str, image_name: str, parameters: Union[_models.Image, IO[bytes]], request_parameters: Optional[LRORequestParameters] = None, **kwargs: Any
     ) -> LROPoller[_models.Image]:
         """Create or update an image.
 
@@ -582,6 +595,10 @@ class ImagesOperations:
         :rtype: ~azure.core.polling.LROPoller[~azure.mgmt.compute.models.Image]
         :raises ~azure.core.exceptions.HttpResponseError:
         """
+        if request_parameters:
+            for _rp_key, _rp_value in request_parameters.items():
+                kwargs.setdefault(_rp_key, _rp_value)
+
         _headers = case_insensitive_dict(kwargs.pop("headers", {}) or {})
         _params = case_insensitive_dict(kwargs.pop("params", {}) or {})
 
@@ -710,7 +727,7 @@ class ImagesOperations:
         parameters: _models.ImageUpdate,
         *,
         content_type: str = "application/json",
-        **kwargs: Any
+        request_parameters: Optional[LRORequestParameters] = None, **kwargs: Any
     ) -> LROPoller[_models.Image]:
         """Update an image.
 
@@ -737,7 +754,7 @@ class ImagesOperations:
         parameters: IO[bytes],
         *,
         content_type: str = "application/json",
-        **kwargs: Any
+        request_parameters: Optional[LRORequestParameters] = None, **kwargs: Any
     ) -> LROPoller[_models.Image]:
         """Update an image.
 
@@ -762,7 +779,7 @@ class ImagesOperations:
         resource_group_name: str,
         image_name: str,
         parameters: Union[_models.ImageUpdate, IO[bytes]],
-        **kwargs: Any
+        request_parameters: Optional[LRORequestParameters] = None, **kwargs: Any
     ) -> LROPoller[_models.Image]:
         """Update an image.
 
@@ -778,6 +795,10 @@ class ImagesOperations:
         :rtype: ~azure.core.polling.LROPoller[~azure.mgmt.compute.models.Image]
         :raises ~azure.core.exceptions.HttpResponseError:
         """
+        if request_parameters:
+            for _rp_key, _rp_value in request_parameters.items():
+                kwargs.setdefault(_rp_key, _rp_value)
+
         _headers = case_insensitive_dict(kwargs.pop("headers", {}) or {})
         _params = case_insensitive_dict(kwargs.pop("params", {}) or {})
 
@@ -881,7 +902,7 @@ class ImagesOperations:
         return deserialized  # type: ignore
 
     @distributed_trace
-    def begin_delete(self, resource_group_name: str, image_name: str, **kwargs: Any) -> LROPoller[None]:
+    def begin_delete(self, resource_group_name: str, image_name: str, request_parameters: Optional[LRORequestParameters] = None, **kwargs: Any) -> LROPoller[None]:
         """Deletes an Image.
 
         :param resource_group_name: The name of the resource group. The name is case insensitive.
@@ -893,6 +914,10 @@ class ImagesOperations:
         :rtype: ~azure.core.polling.LROPoller[None]
         :raises ~azure.core.exceptions.HttpResponseError:
         """
+        if request_parameters:
+            for _rp_key, _rp_value in request_parameters.items():
+                kwargs.setdefault(_rp_key, _rp_value)
+
         _headers = kwargs.pop("headers", {}) or {}
         _params = case_insensitive_dict(kwargs.pop("params", {}) or {})
 

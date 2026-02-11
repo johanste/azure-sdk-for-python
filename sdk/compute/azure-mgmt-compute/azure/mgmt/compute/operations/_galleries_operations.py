@@ -33,6 +33,7 @@ from azure.mgmt.core.polling.arm_polling import ARMPolling
 from .. import models as _models
 from .._configuration import ComputeManagementClientConfiguration
 from .._utils.serialization import Deserializer, Serializer
+from ..types import LRORequestParameters, RequestParameters
 
 T = TypeVar("T")
 ClsType = Optional[Callable[[PipelineResponse[HttpRequest, HttpResponse], T, dict[str, Any]], Any]]
@@ -264,13 +265,17 @@ class GalleriesOperations:
         self._deserialize: Deserializer = input_args.pop(0) if input_args else kwargs.pop("deserializer")
 
     @distributed_trace
-    def list(self, **kwargs: Any) -> ItemPaged["_models.Gallery"]:
+    def list(self, request_parameters: Optional[RequestParameters] = None, **kwargs: Any) -> ItemPaged["_models.Gallery"]:
         """List galleries under a subscription.
 
         :return: An iterator like instance of either Gallery or the result of cls(response)
         :rtype: ~azure.core.paging.ItemPaged[~azure.mgmt.compute.models.Gallery]
         :raises ~azure.core.exceptions.HttpResponseError:
         """
+        if request_parameters:
+            for _rp_key, _rp_value in request_parameters.items():
+                kwargs.setdefault(_rp_key, _rp_value)
+
         _headers = kwargs.pop("headers", {}) or {}
         _params = case_insensitive_dict(kwargs.pop("params", {}) or {})
 
@@ -327,7 +332,7 @@ class GalleriesOperations:
         return ItemPaged(get_next, extract_data)
 
     @distributed_trace
-    def list_by_resource_group(self, resource_group_name: str, **kwargs: Any) -> ItemPaged["_models.Gallery"]:
+    def list_by_resource_group(self, resource_group_name: str, request_parameters: Optional[RequestParameters] = None, **kwargs: Any) -> ItemPaged["_models.Gallery"]:
         """List galleries under a resource group.
 
         :param resource_group_name: The name of the resource group. The name is case insensitive.
@@ -337,6 +342,10 @@ class GalleriesOperations:
         :rtype: ~azure.core.paging.ItemPaged[~azure.mgmt.compute.models.Gallery]
         :raises ~azure.core.exceptions.HttpResponseError:
         """
+        if request_parameters:
+            for _rp_key, _rp_value in request_parameters.items():
+                kwargs.setdefault(_rp_key, _rp_value)
+
         _headers = kwargs.pop("headers", {}) or {}
         _params = case_insensitive_dict(kwargs.pop("params", {}) or {})
 
@@ -400,7 +409,7 @@ class GalleriesOperations:
         gallery_name: str,
         select: Optional[Union[str, _models.SelectPermissions]] = None,
         expand: Optional[Union[str, _models.GalleryExpandParams]] = None,
-        **kwargs: Any
+        request_parameters: Optional[RequestParameters] = None, **kwargs: Any
     ) -> _models.Gallery:
         """Retrieves information about a Shared Image Gallery.
 
@@ -419,6 +428,10 @@ class GalleriesOperations:
         :rtype: ~azure.mgmt.compute.models.Gallery
         :raises ~azure.core.exceptions.HttpResponseError:
         """
+        if request_parameters:
+            for _rp_key, _rp_value in request_parameters.items():
+                kwargs.setdefault(_rp_key, _rp_value)
+
         error_map: MutableMapping = {
             401: ClientAuthenticationError,
             404: ResourceNotFoundError,
@@ -542,7 +555,7 @@ class GalleriesOperations:
         gallery: _models.Gallery,
         *,
         content_type: str = "application/json",
-        **kwargs: Any
+        request_parameters: Optional[LRORequestParameters] = None, **kwargs: Any
     ) -> LROPoller[_models.Gallery]:
         """Create or update a Shared Image Gallery.
 
@@ -570,7 +583,7 @@ class GalleriesOperations:
         gallery: IO[bytes],
         *,
         content_type: str = "application/json",
-        **kwargs: Any
+        request_parameters: Optional[LRORequestParameters] = None, **kwargs: Any
     ) -> LROPoller[_models.Gallery]:
         """Create or update a Shared Image Gallery.
 
@@ -592,7 +605,7 @@ class GalleriesOperations:
 
     @distributed_trace
     def begin_create_or_update(
-        self, resource_group_name: str, gallery_name: str, gallery: Union[_models.Gallery, IO[bytes]], **kwargs: Any
+        self, resource_group_name: str, gallery_name: str, gallery: Union[_models.Gallery, IO[bytes]], request_parameters: Optional[LRORequestParameters] = None, **kwargs: Any
     ) -> LROPoller[_models.Gallery]:
         """Create or update a Shared Image Gallery.
 
@@ -608,6 +621,10 @@ class GalleriesOperations:
         :rtype: ~azure.core.polling.LROPoller[~azure.mgmt.compute.models.Gallery]
         :raises ~azure.core.exceptions.HttpResponseError:
         """
+        if request_parameters:
+            for _rp_key, _rp_value in request_parameters.items():
+                kwargs.setdefault(_rp_key, _rp_value)
+
         _headers = case_insensitive_dict(kwargs.pop("headers", {}) or {})
         _params = case_insensitive_dict(kwargs.pop("params", {}) or {})
 
@@ -735,7 +752,7 @@ class GalleriesOperations:
         gallery: _models.GalleryUpdate,
         *,
         content_type: str = "application/json",
-        **kwargs: Any
+        request_parameters: Optional[LRORequestParameters] = None, **kwargs: Any
     ) -> LROPoller[_models.Gallery]:
         """Update a Shared Image Gallery.
 
@@ -762,7 +779,7 @@ class GalleriesOperations:
         gallery: IO[bytes],
         *,
         content_type: str = "application/json",
-        **kwargs: Any
+        request_parameters: Optional[LRORequestParameters] = None, **kwargs: Any
     ) -> LROPoller[_models.Gallery]:
         """Update a Shared Image Gallery.
 
@@ -787,7 +804,7 @@ class GalleriesOperations:
         resource_group_name: str,
         gallery_name: str,
         gallery: Union[_models.GalleryUpdate, IO[bytes]],
-        **kwargs: Any
+        request_parameters: Optional[LRORequestParameters] = None, **kwargs: Any
     ) -> LROPoller[_models.Gallery]:
         """Update a Shared Image Gallery.
 
@@ -803,6 +820,10 @@ class GalleriesOperations:
         :rtype: ~azure.core.polling.LROPoller[~azure.mgmt.compute.models.Gallery]
         :raises ~azure.core.exceptions.HttpResponseError:
         """
+        if request_parameters:
+            for _rp_key, _rp_value in request_parameters.items():
+                kwargs.setdefault(_rp_key, _rp_value)
+
         _headers = case_insensitive_dict(kwargs.pop("headers", {}) or {})
         _params = case_insensitive_dict(kwargs.pop("params", {}) or {})
 
@@ -911,7 +932,7 @@ class GalleriesOperations:
         return deserialized  # type: ignore
 
     @distributed_trace
-    def begin_delete(self, resource_group_name: str, gallery_name: str, **kwargs: Any) -> LROPoller[None]:
+    def begin_delete(self, resource_group_name: str, gallery_name: str, request_parameters: Optional[LRORequestParameters] = None, **kwargs: Any) -> LROPoller[None]:
         """Delete a Shared Image Gallery.
 
         :param resource_group_name: The name of the resource group. The name is case insensitive.
@@ -923,6 +944,10 @@ class GalleriesOperations:
         :rtype: ~azure.core.polling.LROPoller[None]
         :raises ~azure.core.exceptions.HttpResponseError:
         """
+        if request_parameters:
+            for _rp_key, _rp_value in request_parameters.items():
+                kwargs.setdefault(_rp_key, _rp_value)
+
         _headers = kwargs.pop("headers", {}) or {}
         _params = case_insensitive_dict(kwargs.pop("params", {}) or {})
 

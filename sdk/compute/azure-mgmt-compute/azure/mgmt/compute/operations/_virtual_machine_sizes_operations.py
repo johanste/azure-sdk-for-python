@@ -27,6 +27,7 @@ from azure.mgmt.core.exceptions import ARMErrorFormat
 from .. import models as _models
 from .._configuration import ComputeManagementClientConfiguration
 from .._utils.serialization import Deserializer, Serializer
+from ..types import LRORequestParameters, RequestParameters
 
 T = TypeVar("T")
 ClsType = Optional[Callable[[PipelineResponse[HttpRequest, HttpResponse], T, dict[str, Any]], Any]]
@@ -83,7 +84,7 @@ class VirtualMachineSizesOperations:
         self._deserialize: Deserializer = input_args.pop(0) if input_args else kwargs.pop("deserializer")
 
     @distributed_trace
-    def list(self, location: str, **kwargs: Any) -> ItemPaged["_models.VirtualMachineSize"]:
+    def list(self, location: str, request_parameters: Optional[RequestParameters] = None, **kwargs: Any) -> ItemPaged["_models.VirtualMachineSize"]:
         """This API is deprecated. Use `Resources Skus
         <https://docs.microsoft.com/rest/api/compute/resourceskus/list>`_.
 
@@ -93,6 +94,10 @@ class VirtualMachineSizesOperations:
         :rtype: ~azure.core.paging.ItemPaged[~azure.mgmt.compute.models.VirtualMachineSize]
         :raises ~azure.core.exceptions.HttpResponseError:
         """
+        if request_parameters:
+            for _rp_key, _rp_value in request_parameters.items():
+                kwargs.setdefault(_rp_key, _rp_value)
+
         _headers = kwargs.pop("headers", {}) or {}
         _params = case_insensitive_dict(kwargs.pop("params", {}) or {})
 

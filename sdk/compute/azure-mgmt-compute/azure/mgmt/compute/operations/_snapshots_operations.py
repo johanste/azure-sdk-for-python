@@ -33,6 +33,7 @@ from azure.mgmt.core.polling.arm_polling import ARMPolling
 from .. import models as _models
 from .._configuration import ComputeManagementClientConfiguration
 from .._utils.serialization import Deserializer, Serializer
+from ..types import LRORequestParameters, RequestParameters
 
 T = TypeVar("T")
 ClsType = Optional[Callable[[PipelineResponse[HttpRequest, HttpResponse], T, dict[str, Any]], Any]]
@@ -321,13 +322,17 @@ class SnapshotsOperations:
         self._deserialize: Deserializer = input_args.pop(0) if input_args else kwargs.pop("deserializer")
 
     @distributed_trace
-    def list(self, **kwargs: Any) -> ItemPaged["_models.Snapshot"]:
+    def list(self, request_parameters: Optional[RequestParameters] = None, **kwargs: Any) -> ItemPaged["_models.Snapshot"]:
         """Lists snapshots under a subscription.
 
         :return: An iterator like instance of either Snapshot or the result of cls(response)
         :rtype: ~azure.core.paging.ItemPaged[~azure.mgmt.compute.models.Snapshot]
         :raises ~azure.core.exceptions.HttpResponseError:
         """
+        if request_parameters:
+            for _rp_key, _rp_value in request_parameters.items():
+                kwargs.setdefault(_rp_key, _rp_value)
+
         _headers = kwargs.pop("headers", {}) or {}
         _params = case_insensitive_dict(kwargs.pop("params", {}) or {})
 
@@ -384,7 +389,7 @@ class SnapshotsOperations:
         return ItemPaged(get_next, extract_data)
 
     @distributed_trace
-    def list_by_resource_group(self, resource_group_name: str, **kwargs: Any) -> ItemPaged["_models.Snapshot"]:
+    def list_by_resource_group(self, resource_group_name: str, request_parameters: Optional[RequestParameters] = None, **kwargs: Any) -> ItemPaged["_models.Snapshot"]:
         """Lists snapshots under a resource group.
 
         :param resource_group_name: The name of the resource group. The name is case insensitive.
@@ -394,6 +399,10 @@ class SnapshotsOperations:
         :rtype: ~azure.core.paging.ItemPaged[~azure.mgmt.compute.models.Snapshot]
         :raises ~azure.core.exceptions.HttpResponseError:
         """
+        if request_parameters:
+            for _rp_key, _rp_value in request_parameters.items():
+                kwargs.setdefault(_rp_key, _rp_value)
+
         _headers = kwargs.pop("headers", {}) or {}
         _params = case_insensitive_dict(kwargs.pop("params", {}) or {})
 
@@ -451,7 +460,7 @@ class SnapshotsOperations:
         return ItemPaged(get_next, extract_data)
 
     @distributed_trace
-    def get(self, resource_group_name: str, snapshot_name: str, **kwargs: Any) -> _models.Snapshot:
+    def get(self, resource_group_name: str, snapshot_name: str, request_parameters: Optional[RequestParameters] = None, **kwargs: Any) -> _models.Snapshot:
         """Gets information about a snapshot.
 
         :param resource_group_name: The name of the resource group. The name is case insensitive.
@@ -465,6 +474,10 @@ class SnapshotsOperations:
         :rtype: ~azure.mgmt.compute.models.Snapshot
         :raises ~azure.core.exceptions.HttpResponseError:
         """
+        if request_parameters:
+            for _rp_key, _rp_value in request_parameters.items():
+                kwargs.setdefault(_rp_key, _rp_value)
+
         error_map: MutableMapping = {
             401: ClientAuthenticationError,
             404: ResourceNotFoundError,
@@ -582,7 +595,7 @@ class SnapshotsOperations:
         snapshot: _models.Snapshot,
         *,
         content_type: str = "application/json",
-        **kwargs: Any
+        request_parameters: Optional[LRORequestParameters] = None, **kwargs: Any
     ) -> LROPoller[_models.Snapshot]:
         """Creates or updates a snapshot.
 
@@ -611,7 +624,7 @@ class SnapshotsOperations:
         snapshot: IO[bytes],
         *,
         content_type: str = "application/json",
-        **kwargs: Any
+        request_parameters: Optional[LRORequestParameters] = None, **kwargs: Any
     ) -> LROPoller[_models.Snapshot]:
         """Creates or updates a snapshot.
 
@@ -634,7 +647,7 @@ class SnapshotsOperations:
 
     @distributed_trace
     def begin_create_or_update(
-        self, resource_group_name: str, snapshot_name: str, snapshot: Union[_models.Snapshot, IO[bytes]], **kwargs: Any
+        self, resource_group_name: str, snapshot_name: str, snapshot: Union[_models.Snapshot, IO[bytes]], request_parameters: Optional[LRORequestParameters] = None, **kwargs: Any
     ) -> LROPoller[_models.Snapshot]:
         """Creates or updates a snapshot.
 
@@ -652,6 +665,10 @@ class SnapshotsOperations:
         :rtype: ~azure.core.polling.LROPoller[~azure.mgmt.compute.models.Snapshot]
         :raises ~azure.core.exceptions.HttpResponseError:
         """
+        if request_parameters:
+            for _rp_key, _rp_value in request_parameters.items():
+                kwargs.setdefault(_rp_key, _rp_value)
+
         _headers = case_insensitive_dict(kwargs.pop("headers", {}) or {})
         _params = case_insensitive_dict(kwargs.pop("params", {}) or {})
 
@@ -780,7 +797,7 @@ class SnapshotsOperations:
         snapshot: _models.SnapshotUpdate,
         *,
         content_type: str = "application/json",
-        **kwargs: Any
+        request_parameters: Optional[LRORequestParameters] = None, **kwargs: Any
     ) -> LROPoller[_models.Snapshot]:
         """Updates (patches) a snapshot.
 
@@ -810,7 +827,7 @@ class SnapshotsOperations:
         snapshot: IO[bytes],
         *,
         content_type: str = "application/json",
-        **kwargs: Any
+        request_parameters: Optional[LRORequestParameters] = None, **kwargs: Any
     ) -> LROPoller[_models.Snapshot]:
         """Updates (patches) a snapshot.
 
@@ -838,7 +855,7 @@ class SnapshotsOperations:
         resource_group_name: str,
         snapshot_name: str,
         snapshot: Union[_models.SnapshotUpdate, IO[bytes]],
-        **kwargs: Any
+        request_parameters: Optional[LRORequestParameters] = None, **kwargs: Any
     ) -> LROPoller[_models.Snapshot]:
         """Updates (patches) a snapshot.
 
@@ -856,6 +873,10 @@ class SnapshotsOperations:
         :rtype: ~azure.core.polling.LROPoller[~azure.mgmt.compute.models.Snapshot]
         :raises ~azure.core.exceptions.HttpResponseError:
         """
+        if request_parameters:
+            for _rp_key, _rp_value in request_parameters.items():
+                kwargs.setdefault(_rp_key, _rp_value)
+
         _headers = case_insensitive_dict(kwargs.pop("headers", {}) or {})
         _params = case_insensitive_dict(kwargs.pop("params", {}) or {})
 
@@ -959,7 +980,7 @@ class SnapshotsOperations:
         return deserialized  # type: ignore
 
     @distributed_trace
-    def begin_delete(self, resource_group_name: str, snapshot_name: str, **kwargs: Any) -> LROPoller[None]:
+    def begin_delete(self, resource_group_name: str, snapshot_name: str, request_parameters: Optional[LRORequestParameters] = None, **kwargs: Any) -> LROPoller[None]:
         """Deletes a snapshot.
 
         :param resource_group_name: The name of the resource group. The name is case insensitive.
@@ -973,6 +994,10 @@ class SnapshotsOperations:
         :rtype: ~azure.core.polling.LROPoller[None]
         :raises ~azure.core.exceptions.HttpResponseError:
         """
+        if request_parameters:
+            for _rp_key, _rp_value in request_parameters.items():
+                kwargs.setdefault(_rp_key, _rp_value)
+
         _headers = kwargs.pop("headers", {}) or {}
         _params = case_insensitive_dict(kwargs.pop("params", {}) or {})
 
@@ -1094,7 +1119,7 @@ class SnapshotsOperations:
         grant_access_data: _models.GrantAccessData,
         *,
         content_type: str = "application/json",
-        **kwargs: Any
+        request_parameters: Optional[LRORequestParameters] = None, **kwargs: Any
     ) -> LROPoller[_models.AccessUri]:
         """Grants access to a snapshot.
 
@@ -1124,7 +1149,7 @@ class SnapshotsOperations:
         grant_access_data: IO[bytes],
         *,
         content_type: str = "application/json",
-        **kwargs: Any
+        request_parameters: Optional[LRORequestParameters] = None, **kwargs: Any
     ) -> LROPoller[_models.AccessUri]:
         """Grants access to a snapshot.
 
@@ -1152,7 +1177,7 @@ class SnapshotsOperations:
         resource_group_name: str,
         snapshot_name: str,
         grant_access_data: Union[_models.GrantAccessData, IO[bytes]],
-        **kwargs: Any
+        request_parameters: Optional[LRORequestParameters] = None, **kwargs: Any
     ) -> LROPoller[_models.AccessUri]:
         """Grants access to a snapshot.
 
@@ -1170,6 +1195,10 @@ class SnapshotsOperations:
         :rtype: ~azure.core.polling.LROPoller[~azure.mgmt.compute.models.AccessUri]
         :raises ~azure.core.exceptions.HttpResponseError:
         """
+        if request_parameters:
+            for _rp_key, _rp_value in request_parameters.items():
+                kwargs.setdefault(_rp_key, _rp_value)
+
         _headers = case_insensitive_dict(kwargs.pop("headers", {}) or {})
         _params = case_insensitive_dict(kwargs.pop("params", {}) or {})
 
@@ -1273,7 +1302,7 @@ class SnapshotsOperations:
         return deserialized  # type: ignore
 
     @distributed_trace
-    def begin_revoke_access(self, resource_group_name: str, snapshot_name: str, **kwargs: Any) -> LROPoller[None]:
+    def begin_revoke_access(self, resource_group_name: str, snapshot_name: str, request_parameters: Optional[LRORequestParameters] = None, **kwargs: Any) -> LROPoller[None]:
         """Revokes access to a snapshot.
 
         :param resource_group_name: The name of the resource group. The name is case insensitive.
@@ -1287,6 +1316,10 @@ class SnapshotsOperations:
         :rtype: ~azure.core.polling.LROPoller[None]
         :raises ~azure.core.exceptions.HttpResponseError:
         """
+        if request_parameters:
+            for _rp_key, _rp_value in request_parameters.items():
+                kwargs.setdefault(_rp_key, _rp_value)
+
         _headers = kwargs.pop("headers", {}) or {}
         _params = case_insensitive_dict(kwargs.pop("params", {}) or {})
 

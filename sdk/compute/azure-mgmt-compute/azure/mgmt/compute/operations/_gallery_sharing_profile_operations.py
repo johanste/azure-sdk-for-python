@@ -32,6 +32,7 @@ from azure.mgmt.core.polling.arm_polling import ARMPolling
 from .. import models as _models
 from .._configuration import ComputeManagementClientConfiguration
 from .._utils.serialization import Deserializer, Serializer
+from ..types import LRORequestParameters, RequestParameters
 
 T = TypeVar("T")
 ClsType = Optional[Callable[[PipelineResponse[HttpRequest, HttpResponse], T, dict[str, Any]], Any]]
@@ -175,7 +176,7 @@ class GallerySharingProfileOperations:
         sharing_update: _models.SharingUpdate,
         *,
         content_type: str = "application/json",
-        **kwargs: Any
+        request_parameters: Optional[LRORequestParameters] = None, **kwargs: Any
     ) -> LROPoller[_models.SharingUpdate]:
         """Update sharing profile of a gallery.
 
@@ -203,7 +204,7 @@ class GallerySharingProfileOperations:
         sharing_update: IO[bytes],
         *,
         content_type: str = "application/json",
-        **kwargs: Any
+        request_parameters: Optional[LRORequestParameters] = None, **kwargs: Any
     ) -> LROPoller[_models.SharingUpdate]:
         """Update sharing profile of a gallery.
 
@@ -229,7 +230,7 @@ class GallerySharingProfileOperations:
         resource_group_name: str,
         gallery_name: str,
         sharing_update: Union[_models.SharingUpdate, IO[bytes]],
-        **kwargs: Any
+        request_parameters: Optional[LRORequestParameters] = None, **kwargs: Any
     ) -> LROPoller[_models.SharingUpdate]:
         """Update sharing profile of a gallery.
 
@@ -246,6 +247,10 @@ class GallerySharingProfileOperations:
         :rtype: ~azure.core.polling.LROPoller[~azure.mgmt.compute.models.SharingUpdate]
         :raises ~azure.core.exceptions.HttpResponseError:
         """
+        if request_parameters:
+            for _rp_key, _rp_value in request_parameters.items():
+                kwargs.setdefault(_rp_key, _rp_value)
+
         _headers = case_insensitive_dict(kwargs.pop("headers", {}) or {})
         _params = case_insensitive_dict(kwargs.pop("params", {}) or {})
 

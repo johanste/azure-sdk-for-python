@@ -32,6 +32,7 @@ from azure.mgmt.core.polling.async_arm_polling import AsyncARMPolling
 
 from ... import models as _models
 from ..._utils.serialization import Deserializer, Serializer
+from ...types import LRORequestParameters, RequestParameters
 from ...operations._cloud_services_update_domain_operations import (
     build_get_update_domain_request,
     build_list_update_domains_request,
@@ -333,7 +334,7 @@ class CloudServicesUpdateDomainOperations:
 
     @distributed_trace
     def list_update_domains(
-        self, resource_group_name: str, cloud_service_name: str, **kwargs: Any
+        self, resource_group_name: str, cloud_service_name: str, request_parameters: Optional[RequestParameters] = None, **kwargs: Any
     ) -> AsyncItemPaged["_models.UpdateDomain"]:
         """Gets a list of all update domains in a cloud service.
 
@@ -345,6 +346,10 @@ class CloudServicesUpdateDomainOperations:
         :rtype: ~azure.core.async_paging.AsyncItemPaged[~azure.mgmt.compute.models.UpdateDomain]
         :raises ~azure.core.exceptions.HttpResponseError:
         """
+        if request_parameters:
+            for _rp_key, _rp_value in request_parameters.items():
+                kwargs.setdefault(_rp_key, _rp_value)
+
         _headers = kwargs.pop("headers", {}) or {}
         _params = case_insensitive_dict(kwargs.pop("params", {}) or {})
 

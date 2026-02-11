@@ -31,6 +31,7 @@ from azure.mgmt.core.polling.async_arm_polling import AsyncARMPolling
 
 from ... import models as _models
 from ..._utils.serialization import Deserializer, Serializer
+from ...types import LRORequestParameters, RequestParameters
 from ...operations._cloud_service_role_instances_operations import (
     build_delete_request,
     build_get_instance_view_request,
@@ -309,7 +310,7 @@ class CloudServiceRoleInstancesOperations:
         resource_group_name: str,
         cloud_service_name: str,
         expand: Optional[Union[str, _models.InstanceViewTypes]] = None,
-        **kwargs: Any
+        request_parameters: Optional[RequestParameters] = None, **kwargs: Any
     ) -> AsyncItemPaged["_models.RoleInstance"]:
         """Gets the list of all role instances in a cloud service. Use nextLink property in the response
         to get the next page of role instances. Do this till nextLink is null to fetch all the role
@@ -327,6 +328,10 @@ class CloudServiceRoleInstancesOperations:
         :rtype: ~azure.core.async_paging.AsyncItemPaged[~azure.mgmt.compute.models.RoleInstance]
         :raises ~azure.core.exceptions.HttpResponseError:
         """
+        if request_parameters:
+            for _rp_key, _rp_value in request_parameters.items():
+                kwargs.setdefault(_rp_key, _rp_value)
+
         _headers = kwargs.pop("headers", {}) or {}
         _params = case_insensitive_dict(kwargs.pop("params", {}) or {})
 
