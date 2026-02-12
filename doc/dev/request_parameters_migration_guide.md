@@ -29,36 +29,49 @@ There are three tiers of TypedDict, reflecting the three categories of operation
 
 ```python
 # types.py
-from typing import Any, Callable, Dict, Optional, Union
+from typing import Callable, Dict, List, Union
 
-from typing_extensions import NotRequired, TypedDict
+from typing_extensions import TypedDict
 
-from azure.core.pipeline import PipelineResponse
+from azure.core.pipeline import PipelineRequest, PipelineResponse
 from azure.core.polling import PollingMethod
-from azure.core.rest import HttpRequest, HttpResponse
 
 
 class RequestParameters(TypedDict, total=False):
     """Common parameters for all service client operations.
 
     These parameters control how the HTTP request is constructed and sent
-    through the Azure SDK pipeline.
+    through the Azure SDK pipeline, including retry, redirect, tracing,
+    logging, and transport-level behavior.
     """
 
     api_version: str
-    """Override the API version used for this request."""
-
     headers: Dict[str, str]
-    """Custom HTTP headers to include in the request."""
-
     params: Dict[str, str]
-    """Custom query parameters to include in the request."""
-
     content_type: str
-    """Override the Content-Type header for the request."""
-
+    request_id: str
     stream: bool
-    """Whether to stream the response body instead of loading it into memory."""
+    decompress: bool
+    raw_request_hook: Callable[[PipelineRequest], None]
+    raw_response_hook: Callable[[PipelineResponse], None]
+    logging_enable: bool
+    retry_total: int
+    retry_connect: int
+    retry_read: int
+    retry_status: int
+    retry_backoff_factor: float
+    retry_backoff_max: int
+    retry_on_methods: List[str]
+    timeout: int
+    permit_redirects: bool
+    redirect_max: int
+    network_span_namer: Callable
+    tracing_attributes: Dict[str, str]
+    connection_timeout: float
+    read_timeout: float
+    connection_verify: Union[bool, str]
+    connection_cert: Union[str, tuple]
+    proxy: str
 
 
 class LRORequestParameters(RequestParameters, total=False):
@@ -68,14 +81,8 @@ class LRORequestParameters(RequestParameters, total=False):
     """
 
     polling: Union[bool, PollingMethod]
-    """Polling strategy. True for default polling, False for no polling,
-    or a custom PollingMethod instance."""
-
     polling_interval: int
-    """Time in seconds between polling requests. Overrides the client default."""
-
     continuation_token: str
-    """Token to resume a previously started long-running operation."""
 ```
 
 ### Step 2: Export types from the package
